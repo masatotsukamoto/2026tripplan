@@ -1,489 +1,363 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2026年春 京都・大阪 家族旅行のしおり</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026年春 京都・大阪 家族旅行のしおり</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap');
+        
+        body {
+            font-family: 'Zen Maru Gothic', sans-serif;
+            background-color: #fdfafa;
+            color: #4a4a4a;
+        }
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 220px;
+            margin: 0 auto;
+        }
 
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap');
+        /* ナビゲーションボタンの活性状態 */
+        .nav-btn-active {
+            background-color: #f472b6 !important;
+            color: white !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
 
-    body {
-      font-family: 'Zen Maru Gothic', sans-serif;
-      background-color: #fdf6f6; /* Sakura white */
-      color: #4a4a4a;
-    }
+        .timeline-line {
+            position: absolute;
+            left: 24px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #fce7f3;
+            z-index: 0;
+        }
 
-    .chart-container {
-      position: relative;
-      width: 100%;
-      max-width: 500px;
-      height: 300px;
-      margin: 0 auto;
-    }
+        .timeline-item {
+            position: relative;
+            z-index: 10;
+        }
 
-    .timeline-line {
-      position: absolute;
-      /* Align to right-column start (w-12 + gap-4 = 64px) */
-      left: 64px;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background-color: #e5e7eb;
-      z-index: 0;
-    }
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #f9a8d4;
+            border-radius: 10px;
+        }
 
-    .timeline-item {
-      position: relative; /* for dot positioning */
-      z-index: 10;
-    }
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
 
-    /* Custom Scrollbar for itinerary list */
-    .custom-scroll::-webkit-scrollbar { width: 6px; }
-    .custom-scroll::-webkit-scrollbar-track { background: #f1f1f1; }
-    .custom-scroll::-webkit-scrollbar-thumb { background: #f9a8d4; border-radius: 10px; }
-
-    .fade-in { animation: fadeIn 0.5s ease-in-out; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
-
 <body class="min-h-screen flex flex-col">
 
-  <!-- Header -->
-  <header class="bg-white shadow-sm border-b-4 border-pink-300 sticky top-0 z-50">
-    <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
-      <div class="text-center md:text-left">
-        <h1 class="text-2xl md:text-3xl font-bold text-gray-800">🌸 2026年春 京都・大阪 家族旅行</h1>
-        <p class="text-sm text-gray-500 mt-1">3月26日(木) 〜 3月30日(月) | 参加: 大人2名 子供2名</p>
-      </div>
-
-      <!-- Navigation (data-target driven) -->
-      <div class="mt-2 md:mt-0 flex gap-2" role="tablist" aria-label="ページ切り替え">
-        <button type="button" class="nav-btn px-4 py-2 rounded-full text-sm font-medium transition bg-pink-100 text-pink-700 hover:bg-pink-200"
-                data-target="overview" role="tab" aria-selected="true">
-          概要・ホテル
-        </button>
-        <button type="button" class="nav-btn px-4 py-2 rounded-full text-sm font-medium transition hover:bg-pink-100 text-gray-600"
-                data-target="itinerary" role="tab" aria-selected="false">
-          日程表
-        </button>
-        <button type="button" class="nav-btn px-4 py-2 rounded-full text-sm font-medium transition hover:bg-pink-100 text-gray-600"
-                data-target="prep" role="tab" aria-selected="false">
-          準備リスト
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- Main Content Area -->
-  <main class="flex-grow container mx-auto px-4 py-6">
-
-    <!-- SECTION: OVERVIEW & HOTELS -->
-    <section id="overview" class="view-section fade-in" role="tabpanel">
-      <div class="mb-8 text-center max-w-2xl mx-auto">
-        <h2 class="text-xl font-bold text-gray-800 mb-2">旅のテーマ</h2>
-        <p class="text-lg text-pink-600 font-medium">USJ全力遊び & 京都の歴史（貴族・忍者・世界遺産）を満喫する旅</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-6 mb-8">
-        <!-- Hotel Osaka -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-          <div class="bg-blue-100 px-6 py-4 border-b border-blue-200">
-            <span class="text-xs font-bold text-blue-600 uppercase tracking-wide">1・2泊目 (大阪)</span>
-            <h3 class="text-xl font-bold text-gray-800 mt-1">ホテル京阪 ユニバーサル・タワー</h3>
-          </div>
-          <div class="p-6">
-            <p class="text-sm text-gray-600 mb-4">USJの目の前！31階に天然展望温泉（有料）があり、パークで遊び疲れた体を癒せます。</p>
-            <ul class="text-sm space-y-2 mb-6">
-              <li class="flex items-center"><span class="mr-2">📍</span> 大阪市此花区島屋6-2-45</li>
-              <li class="flex items-center"><span class="mr-2">🚃</span> ユニバーサルシティ駅 直結</li>
-            </ul>
-            <a href="https://www.hotelkeihan.co.jp/tower/" target="_blank" rel="noopener noreferrer"
-               class="block w-full text-center py-2 rounded-lg bg-blue-50 text-blue-600 font-bold hover:bg-blue-100 transition">
-              公式サイトへ
-            </a>
-          </div>
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b-4 border-pink-200 sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="text-center md:text-left">
+                <h1 class="text-xl md:text-2xl font-bold text-gray-800 tracking-tight">🌸 2026年春 京都・大阪 家族旅行</h1>
+                <p class="text-[10px] text-pink-400 font-bold mt-1 tracking-widest uppercase">March 26 - March 30 Family Trip</p>
+            </div>
+            <div class="mt-4 md:mt-0 flex gap-1 bg-gray-100 p-1 rounded-full">
+                <button onclick="navTo('overview')" id="btn-overview" class="nav-btn px-5 py-1.5 rounded-full text-xs font-bold transition-all text-gray-500 hover:text-pink-500">概要・ホテル</button>
+                <button onclick="navTo('itinerary')" id="btn-itinerary" class="nav-btn px-5 py-1.5 rounded-full text-xs font-bold transition-all text-gray-500 hover:text-pink-500">日程表</button>
+                <button onclick="navTo('prep')" id="btn-prep" class="nav-btn px-5 py-1.5 rounded-full text-xs font-bold transition-all text-gray-500 hover:text-pink-500">準備リスト</button>
+            </div>
         </div>
+    </header>
 
-        <!-- Hotel Kyoto -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-          <div class="bg-green-100 px-6 py-4 border-b border-green-200">
-            <span class="text-xs font-bold text-green-600 uppercase tracking-wide">3・4泊目 (京都)</span>
-            <h3 class="text-xl font-bold text-gray-800 mt-1">京都駅前 ひふみ旅館</h3>
-          </div>
-          <div class="p-6">
-            <p class="text-sm text-gray-600 mb-4">京都駅から徒歩3分という最強の立地。和室でリラックスでき、荷物預かりも便利です。</p>
-            <ul class="text-sm space-y-2 mb-6">
-              <li class="flex items-center"><span class="mr-2">📍</span> 京都市下京区不明門通七条下ル</li>
-              <li class="flex items-center"><span class="mr-2">🚃</span> 京都駅 徒歩3分</li>
-            </ul>
-            <a href="https://www.kyoto-hifumi.co.jp/" target="_blank" rel="noopener noreferrer"
-               class="block w-full text-center py-2 rounded-lg bg-green-50 text-green-600 font-bold hover:bg-green-100 transition">
-              公式サイトへ
-            </a>
-          </div>
-        </div>
-      </div>
+    <main class="flex-grow container mx-auto px-4 py-6 max-w-5xl">
 
-      <div class="bg-orange-50 rounded-xl p-6 border border-orange-100 text-center">
-        <h3 class="text-lg font-bold text-orange-800 mb-2">使い方</h3>
-        <p class="text-sm text-gray-700">
-          上部のタブで「日程表」に切り替えると、日ごとの詳細スケジュールや注意点を確認できます。
-          「準備リスト」で出発前の最終チェックを行いましょう。
-        </p>
-      </div>
-    </section>
-
-    <!-- SECTION: ITINERARY -->
-    <section id="itinerary" class="view-section hidden fade-in" role="tabpanel">
-      <div class="flex flex-col lg:flex-row gap-6 h-full">
-
-        <!-- Left Column: Day Selector & Stats -->
-        <div class="lg:w-1/3 flex flex-col gap-6">
-          <div class="bg-white p-4 rounded-xl shadow-md">
-            <h3 class="text-sm font-bold text-gray-500 mb-3 uppercase tracking-wider">日程を選択</h3>
-            <div class="grid grid-cols-5 lg:grid-cols-1 gap-2">
-              <button type="button" data-day-index="0" id="day-btn-0"
-                      class="day-btn w-full text-left px-4 py-3 rounded-lg border transition hover:bg-pink-50 focus:outline-none flex flex-col">
-                <span class="text-xs font-bold text-gray-400">3/26 (木)</span>
-                <span class="font-bold text-gray-800">大阪到着・海遊館</span>
-              </button>
-              <button type="button" data-day-index="1" id="day-btn-1"
-                      class="day-btn w-full text-left px-4 py-3 rounded-lg border transition hover:bg-pink-50 focus:outline-none flex flex-col">
-                <span class="text-xs font-bold text-gray-400">3/27 (金)</span>
-                <span class="font-bold text-red-600">USJ 全力投球！</span>
-              </button>
-              <button type="button" data-day-index="2" id="day-btn-2"
-                      class="day-btn w-full text-left px-4 py-3 rounded-lg border transition hover:bg-pink-50 focus:outline-none flex flex-col">
-                <span class="text-xs font-bold text-gray-400">3/28 (土)</span>
-                <span class="font-bold text-gray-800">宇治・伏見・清水</span>
-              </button>
-              <button type="button" data-day-index="3" id="day-btn-3"
-                      class="day-btn w-full text-left px-4 py-3 rounded-lg border transition hover:bg-pink-50 focus:outline-none flex flex-col">
-                <span class="text-xs font-bold text-gray-400">3/29 (日)</span>
-                <span class="font-bold text-gray-800">御所・映画村</span>
-              </button>
-              <button type="button" data-day-index="4" id="day-btn-4"
-                      class="day-btn w-full text-left px-4 py-3 rounded-lg border transition hover:bg-pink-50 focus:outline-none flex flex-col">
-                <span class="text-xs font-bold text-gray-400">3/30 (月)</span>
-                <span class="font-bold text-gray-800">金閣・嵐山・帰路</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Daily Balance Chart -->
-          <div class="bg-white p-4 rounded-xl shadow-md flex-grow flex flex-col justify-center">
-            <h3 class="text-sm font-bold text-gray-500 mb-2 text-center">この日の活動バランス</h3>
-            <div class="chart-container">
-              <canvas id="activityChart" role="img" aria-label="この日の活動バランス（移動・観光/遊び・食事/休憩）"></canvas>
-            </div>
-            <p id="chart-desc" class="text-xs text-center text-gray-500 mt-2 italic">※移動・観光・食事の目安割合です</p>
-          </div>
-        </div>
-
-        <!-- Right Column: Timeline Content -->
-        <div class="lg:w-2/3 bg-white rounded-xl shadow-lg p-6 border border-gray-100 flex flex-col relative overflow-hidden">
-          <div id="day-header" class="mb-6 border-b pb-4">
-            <h2 id="current-day-title" class="text-2xl font-bold text-gray-800"></h2>
-            <p id="current-day-theme" class="text-pink-600 font-medium mt-1"></p>
-          </div>
-
-          <!-- Scrollable Timeline -->
-          <div id="timeline-container" class="custom-scroll overflow-y-auto pr-2 relative flex-grow" style="max-height: 600px;">
-            <!-- Dynamic Content Injected Here -->
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION: PREPARATION -->
-    <section id="prep" class="view-section hidden fade-in max-w-3xl mx-auto" role="tabpanel">
-      <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-100">
-        <div class="text-center mb-8">
-          <h2 class="text-2xl font-bold text-gray-800">📝 事前予約・準備リスト</h2>
-          <p class="text-gray-600 mt-2">出発前に必ず確認しましょう。クリックしてチェックできます。</p>
-        </div>
-
-        <div class="space-y-4">
-          <label class="flex items-start p-4 rounded-lg border-2 border-red-100 bg-red-50 cursor-pointer transition hover:bg-red-100">
-            <input type="checkbox" class="mt-1 w-5 h-5 text-red-500 rounded focus:ring-red-500 border-gray-300">
-            <div class="ml-4">
-              <span class="block font-bold text-red-800">USJ エクスプレス・パス (最優先)</span>
-              <span class="text-sm text-red-700 mt-1 block">春休みは必須級！WEBチケットストアで即確保してください。「時間を買う」価値があります。</span>
-              <a href="https://www.usj.co.jp/web/ja/jp/tickets" target="_blank" rel="noopener noreferrer"
-                 class="inline-block mt-2 text-xs bg-white px-2 py-1 rounded border border-red-200 text-red-600 hover:bg-gray-50">
-                チケットストアへ 🔗
-              </a>
-            </div>
-          </label>
-
-          <label class="flex items-start p-4 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer transition">
-            <input type="checkbox" class="mt-1 w-5 h-5 text-blue-500 rounded focus:ring-blue-500 border-gray-300">
-            <div class="ml-4">
-              <span class="block font-bold text-gray-800">海遊館・映画村 WEBチケット購入</span>
-              <span class="text-sm text-gray-600 mt-1 block">当日窓口の行列を回避するため、事前に購入しておきましょう。</span>
-            </div>
-          </label>
-
-          <label class="flex items-start p-4 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer transition">
-            <input type="checkbox" class="mt-1 w-5 h-5 text-blue-500 rounded focus:ring-blue-500 border-gray-300">
-            <div class="ml-4">
-              <span class="block font-bold text-gray-800">タクシーアプリ (GO) インストール</span>
-              <span class="text-sm text-gray-600 mt-1 block">京都の混雑時の命綱です。流しのタクシーが捕まらない時に役立ちます。</span>
-            </div>
-          </label>
-
-          <label class="flex items-start p-4 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer transition">
-            <input type="checkbox" class="mt-1 w-5 h-5 text-blue-500 rounded focus:ring-blue-500 border-gray-300">
-            <div class="ml-4">
-              <span class="block font-bold text-gray-800">服装チェック (スニーカー＆上着)</span>
-              <span class="text-sm text-gray-600 mt-1 block">3日目・4日目はかなり歩きます。また、朝晩の冷え込み対策に調整できる上着を。</span>
-            </div>
-          </label>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Footer -->
-  <footer class="bg-gray-50 border-t py-6 text-center text-gray-400 text-sm">
-    <p>2026年春 京都・大阪 家族旅行のしおり</p>
-  </footer>
-
-  <script>
-    // Data Store
-    const itineraryData = [
-      {
-        date: "3/26 (木)",
-        title: "大阪到着 & 海遊館",
-        theme: "ジンベエザメと大阪グルメの夜",
-        chartData: [20, 40, 40], // Travel, Sightseeing, Food/Relax
-        events: [
-          { time: "午後", title: "ユニバーサルシティ駅 到着", descHtml: "ホテル京阪ユニバーサル・タワーにチェックイン（または荷物預け）。", icon: "🏨" },
-          { time: "14:30", title: "シャトル船で海遊館へ", descHtml: "ホテル裏から「キャプテンライン」で10分！クルーズ気分で移動。", icon: "🚢", link: "https://www.mmjp.or.jp/Capt-Line/" },
-          { time: "15:00", title: "海遊館 (Kaiyukan)", descHtml: "巨大水槽のジンベエザメを見学。17:00以降の「夜の海遊館」も幻想的。", icon: "🐠", link: "https://www.kaiyukan.com/" },
-          { time: "18:00", title: "夕食タイム", descHtml: "候補A: なにわ食いしんぼ横丁(海遊館横)\n候補B: ユニバーサル・シティウォーク大阪(USJ前)", icon: "🍽️" , link: "https://ucw.jp/" },
-          { time: "20:00", title: "ホテルへ帰還", descHtml: "明日のUSJに備えて早めに就寝！コンビニで翌朝の軽食を買っておこう。", icon: "🌙" }
-        ]
-      },
-      {
-        date: "3/27 (金)",
-        title: "USJ 全力投球！",
-        theme: "マリオとアトラクションの1日",
-        chartData: [5, 85, 10],
-        events: [
-          { time: "06:00", title: "起床・準備", descHtml: "戦闘準備！動きやすい服で。", icon: "⏰" },
-          { time: "06:30", title: "⚠️ ホテル出発", descHtml: "公式オープンより早く開きます。ニンテンドーエリアを狙うならこの時間に出発！", icon: "🏃", warning: true },
-          { time: "午前", title: "スーパー・ニンテンドー・ワールド", descHtml: "入場後すぐにアプリで整理券取得（取れたらラッキー）。エクスプレス・パスがあれば最強。", icon: "🍄", link: "https://www.usj.co.jp/web/ja/jp/tickets" },
-          { time: "昼食", title: "パーク内ランチ", descHtml: "11:00頃か14:00頃に時間をずらして混雑回避。", icon: "🍔" },
-          { time: "午後", title: "アトラクション & ショー", descHtml: "パレードや人気ライドを満喫。", icon: "🎢" },
-          { time: "19:00", title: "夕食", descHtml: "パーク内レストランまたはユニバーサル・シティウォークで。", icon: "🍖" },
-          { time: "21:00", title: "ホテル泊 (31階温泉)", descHtml: "足が棒になっているはず。有料温泉で回復！", icon: "♨️" }
-        ]
-      },
-      {
-        date: "3/28 (土)",
-        title: "宇治・伏見稲荷 & 清水寺",
-        theme: "10円玉・千本鳥居・夜の清水舞台",
-        chartData: [30, 50, 20],
-        events: [
-          { time: "09:00", title: "チェックアウト & 移動", descHtml: "大阪→京都駅へ（約45分）。", icon: "🚃" },
-          { time: "10:00", title: "ひふみ旅館で荷物預け", descHtml: "京都駅から徒歩3分。身軽になります。", icon: "👜" },
-          { time: "11:30", title: "平等院鳳凰堂 & ランチ", descHtml: "⚠️人気店「中村藤吉」は120分待ちの可能性。先に整理券を取るか、伊藤久右衛門/テイクアウトへ。", icon: "🍵", warning: true, link: "https://www.byodoin.or.jp/" },
-          { time: "14:00", title: "伏見稲荷大社", descHtml: "千本鳥居を散策。スニーカー必須！", icon: "⛩️", link: "http://inari.jp/" },
-          { time: "16:30", title: "清水エリアへ移動 (渋滞回避)", descHtml: "⚠️タクシーのみは危険。電車で「清水五条」まで行き、そこからタクシーで坂の下へ。", icon: "🚕", warning: true },
-          { time: "19:00", title: "清水寺 夜の特別拝観", descHtml: "ライトアップされた舞台と夜桜。", icon: "✨", link: "https://www.kiyomizudera.or.jp/" },
-          { time: "21:00", title: "ひふみ旅館 チェックイン", descHtml: "広い和室でリラックス。", icon: "🍵" }
-        ]
-      },
-      {
-        date: "3/29 (日)",
-        title: "貴族の遊び & 忍者の里",
-        theme: "蹴鞠の実演と映画村体験",
-        chartData: [20, 60, 20],
-        events: [
-          { time: "09:00", title: "出発", descHtml: "地下鉄で御所へ。", icon: "🚇" },
-          { time: "10:00", title: "🌸 京都御所 (蹴鞠)", descHtml: "✅開催決定！10:00/11:00から蹴鞠の実演があります。", icon: "⚽", link: "https://kyoto-gosho.kunaicho.go.jp/" },
-          { time: "12:00", title: "ランチ & 移動", descHtml: "タクシー推奨(約25分)。", icon: "🚕" },
-          { time: "13:30", title: "東映太秦映画村", descHtml: "忍者体験、立体迷路、チャンバラショー！", icon: "🥷", link: "https://www.toei-eigamura.com/" },
-          { time: "18:30", title: "夕食 (京都駅)", descHtml: "伊勢丹やポルタで。", icon: "🍱" }
-        ]
-      },
-      {
-        date: "3/30 (月)",
-        title: "石庭・金閣寺 & 嵐山",
-        theme: "世界遺産巡りと竹林の散策",
-        chartData: [25, 50, 25],
-        events: [
-          { time: "08:30", title: "タクシーで龍安寺へ", descHtml: "荷物は旅館に預けたまま出発。", icon: "🚕" },
-          { time: "09:00", title: "龍安寺 (石庭)", descHtml: "朝の静寂を楽しむ。", icon: "🪨", link: "http://www.ryoanji.jp/" },
-          { time: "10:00", title: "金閣寺", descHtml: "輝く舎利殿を見学。", icon: "✨", link: "https://www.shokoku-ji.jp/kinkakuji/" },
-          { time: "11:00", title: "嵐電で嵐山へ", descHtml: "レトロな路面電車で移動。", icon: "🚃", link: "https://www.keifuku.co.jp/" },
-          { time: "11:45", title: "嵐山ランチ & 散策", descHtml: "⚠️12時は激混み。早め入店か食べ歩き推奨。竹林、天龍寺、渡月橋へ。", icon: "🎋", warning: true },
-          { time: "16:30", title: "京都駅へ移動", descHtml: "JR嵯峨野線は混みます。早めにホームへ。", icon: "🚃", warning: true },
-          { time: "18:30", title: "新幹線出発", descHtml: "駅弁を買って帰路へ。お疲れ様でした！", icon: "🚅" }
-        ]
-      }
-    ];
-
-    // Chart Instance
-    let activityChart = null;
-
-    // ===== Navigation (event-driven) =====
-    function navTo(sectionId, clickedBtn = null) {
-      // hide all sections
-      document.querySelectorAll('.view-section').forEach(el => {
-        el.classList.add('hidden');
-        el.classList.remove('fade-in');
-      });
-
-      const target = document.getElementById(sectionId);
-      target.classList.remove('hidden');
-      void target.offsetWidth; // reflow
-      target.classList.add('fade-in');
-
-      // tabs aria + styling
-      document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.classList.remove('bg-pink-100', 'text-pink-700');
-        btn.classList.add('text-gray-600');
-        btn.setAttribute('aria-selected', 'false');
-      });
-
-      if (clickedBtn) {
-        clickedBtn.classList.add('bg-pink-100', 'text-pink-700');
-        clickedBtn.classList.remove('text-gray-600');
-        clickedBtn.setAttribute('aria-selected', 'true');
-      } else {
-        // fallback: select by data-target
-        const fallbackBtn = document.querySelector(`.nav-btn[data-target="${sectionId}"]`);
-        if (fallbackBtn) {
-          fallbackBtn.classList.add('bg-pink-100', 'text-pink-700');
-          fallbackBtn.classList.remove('text-gray-600');
-          fallbackBtn.setAttribute('aria-selected', 'true');
-        }
-      }
-
-      if (sectionId === 'itinerary' && !activityChart) {
-        selectDay(0);
-      }
-    }
-
-    // ===== Day Selection =====
-    function selectDay(index) {
-      document.querySelectorAll('.day-btn').forEach((btn) => {
-        const i = Number(btn.dataset.dayIndex);
-        if (i === index) {
-          btn.classList.add('bg-pink-50', 'border-pink-300', 'ring-2', 'ring-pink-200');
-          btn.classList.remove('border-gray-200');
-        } else {
-          btn.classList.remove('bg-pink-50', 'border-pink-300', 'ring-2', 'ring-pink-200');
-          btn.classList.add('border-gray-200');
-        }
-      });
-
-      const data = itineraryData[index];
-
-      document.getElementById('current-day-title').textContent = data.title;
-      document.getElementById('current-day-theme').textContent = data.theme;
-
-      const container = document.getElementById('timeline-container');
-      container.innerHTML = `<div class="timeline-line"></div>`;
-
-      data.events.forEach((event, i) => {
-        const isWarning = !!event.warning;
-        const linkHtml = event.link
-          ? `<a href="${event.link}" target="_blank" rel="noopener noreferrer" class="text-xs text-blue-500 hover:underline ml-2">🔗 リンク</a>`
-          : '';
-
-        // descHtml allows \n and is rendered safely as text with whitespace-pre-line
-        const safeDescText = (event.descHtml || "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
-
-        const itemHtml = `
-          <div class="timeline-item relative flex gap-4 mb-6 last:mb-0 animate-[fadeIn_0.3s_ease-out_forwards]"
-               style="animation-delay:${i * 0.1}s; opacity:0;">
-            <!-- Dot aligned with timeline line at 64px (center = 64px; dot size 16px -> left 56px) -->
-            <div class="absolute left-[56px] top-3 w-4 h-4 rounded-full bg-white border-2 border-pink-300 z-10"></div>
-
-            <div class="flex-shrink-0 w-12 text-right pt-1">
-              <span class="text-xs font-bold text-gray-400 block">${event.time}</span>
+        <!-- SECTION: OVERVIEW -->
+        <section id="overview" class="view-section fade-in">
+            <div class="mb-10 text-center">
+                <h2 class="text-xs font-bold text-pink-400 uppercase tracking-widest mb-2">Trip Theme</h2>
+                <p class="text-xl md:text-2xl font-bold text-gray-800">USJ全力遊び & 京都の歴史満喫</p>
+                <div class="mt-6 rounded-2xl overflow-hidden shadow-xl border border-pink-100 bg-white p-2">
+                    <img src="summary.png" alt="[旅行全体マップ]" class="w-full h-auto rounded-xl mx-auto" onerror="this.parentElement.innerHTML='<div class=\'py-10 text-gray-300 font-bold\'>summary.png が見つかりません</div>'">
+                </div>
             </div>
 
-            <div class="relative flex-grow pb-4 ${isWarning ? 'bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded-r-lg shadow-sm' : ''}">
-              <h4 class="text-md font-bold text-gray-800 flex items-center">
-                <span class="mr-2 text-lg">${event.icon}</span>
-                ${event.title}
-                ${isWarning ? '<span class="ml-2 px-2 py-0.5 bg-yellow-100 text-yellow-700 text-[10px] rounded-full uppercase tracking-wide">注意</span>' : ''}
-              </h4>
-              <p class="text-sm text-gray-600 mt-1 leading-relaxed whitespace-pre-line">${safeDescText}${linkHtml}</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <span class="text-[10px] font-bold text-blue-500 uppercase tracking-widest">1-2泊目 (大阪)</span>
+                    <h3 class="text-xl font-bold text-gray-800 mt-1 mb-2">ホテル京阪 ユニバーサル・タワー</h3>
+                    <p class="text-sm text-gray-500 mb-4 leading-relaxed">USJ目の前の最高立地。31階の天然展望温泉（有料）はパーク帰りのリラックスに最適です。</p>
+                    <ul class="text-xs space-y-2 text-gray-600 mb-6">
+                        <li>📍 大阪市此花区島屋6-2-45</li>
+                        <li>🚃 ユニバーサルシティ駅 直結</li>
+                    </ul>
+                    <a href="https://www.hotelkeihan.co.jp/tower/" target="_blank" class="block w-full text-center py-2.5 rounded-xl bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 transition">公式サイトへ</a>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <span class="text-[10px] font-bold text-green-500 uppercase tracking-widest">3-4泊目 (京都)</span>
+                    <h3 class="text-xl font-bold text-gray-800 mt-1 mb-2">京都駅前 ひふみ旅館</h3>
+                    <p class="text-sm text-gray-500 mb-4 leading-relaxed">京都駅から徒歩3分。広い和室で家族団らん。最終日の荷物預かりも駅近なので超便利です。</p>
+                    <ul class="text-xs space-y-2 text-gray-600 mb-6">
+                        <li>📍 京都市下京区不明門通七条下ル</li>
+                        <li>🚃 京都駅 徒歩3分</li>
+                    </ul>
+                    <a href="https://www.kyoto-hifumi.co.jp/" target="_blank" class="block w-full text-center py-2.5 rounded-xl bg-green-600 text-white font-bold text-sm hover:bg-green-700 transition">公式サイトへ</a>
+                </div>
             </div>
-          </div>
-        `;
-        container.insertAdjacentHTML('beforeend', itemHtml);
-      });
+        </section>
 
-      updateChart(data.chartData);
-    }
+        <!-- SECTION: ITINERARY -->
+        <section id="itinerary" class="view-section hidden fade-in">
+            <div class="flex flex-col lg:flex-row gap-8">
+                
+                <div class="lg:w-1/3 flex flex-col gap-6">
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                        <h3 class="text-[10px] font-bold text-gray-400 mb-4 tracking-widest uppercase">Select Day</h3>
+                        <div class="grid grid-cols-2 lg:grid-cols-1 gap-2">
+                            <button onclick="selectDay(0)" class="day-btn text-left px-4 py-3 rounded-xl border-2 transition-all flex flex-col"><span class="text-[10px] text-gray-400">3/26 (木)</span><span class="font-bold text-xs">大阪到着・海遊館</span></button>
+                            <button onclick="selectDay(1)" class="day-btn text-left px-4 py-3 rounded-xl border-2 transition-all flex flex-col"><span class="text-[10px] text-gray-400">3/27 (金)</span><span class="font-bold text-xs text-red-500 uppercase tracking-tighter">USJ Full Day!</span></button>
+                            <button onclick="selectDay(2)" class="day-btn text-left px-4 py-3 rounded-xl border-2 transition-all flex flex-col"><span class="text-[10px] text-gray-400">3/28 (土)</span><span class="font-bold text-xs text-nowrap">宇治・伏見・清水</span></button>
+                            <button onclick="selectDay(3)" class="day-btn text-left px-4 py-3 rounded-xl border-2 transition-all flex flex-col"><span class="text-[10px] text-gray-400">3/29 (日)</span><span class="font-bold text-xs">御所・映画村</span></button>
+                            <button onclick="selectDay(4)" class="day-btn text-left px-4 py-3 rounded-xl border-2 transition-all flex flex-col col-span-2 lg:col-span-1"><span class="text-[10px] text-gray-400">3/30 (月)</span><span class="font-bold text-xs">金閣・嵐山・帰路</span></button>
+                        </div>
+                    </div>
 
-    // ===== Chart.js Setup =====
-    function updateChart(dataValues) {
-      const ctx = document.getElementById('activityChart').getContext('2d');
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
+                        <h3 class="text-center text-[10px] font-bold text-gray-400 mb-4 tracking-widest uppercase">Energy Balance</h3>
+                        <div class="chart-container">
+                            <canvas id="activityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
 
-      if (activityChart) activityChart.destroy();
+                <div class="lg:w-2/3 bg-white rounded-3xl shadow-xl p-6 md:p-10 border border-gray-50 flex flex-col">
+                    <div id="day-header" class="mb-6 border-b border-gray-100 pb-6">
+                        <h2 id="current-day-title" class="text-2xl font-bold text-gray-800"></h2>
+                        <p id="current-day-theme" class="text-pink-500 font-medium text-sm mt-1"></p>
+                        
+                        <div class="mt-8 rounded-2xl overflow-hidden border border-gray-100 shadow-inner bg-gray-50 group">
+                            <img id="daily-guide-img" src="" alt="日別ガイド" class="w-full h-auto object-cover cursor-zoom-in transition-transform duration-500 group-hover:scale-105" onclick="window.open(this.src, '_blank')" onerror="this.src='https://via.placeholder.com/800x400?text=Image+Not+Found'">
+                        </div>
+                        <p class="text-[10px] text-gray-400 text-right mt-2 italic">※画像タップで全画面表示</p>
+                    </div>
 
-      activityChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: ['移動', '観光/遊び', '食事/休憩'],
-          datasets: [{
-            data: dataValues,
-            backgroundColor: [
-              '#bfdbfe', // Blue-200 (Travel)
-              '#fbcfe8', // Pink-200 (Sightseeing)
-              '#fde68a'  // Amber-200 (Food)
-            ],
-            hoverOffset: 4
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: {
-                font: { family: "'Zen Maru Gothic', sans-serif", size: 11 },
-                usePointStyle: true,
-                boxWidth: 8
-              }
+                    <div id="timeline-container" class="custom-scroll overflow-y-auto pr-4 relative flex-grow min-h-[400px]" style="max-height: 500px;">
+                        <!-- JS renders details here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: PREPARATION -->
+        <section id="prep" class="view-section hidden fade-in max-w-2xl mx-auto">
+            <div class="bg-white rounded-3xl shadow-xl p-8 border border-gray-50">
+                <h2 class="text-2xl font-bold text-gray-800 text-center mb-10">📝 事前準備・持ち物リスト</h2>
+                <div class="space-y-4">
+                    <label class="flex items-start p-4 rounded-2xl bg-red-50 border border-red-100 cursor-pointer transition-colors hover:bg-red-100">
+                        <input type="checkbox" class="mt-1 w-5 h-5 accent-red-500">
+                        <div class="ml-4">
+                            <span class="block font-bold text-red-800 text-sm">USJ エクスプレス・パス (最優先)</span>
+                            <span class="text-xs text-red-600 mt-1 block">春休みの激混み回避には必須。WEBチケットストアで即確保してください。</span>
+                        </div>
+                    </label>
+                    <label class="flex items-start p-4 rounded-2xl border border-gray-100 hover:bg-gray-50 cursor-pointer">
+                        <input type="checkbox" class="mt-1 w-5 h-5 accent-blue-500">
+                        <div class="ml-4">
+                            <span class="block font-bold text-gray-800 text-sm">海遊館・映画村 WEBチケット購入</span>
+                            <span class="text-xs text-gray-500 mt-1 block">当日窓口の行列を回避するため、事前に購入しておきましょう。</span>
+                        </div>
+                    </label>
+                    <label class="flex items-start p-4 rounded-2xl border border-gray-100 hover:bg-gray-50 cursor-pointer">
+                        <input type="checkbox" class="mt-1 w-5 h-5 accent-gray-500">
+                        <div class="ml-4">
+                            <span class="block font-bold text-gray-800 text-sm">タクシーアプリ (GO など) インストール</span>
+                            <span class="text-xs text-gray-500 mt-1 block">京都の移動の命綱です。家族4人ならタクシーがお得で楽です。</span>
+                        </div>
+                    </label>
+                    <label class="flex items-start p-4 rounded-2xl border border-gray-100 hover:bg-gray-50 cursor-pointer">
+                        <input type="checkbox" class="mt-1 w-5 h-5 accent-green-500">
+                        <div class="ml-4">
+                            <span class="block font-bold text-gray-800 text-sm">歩きやすい靴 & 調整できる上着</span>
+                            <span class="text-xs text-gray-500 mt-1 block">3日目と4日目はかなり歩きます。また、朝晩は冷えるので上着必須です。</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white border-t py-8 text-center text-gray-300 text-[10px] tracking-widest uppercase">
+        <p>© 2026 KYOTO-OSAKA SPRING FAMILY TRIP</p>
+    </footer>
+
+    <script>
+        const itineraryData = [
+            {
+                date: "3/26 (木)",
+                title: "大阪到着 & 海遊館",
+                theme: "巨大水槽のアドベンチャーと食い倒れ",
+                chart: [20, 40, 40],
+                events: [
+                    {t:"午後", i:"🏨", h:"ユニバーサルシティ駅到着", d:"ホテル京阪ユニバーサル・タワーにチェックイン（または荷物預け）。"},
+                    {t:"14:30", i:"🚢", h:"船で海遊館へ", d:"ホテル裏からシャトル船「キャプテンライン」で10分！クルーズ気分で移動。"},
+                    {t:"15:00", i:"🐠", h:"海遊館 (Kaiyukan)", d:"巨大水槽のジンベエザメを見学。17:00以降の「夜の海遊館」も幻想的。"},
+                    {t:"18:00", i:"🍱", h:"夕食タイム", d:"なにわ食いしんぼ横丁(海遊館横)やシティウォークで大阪名物を。"},
+                    {t:"20:00", i:"⏰", h:"ホテル帰着", d:"明日に備えて早めに就寝！コンビニで翌朝の軽食を買っておこう。"}
+                ]
+            },
+            {
+                date: "3/27 (金)",
+                title: "USJ 全力投球！",
+                theme: "スーパー・ニンテンドー・ワールド狙いの戦闘開始",
+                chart: [5, 85, 10],
+                events: [
+                    {t:"06:00", i:"⏰", h:"起床・準備", d:"春休みのUSJは激混み必至！動きやすい服で。"},
+                    {t:"06:30", i:"🏃", h:"⚠️ ホテル出発 (ゲート前待機)", d:"公式より早く開くことが多いため、この時間の出発が安全です。"},
+                    {t:"午前", i:"🍄", h:"マリオエリア攻略", d:"入場後すぐにアプリ整理券取得。エクスプレス・パスがあれば最強。"},
+                    {t:"昼食", i:"🍔", h:"混雑回避ランチ", d:"11:00頃か14:00頃に時間をずらしてパーク内で。"},
+                    {t:"午後", i:"🎢", h:"人気ライド & パレード", d:"閉園間際の雰囲気までたっぷり楽しみます。"},
+                    {t:"19:00", i:"🍖", h:"夕食 (パーク内)", d:"ハリーポッターエリアの三本の箒など、雰囲気の良い場所で。"},
+                    {t:"21:00", i:"♨️", h:"展望温泉でリフレッシュ", d:"足が棒になっているはず。31階の温泉で癒やしましょう。"}
+                ]
+            },
+            {
+                date: "3/28 (土)",
+                title: "宇治・伏見稲荷 & 清水寺",
+                theme: "歴史スポット巡りと夜の特別拝観",
+                chart: [30, 50, 20],
+                events: [
+                    {t:"09:00", i:"🚃", h:"チェックアウト・移動", d:"大阪から京都駅へ移動（約45分）。"},
+                    {t:"10:00", i:"👜", h:"ひふみ旅館に荷物預け", d:"京都駅から徒歩3分。身軽になって宇治へ！"},
+                    {t:"11:30", i:"🍵", h:"平等院鳳凰堂 & ランチ", d:"⚠️「中村藤吉」は180分待ちの可能性。整理券確保を最優先に。"},
+                    {t:"14:00", i:"⛩️", h:"伏見稲荷 (千本鳥居)", d:"朱色の鳥居を散策。ここもかなり歩きます。スニーカー必須。"},
+                    {t:"16:30", i:"🚕", h:"⚠️ 渋滞回避ルート発動！", d:"夕方の東山は大渋滞。電車で清水五条へ行き、そこからタクシーで坂の下まで。"},
+                    {t:"19:00", i:"✨", h:"清水寺 夜の特別拝観", d:"ライトアップされた舞台と夜桜。昼間とは違う幻想的な景色。"},
+                    {t:"21:00", i:"🍵", h:"旅館チェックイン", d:"広い和室でようやくリラックス。お疲れ様でした。"}
+                ]
+            },
+            {
+                date: "3/29 (日)",
+                title: "御所(蹴鞠) & 映画村",
+                theme: "王朝文化と忍者の里体験",
+                chart: [20, 60, 20],
+                events: [
+                    {t:"08:00", i:"🍚", h:"旅館の和朝食", d:"お膳で出る美味しい和朝食をゆっくり。"},
+                    {t:"10:00", i:"⚽", h:"✅ 京都御所 蹴鞠実演", d:"3/29は実演日！10:00/11:00から。平安の遊びを間近で。"},
+                    {t:"12:00", i:"🚕", h:"ランチ & 移動", d:"御所周辺でランチ後、タクシーで映画村へ（約25分）。"},
+                    {t:"13:30", i:"🥷", h:"東映太秦映画村", d:"忍者屋敷、立体迷路、チャンバラショー！子供が遊べる施設が豊富。"},
+                    {t:"18:30", i:"🍱", h:"夕食 (京都駅)", d:"伊勢丹レストラン街やポルタで。お土産の下見も兼ねて。"}
+                ]
+            },
+            {
+                date: "3/30 (月)",
+                title: "石庭・金閣寺 & 嵐山",
+                theme: "最終日の絶景散策と帰路",
+                chart: [25, 50, 25],
+                events: [
+                    {t:"08:30", i:"🚕", h:"タクシーで龍安寺へ", d:"旅館に荷物は預けたまま。朝一の静かな石庭へ。"},
+                    {t:"10:00", i:"✨", h:"金閣寺 (輝く舎利殿)", d:"龍安寺からすぐ。光り輝く金閣を背景に家族写真。"},
+                    {t:"11:00", i:"🚃", h:"嵐電で嵐山へ", d:"レトロな路面電車でお子様も楽しい移動。"},
+                    {t:"12:00", i:"🎋", h:"嵐山散策 & ランチ", d:"⚠️11時台の早め入店を。竹林の小径や渡月橋を満喫。"},
+                    {t:"16:30", i:"🚃", h:"⚠️ 混雑対策・京都駅へ", d:"嵯峨野線は夕方満員に。早めにホームへ。特急課金もアリ。"},
+                    {t:"17:30", i:"🍱", h:"お土産 & 駅弁購入", d:"旅館で荷物を拾い、新幹線の車内で食べる駅弁を購入。"},
+                    {t:"18:30", i:"🚅", h:"新幹線出発", d:"思い出を胸に帰路へ。お疲れ様でした！"}
+                ]
             }
-          },
-          animation: { animateScale: true, animateRotate: true }
+        ];
+
+        // Filenames confirmed in earlier step
+        const guideImages = ["day1_2.png", "day1_2.png", "day3_4.png", "day3_4.png", "day5_hotel.png"];
+        
+        let activityChart = null;
+
+        function navTo(id) {
+            // View toggle
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+            
+            // Tab active toggle
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('nav-btn-active', 'bg-white', 'shadow-sm', 'text-pink-600'));
+            const activeBtn = document.getElementById('btn-' + id);
+            activeBtn.classList.add('nav-btn-active', 'bg-white', 'shadow-sm');
+
+            if (id === 'itinerary' && !activityChart) selectDay(0);
         }
-      });
-    }
 
-    // ===== Init =====
-    document.addEventListener('DOMContentLoaded', () => {
-      // nav buttons
-      document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.addEventListener('click', () => navTo(btn.dataset.target, btn));
-      });
+        function selectDay(idx) {
+            // Day button active style
+            document.querySelectorAll('.day-btn').forEach((btn, i) => {
+                btn.style.borderColor = (i === idx ? '#f472b6' : '#f3f4f6');
+                btn.style.backgroundColor = (i === idx ? '#fdf2f8' : 'transparent');
+            });
 
-      // day buttons
-      document.querySelectorAll('.day-btn').forEach(btn => {
-        btn.addEventListener('click', () => selectDay(Number(btn.dataset.dayIndex)));
-      });
+            const data = itineraryData[idx];
+            document.getElementById('current-day-title').textContent = data.date + " " + data.title;
+            document.getElementById('current-day-theme').textContent = data.theme;
+            
+            // Image update (Renamed to match user's GitHub structure)
+            const imgEl = document.getElementById('daily-guide-img');
+            imgEl.src = guideImages[idx];
 
-      navTo('overview', document.querySelector('.nav-btn[data-target="overview"]'));
-    });
-  </script>
+            const cont = document.getElementById('timeline-container');
+            cont.innerHTML = '<div class="timeline-line"></div>';
+            
+            data.events.forEach((e, i) => {
+                const item = document.createElement('div');
+                item.className = 'timeline-item flex gap-4 mb-8 opacity-0 animate-[fadeIn_0.5s_ease-out_forwards]';
+                item.style.animationDelay = (i * 0.1) + 's';
+                item.innerHTML = `
+                    <div class="w-12 text-right text-[10px] font-bold text-gray-300 pt-1.5">${e.t}</div>
+                    <div class="relative flex-grow pl-4">
+                        <div class="absolute -left-[22px] top-2 w-3.5 h-3.5 rounded-full bg-white border-2 border-pink-300 ring-4 ring-pink-50"></div>
+                        <h4 class="font-bold text-sm text-gray-800 leading-tight">${e.i} ${e.h}</h4>
+                        <p class="text-xs text-gray-500 mt-1.5 leading-relaxed">${e.d}</p>
+                    </div>`;
+                cont.appendChild(item);
+            });
+
+            updateChart(data.chart);
+        }
+
+        function updateChart(vals) {
+            const ctx = document.getElementById('activityChart').getContext('2d');
+            if (activityChart) activityChart.destroy();
+            activityChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['移動', '観光/遊び', '食事/休憩'],
+                    datasets: [{
+                        data: vals,
+                        backgroundColor: ['#bfdbfe', '#fbcfe8', '#fde68a'],
+                        borderWidth: 0,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '75%',
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 8, font: { size: 9, family: "'Zen Maru Gothic', sans-serif" }, usePointStyle: true } }
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => navTo('overview'));
+    </script>
 </body>
 </html>
