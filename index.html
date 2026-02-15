@@ -2,362 +2,343 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026年春 京都・大阪 家族旅行のしおり</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>2026春 京都・大阪 家族旅行</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap');
-        
         body {
             font-family: 'Zen Maru Gothic', sans-serif;
-            background-color: #fdfafa;
-            color: #4a4a4a;
+            background-color: #f8fafc;
+            color: #334155;
+            padding-bottom: 80px; /* Bottom Navの分だけ空ける */
         }
-
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 400px;
-            height: 220px;
-            margin: 0 auto;
+        /* スクロールバー非表示（見た目スッキリ） */
+        .hide-scroll::-webkit-scrollbar {
+            display: none;
         }
-
-        /* ナビゲーションボタンの活性状態 */
-        .nav-btn-active {
-            background-color: #f472b6 !important;
-            color: white !important;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        .hide-scroll {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
-
-        .timeline-line {
-            position: absolute;
-            left: 24px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background-color: #fce7f3;
-            z-index: 0;
+        /* アニメーション */
+        .fade-enter {
+            animation: fadeEnter 0.3s ease-out forwards;
         }
-
-        .timeline-item {
-            position: relative;
-            z-index: 10;
-        }
-
-        .custom-scroll::-webkit-scrollbar {
-            width: 6px;
-        }
-        .custom-scroll::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        .custom-scroll::-webkit-scrollbar-thumb {
-            background: #f9a8d4;
-            border-radius: 10px;
-        }
-
-        .fade-in {
-            animation: fadeIn 0.6s ease-out forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
+        @keyframes fadeEnter {
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        .active-tab {
+            color: #ec4899; /* pink-500 */
+        }
+        .nav-item.active .icon-box {
+            background-color: #fdf2f8; /* pink-50 */
+            color: #db2777; /* pink-600 */
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen">
 
-    <!-- Header -->
-    <header class="bg-white shadow-sm border-b-4 border-pink-200 sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
-            <div class="text-center md:text-left">
-                <h1 class="text-xl md:text-2xl font-bold text-gray-800 tracking-tight">🌸 2026年春 京都・大阪 家族旅行</h1>
-                <p class="text-[10px] text-pink-400 font-bold mt-1 tracking-widest uppercase">March 26 - March 30 Family Trip</p>
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-40 border-b border-pink-100 shadow-sm">
+        <div class="max-w-md mx-auto px-4 py-3 flex justify-between items-center">
+            <div>
+                <h1 class="text-lg font-bold text-gray-800">🌸 2026春 家族旅行</h1>
+                <p class="text-[10px] text-pink-500 font-bold tracking-widest">OSAKA & KYOTO / 3.26-30</p>
             </div>
-            <div class="mt-4 md:mt-0 flex gap-1 bg-gray-100 p-1 rounded-full">
-                <button onclick="navTo('overview')" id="btn-overview" class="nav-btn px-5 py-1.5 rounded-full text-xs font-bold transition-all text-gray-500 hover:text-pink-500">概要・ホテル</button>
-                <button onclick="navTo('itinerary')" id="btn-itinerary" class="nav-btn px-5 py-1.5 rounded-full text-xs font-bold transition-all text-gray-500 hover:text-pink-500">日程表</button>
-                <button onclick="navTo('prep')" id="btn-prep" class="nav-btn px-5 py-1.5 rounded-full text-xs font-bold transition-all text-gray-500 hover:text-pink-500">準備リスト</button>
+            <div id="weather-icon" class="text-gray-400 text-sm">
+                <i class="fa-solid fa-plane-departure text-pink-300"></i>
             </div>
         </div>
     </header>
 
-    <main class="flex-grow container mx-auto px-4 py-6 max-w-5xl">
+    <main class="max-w-md mx-auto px-4 py-4 relative">
+        
+        <div id="view-home" class="view-section fade-enter">
+            <div class="bg-gradient-to-br from-pink-500 to-orange-400 rounded-2xl p-6 text-white shadow-lg mb-6 relative overflow-hidden">
+                <div class="relative z-10">
+                    <p class="text-xs font-bold opacity-80 mb-1">TRIP THEME</p>
+                    <h2 class="text-2xl font-bold leading-tight mb-2">USJ全力遊び &<br>京都の歴史満喫</h2>
+                    <div class="mt-4 flex gap-2">
+                        <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm">👨‍👩‍👧‍👦 家族4人</span>
+                        <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm">🚄 4泊5日</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-torii-gate absolute -bottom-4 -right-4 text-9xl text-white opacity-10 rotate-12"></i>
+            </div>
 
-        <!-- SECTION: OVERVIEW -->
-        <section id="overview" class="view-section fade-in">
-            <div class="mb-10 text-center">
-                <h2 class="text-xs font-bold text-pink-400 uppercase tracking-widest mb-2">Trip Theme</h2>
-                <p class="text-xl md:text-2xl font-bold text-gray-800">USJ全力遊び & 京都の歴史満喫</p>
-                <div class="mt-6 rounded-2xl overflow-hidden shadow-xl border border-pink-100 bg-white p-2">
-                    <img src="summary.png" alt="[旅行全体マップ]" class="w-full h-auto rounded-xl mx-auto" onerror="this.parentElement.innerHTML='<div class=\'py-10 text-gray-300 font-bold\'>summary.png が見つかりません</div>'">
+            <div class="mb-6">
+                <h3 class="text-sm font-bold text-gray-400 mb-2 px-1">全体マップ</h3>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-2">
+                    <img src="./summary.png" alt="Map" class="w-full rounded-lg" onerror="this.src='https://placehold.co/600x400/pink/white?text=Map+Image'">
                 </div>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                    <span class="text-[10px] font-bold text-blue-500 uppercase tracking-widest">1-2泊目 (大阪)</span>
-                    <h3 class="text-xl font-bold text-gray-800 mt-1 mb-2">ホテル京阪 ユニバーサル・タワー</h3>
-                    <p class="text-sm text-gray-500 mb-4 leading-relaxed">USJ目の前の最高立地。31階の天然展望温泉（有料）はパーク帰りのリラックスに最適です。</p>
-                    <ul class="text-xs space-y-2 text-gray-600 mb-6">
-                        <li>📍 大阪市此花区島屋6-2-45</li>
-                        <li>🚃 ユニバーサルシティ駅 直結</li>
-                    </ul>
-                    <a href="https://www.hotelkeihan.co.jp/tower/" target="_blank" class="block w-full text-center py-2.5 rounded-xl bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 transition">公式サイトへ</a>
-                </div>
+            <h3 class="text-sm font-bold text-gray-400 mb-2 px-1">便利リンク</h3>
+            <div class="grid grid-cols-2 gap-3 mb-20">
+                <a href="https://www.usj.co.jp/web/ja/jp" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center gap-3 active:scale-95 transition">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-500"><i class="fa-solid fa-ticket"></i></div>
+                    <div class="text-sm font-bold">USJ公式<br><span class="text-[10px] text-gray-400 font-normal">待ち時間</span></div>
+                </a>
+                <a href="https://go.goinc.jp/" target="_blank" class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center gap-3 active:scale-95 transition">
+                    <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-500"><i class="fa-solid fa-taxi"></i></div>
+                    <div class="text-sm font-bold">GOアプリ<br><span class="text-[10px] text-gray-400 font-normal">タクシー呼出</span></div>
+                </a>
+            </div>
+        </div>
 
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                    <span class="text-[10px] font-bold text-green-500 uppercase tracking-widest">3-4泊目 (京都)</span>
-                    <h3 class="text-xl font-bold text-gray-800 mt-1 mb-2">京都駅前 ひふみ旅館</h3>
-                    <p class="text-sm text-gray-500 mb-4 leading-relaxed">京都駅から徒歩3分。広い和室で家族団らん。最終日の荷物預かりも駅近なので超便利です。</p>
-                    <ul class="text-xs space-y-2 text-gray-600 mb-6">
-                        <li>📍 京都市下京区不明門通七条下ル</li>
-                        <li>🚃 京都駅 徒歩3分</li>
-                    </ul>
-                    <a href="https://www.kyoto-hifumi.co.jp/" target="_blank" class="block w-full text-center py-2.5 rounded-xl bg-green-600 text-white font-bold text-sm hover:bg-green-700 transition">公式サイトへ</a>
+        <div id="view-schedule" class="view-section hidden fade-enter">
+            <div class="flex overflow-x-auto hide-scroll gap-2 mb-6 pb-2 sticky top-0 bg-[#f8fafc] pt-2 z-30">
+                <button onclick="renderDay(0)" id="tab-0" class="day-tab flex-shrink-0 px-4 py-2 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-500 shadow-sm transition-all whitespace-nowrap">3/26 大阪</button>
+                <button onclick="renderDay(1)" id="tab-1" class="day-tab flex-shrink-0 px-4 py-2 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-500 shadow-sm transition-all whitespace-nowrap">3/27 USJ</button>
+                <button onclick="renderDay(2)" id="tab-2" class="day-tab flex-shrink-0 px-4 py-2 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-500 shadow-sm transition-all whitespace-nowrap">3/28 宇治</button>
+                <button onclick="renderDay(3)" id="tab-3" class="day-tab flex-shrink-0 px-4 py-2 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-500 shadow-sm transition-all whitespace-nowrap">3/29 御所</button>
+                <button onclick="renderDay(4)" id="tab-4" class="day-tab flex-shrink-0 px-4 py-2 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-500 shadow-sm transition-all whitespace-nowrap">3/30 嵐山</button>
+            </div>
+
+            <div id="day-content" class="pb-20">
+                </div>
+        </div>
+
+        <div id="view-info" class="view-section hidden fade-enter">
+            <h3 class="text-sm font-bold text-gray-400 mb-3 uppercase tracking-widest">Accommodation</h3>
+            
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-4">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="bg-blue-100 text-blue-600 text-[10px] font-bold px-2 py-1 rounded">1-2泊目 (大阪)</span>
+                </div>
+                <h4 class="font-bold text-lg text-gray-800 mb-1">ホテル京阪<br>ユニバーサル・タワー</h4>
+                <p class="text-xs text-gray-500 mb-4"><i class="fa-solid fa-location-dot mr-1"></i>ユニバーサルシティ駅 直結</p>
+                <div class="flex gap-2">
+                    <a href="https://goo.gl/maps/example" target="_blank" class="flex-1 bg-gray-50 py-2 rounded-lg text-center text-xs font-bold text-gray-600 hover:bg-gray-100 border border-gray-200">📍 マップ</a>
+                    <a href="https://www.hotelkeihan.co.jp/tower/" target="_blank" class="flex-1 bg-blue-50 py-2 rounded-lg text-center text-xs font-bold text-blue-600 hover:bg-blue-100 border border-blue-200">公式サイト</a>
                 </div>
             </div>
-        </section>
 
-        <!-- SECTION: ITINERARY -->
-        <section id="itinerary" class="view-section hidden fade-in">
-            <div class="flex flex-col lg:flex-row gap-8">
-                
-                <div class="lg:w-1/3 flex flex-col gap-6">
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
-                        <h3 class="text-[10px] font-bold text-gray-400 mb-4 tracking-widest uppercase">Select Day</h3>
-                        <div class="grid grid-cols-2 lg:grid-cols-1 gap-2">
-                            <button onclick="selectDay(0)" class="day-btn text-left px-4 py-3 rounded-xl border-2 transition-all flex flex-col"><span class="text-[10px] text-gray-400">3/26 (木)</span><span class="font-bold text-xs">大阪到着・海遊館</span></button>
-                            <button onclick="selectDay(1)" class="day-btn text-left px-4 py-3 rounded-xl border-2 transition-all flex flex-col"><span class="text-[10px] text-gray-400">3/27 (金)</span><span class="font-bold text-xs text-red-500 uppercase tracking-tighter">USJ Full Day!</span></button>
-                            <button onclick="selectDay(2)" class="day-btn text-left px-4 py-3 rounded-xl border-2 transition-all flex flex-col"><span class="text-[10px] text-gray-400">3/28 (土)</span><span class="font-bold text-xs text-nowrap">宇治・伏見・清水</span></button>
-                            <button onclick="selectDay(3)" class="day-btn text-left px-4 py-3 rounded-xl border-2 transition-all flex flex-col"><span class="text-[10px] text-gray-400">3/29 (日)</span><span class="font-bold text-xs">御所・映画村</span></button>
-                            <button onclick="selectDay(4)" class="day-btn text-left px-4 py-3 rounded-xl border-2 transition-all flex flex-col col-span-2 lg:col-span-1"><span class="text-[10px] text-gray-400">3/30 (月)</span><span class="font-bold text-xs">金閣・嵐山・帰路</span></button>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
-                        <h3 class="text-center text-[10px] font-bold text-gray-400 mb-4 tracking-widest uppercase">Energy Balance</h3>
-                        <div class="chart-container">
-                            <canvas id="activityChart"></canvas>
-                        </div>
-                    </div>
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-8">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="bg-green-100 text-green-600 text-[10px] font-bold px-2 py-1 rounded">3-4泊目 (京都)</span>
                 </div>
-
-                <div class="lg:w-2/3 bg-white rounded-3xl shadow-xl p-6 md:p-10 border border-gray-50 flex flex-col">
-                    <div id="day-header" class="mb-6 border-b border-gray-100 pb-6">
-                        <h2 id="current-day-title" class="text-2xl font-bold text-gray-800"></h2>
-                        <p id="current-day-theme" class="text-pink-500 font-medium text-sm mt-1"></p>
-                        
-                        <div class="mt-8 rounded-2xl overflow-hidden border border-gray-100 shadow-inner bg-gray-50 group">
-                            <img id="daily-guide-img" src="" alt="日別ガイド" class="w-full h-auto object-cover cursor-zoom-in transition-transform duration-500 group-hover:scale-105" onclick="window.open(this.src, '_blank')" onerror="this.src='https://via.placeholder.com/800x400?text=Image+Not+Found'">
-                        </div>
-                        <p class="text-[10px] text-gray-400 text-right mt-2 italic">※画像タップで全画面表示</p>
-                    </div>
-
-                    <div id="timeline-container" class="custom-scroll overflow-y-auto pr-4 relative flex-grow min-h-[400px]" style="max-height: 500px;">
-                        <!-- JS renders details here -->
-                    </div>
+                <h4 class="font-bold text-lg text-gray-800 mb-1">京都駅前 ひふみ旅館</h4>
+                <p class="text-xs text-gray-500 mb-4"><i class="fa-solid fa-location-dot mr-1"></i>京都駅 徒歩3分</p>
+                <div class="flex gap-2">
+                    <a href="https://goo.gl/maps/example" target="_blank" class="flex-1 bg-gray-50 py-2 rounded-lg text-center text-xs font-bold text-gray-600 hover:bg-gray-100 border border-gray-200">📍 マップ</a>
+                    <a href="https://www.kyoto-hifumi.co.jp/" target="_blank" class="flex-1 bg-green-50 py-2 rounded-lg text-center text-xs font-bold text-green-600 hover:bg-green-100 border border-green-200">公式サイト</a>
+                </div>
+                <div class="mt-4 p-3 bg-gray-50 rounded-lg">
+                     <img src="./day5_hotel.png" alt="Hotel Info" class="w-full rounded" onerror="this.style.display='none'">
                 </div>
             </div>
-        </section>
 
-        <!-- SECTION: PREPARATION -->
-        <section id="prep" class="view-section hidden fade-in max-w-2xl mx-auto">
-            <div class="bg-white rounded-3xl shadow-xl p-8 border border-gray-50">
-                <h2 class="text-2xl font-bold text-gray-800 text-center mb-10">📝 事前準備・持ち物リスト</h2>
-                <div class="space-y-4">
-                    <label class="flex items-start p-4 rounded-2xl bg-red-50 border border-red-100 cursor-pointer transition-colors hover:bg-red-100">
-                        <input type="checkbox" class="mt-1 w-5 h-5 accent-red-500">
-                        <div class="ml-4">
-                            <span class="block font-bold text-red-800 text-sm">USJ エクスプレス・パス (最優先)</span>
-                            <span class="text-xs text-red-600 mt-1 block">春休みの激混み回避には必須。WEBチケットストアで即確保してください。</span>
-                        </div>
-                    </label>
-                    <label class="flex items-start p-4 rounded-2xl border border-gray-100 hover:bg-gray-50 cursor-pointer">
-                        <input type="checkbox" class="mt-1 w-5 h-5 accent-blue-500">
-                        <div class="ml-4">
-                            <span class="block font-bold text-gray-800 text-sm">海遊館・映画村 WEBチケット購入</span>
-                            <span class="text-xs text-gray-500 mt-1 block">当日窓口の行列を回避するため、事前に購入しておきましょう。</span>
-                        </div>
-                    </label>
-                    <label class="flex items-start p-4 rounded-2xl border border-gray-100 hover:bg-gray-50 cursor-pointer">
-                        <input type="checkbox" class="mt-1 w-5 h-5 accent-gray-500">
-                        <div class="ml-4">
-                            <span class="block font-bold text-gray-800 text-sm">タクシーアプリ (GO など) インストール</span>
-                            <span class="text-xs text-gray-500 mt-1 block">京都の移動の命綱です。家族4人ならタクシーがお得で楽です。</span>
-                        </div>
-                    </label>
-                    <label class="flex items-start p-4 rounded-2xl border border-gray-100 hover:bg-gray-50 cursor-pointer">
-                        <input type="checkbox" class="mt-1 w-5 h-5 accent-green-500">
-                        <div class="ml-4">
-                            <span class="block font-bold text-gray-800 text-sm">歩きやすい靴 & 調整できる上着</span>
-                            <span class="text-xs text-gray-500 mt-1 block">3日目と4日目はかなり歩きます。また、朝晩は冷えるので上着必須です。</span>
-                        </div>
-                    </label>
-                </div>
+            <h3 class="text-sm font-bold text-gray-400 mb-3 uppercase tracking-widest">Check List</h3>
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <label class="flex items-center p-4 border-b border-gray-50 cursor-pointer hover:bg-pink-50 transition">
+                    <input type="checkbox" class="w-5 h-5 accent-pink-500 rounded border-gray-300">
+                    <span class="ml-3 text-sm font-bold text-gray-700">USJ エクスプレス・パス (印刷/スクショ)</span>
+                </label>
+                <label class="flex items-center p-4 border-b border-gray-50 cursor-pointer hover:bg-pink-50 transition">
+                    <input type="checkbox" class="w-5 h-5 accent-pink-500 rounded border-gray-300">
+                    <span class="ml-3 text-sm font-bold text-gray-700">海遊館・映画村 WEBチケット</span>
+                </label>
+                <label class="flex items-center p-4 border-b border-gray-50 cursor-pointer hover:bg-pink-50 transition">
+                    <input type="checkbox" class="w-5 h-5 accent-pink-500 rounded border-gray-300">
+                    <span class="ml-3 text-sm font-bold text-gray-700">歩きやすい靴 & 上着</span>
+                </label>
+                <label class="flex items-center p-4 cursor-pointer hover:bg-pink-50 transition">
+                    <input type="checkbox" class="w-5 h-5 accent-pink-500 rounded border-gray-300">
+                    <span class="ml-3 text-sm font-bold text-gray-700">スマホ充電器 & モバイルバッテリー</span>
+                </label>
             </div>
-        </section>
+        </div>
+
     </main>
 
-    <footer class="bg-white border-t py-8 text-center text-gray-300 text-[10px] tracking-widest uppercase">
-        <p>© 2026 KYOTO-OSAKA SPRING FAMILY TRIP</p>
-    </footer>
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 pb-safe pt-2 px-6 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-50 flex justify-between max-w-md mx-auto">
+        <button onclick="switchView('home')" class="nav-item active flex flex-col items-center w-16 p-1 rounded-xl transition-all" id="nav-home">
+            <div class="icon-box w-10 h-10 rounded-full flex items-center justify-center text-gray-400 mb-1 transition-colors">
+                <i class="fa-solid fa-house"></i>
+            </div>
+            <span class="text-[10px] font-bold text-gray-500">ホーム</span>
+        </button>
+        <button onclick="switchView('schedule')" class="nav-item flex flex-col items-center w-16 p-1 rounded-xl transition-all" id="nav-schedule">
+            <div class="icon-box w-10 h-10 rounded-full flex items-center justify-center text-gray-400 mb-1 transition-colors">
+                <i class="fa-regular fa-calendar-check"></i>
+            </div>
+            <span class="text-[10px] font-bold text-gray-500">日程表</span>
+        </button>
+        <button onclick="switchView('info')" class="nav-item flex flex-col items-center w-16 p-1 rounded-xl transition-all" id="nav-info">
+            <div class="icon-box w-10 h-10 rounded-full flex items-center justify-center text-gray-400 mb-1 transition-colors">
+                <i class="fa-solid fa-suitcase"></i>
+            </div>
+            <span class="text-[10px] font-bold text-gray-500">宿・準備</span>
+        </button>
+    </nav>
 
     <script>
-        const itineraryData = [
+        // --- データ定義 ---
+        const scheduleData = [
             {
-                date: "3/26 (木)",
-                title: "大阪到着 & 海遊館",
-                theme: "巨大水槽のアドベンチャーと食い倒れ",
-                chart: [20, 40, 40],
+                date: "3/26 (木)", title: "大阪城 & 海遊館",
+                image: "./day1_2.png",
                 events: [
-                    {t:"午後", i:"🏨", h:"ユニバーサルシティ駅到着", d:"ホテル京阪ユニバーサル・タワーにチェックイン（または荷物預け）。"},
-                    {t:"14:30", i:"🚢", h:"船で海遊館へ", d:"ホテル裏からシャトル船「キャプテンライン」で10分！クルーズ気分で移動。"},
-                    {t:"15:00", i:"🐠", h:"海遊館 (Kaiyukan)", d:"巨大水槽のジンベエザメを見学。17:00以降の「夜の海遊館」も幻想的。"},
-                    {t:"18:00", i:"🍱", h:"夕食タイム", d:"なにわ食いしんぼ横丁(海遊館横)やシティウォークで大阪名物を。"},
-                    {t:"20:00", i:"⏰", h:"ホテル帰着", d:"明日に備えて早めに就寝！コンビニで翌朝の軽食を買っておこう。"}
+                    { t: "09:00", i: "🚄", title: "大阪到着", desc: "新大阪/大阪駅着。まずは大阪城へ！", map: "大阪城" },
+                    { t: "13:00", i: "🏨", title: "ホテル京阪ユニバーサル・タワーへ", desc: "荷物はCrostaでホテルまで", map: "ホテル京阪ユニバーサル・タワー" },
+                    { t: "15:00", i: "🐠", title: "海遊館", desc: "シャトル船で移動。ジンベエザメ！", map: "海遊館" },
+                    { t: "18:00", i: "🍛", title: "夕食", desc: "なにわ食いしんぼ横丁(自由軒など)", map: "天保山マーケットプレース" }
                 ]
             },
             {
-                date: "3/27 (金)",
-                title: "USJ 全力投球！",
-                theme: "スーパー・ニンテンドー・ワールド狙いの戦闘開始",
-                chart: [5, 85, 10],
+                date: "3/27 (金)", title: "USJ 全力投球！",
+                image: "./day1_2.png",
                 events: [
-                    {t:"06:00", i:"⏰", h:"起床・準備", d:"春休みのUSJは激混み必至！動きやすい服で。"},
-                    {t:"06:30", i:"🏃", h:"⚠️ ホテル出発 (ゲート前待機)", d:"公式より早く開くことが多いため、この時間の出発が安全です。"},
-                    {t:"午前", i:"🍄", h:"マリオエリア攻略", d:"入場後すぐにアプリ整理券取得。エクスプレス・パスがあれば最強。"},
-                    {t:"昼食", i:"🍔", h:"混雑回避ランチ", d:"11:00頃か14:00頃に時間をずらしてパーク内で。"},
-                    {t:"午後", i:"🎢", h:"人気ライド & パレード", d:"閉園間際の雰囲気までたっぷり楽しみます。"},
-                    {t:"19:00", i:"🍖", h:"夕食 (パーク内)", d:"ハリーポッターエリアの三本の箒など、雰囲気の良い場所で。"},
-                    {t:"21:00", i:"♨️", h:"展望温泉でリフレッシュ", d:"足が棒になっているはず。31階の温泉で癒やしましょう。"}
+                    { t: "06:30", i: "🏃", title: "ホテル出発", desc: "ゲート前待機。開園ダッシュ！", map: "ユニバーサル・スタジオ・ジャパン" },
+                    { t: "午前", i: "🍄", title: "マリオエリア", desc: "整理券/確約券で入場。全力で遊ぶ", map: "" },
+                    { t: "19:00", i: "🍖", title: "夕食", desc: "パーク内 三本の箒など", map: "" },
+                    { t: "21:00", i: "♨️", title: "展望温泉", desc: "ホテル31階で疲れを癒やす", map: "" }
                 ]
             },
             {
-                date: "3/28 (土)",
-                title: "宇治・伏見稲荷 & 清水寺",
-                theme: "歴史スポット巡りと夜の特別拝観",
-                chart: [30, 50, 20],
+                date: "3/28 (土)", title: "宇治・伏見・清水",
+                image: "./day3_4.png",
                 events: [
-                    {t:"09:00", i:"🚃", h:"チェックアウト・移動", d:"大阪から京都駅へ移動（約45分）。"},
-                    {t:"10:00", i:"👜", h:"ひふみ旅館に荷物預け", d:"京都駅から徒歩3分。身軽になって宇治へ！"},
-                    {t:"11:30", i:"🍵", h:"平等院鳳凰堂 & ランチ", d:"⚠️「中村藤吉」は180分待ちの可能性。整理券確保を最優先に。"},
-                    {t:"14:00", i:"⛩️", h:"伏見稲荷 (千本鳥居)", d:"朱色の鳥居を散策。ここもかなり歩きます。スニーカー必須。"},
-                    {t:"16:30", i:"🚕", h:"⚠️ 渋滞回避ルート発動！", d:"夕方の東山は大渋滞。電車で清水五条へ行き、そこからタクシーで坂の下まで。"},
-                    {t:"19:00", i:"✨", h:"清水寺 夜の特別拝観", d:"ライトアップされた舞台と夜桜。昼間とは違う幻想的な景色。"},
-                    {t:"21:00", i:"🍵", h:"旅館チェックイン", d:"広い和室でようやくリラックス。お疲れ様でした。"}
+                    { t: "10:00", i: "👜", title: "荷物預け", desc: "京都駅 ひふみ旅館へ", map: "ひふみ旅館" },
+                    { t: "11:30", i: "🍵", title: "宇治 平等院", desc: "中村藤吉は整理券必須！", map: "平等院" },
+                    { t: "14:00", i: "⛩️", title: "伏見稲荷", desc: "千本鳥居。スニーカー推奨。", map: "伏見稲荷大社" },
+                    { t: "19:00", i: "✨", title: "清水寺 夜間拝観", desc: "タクシー移動推奨。幻想的な夜桜。", map: "清水寺" }
                 ]
             },
             {
-                date: "3/29 (日)",
-                title: "御所(蹴鞠) & 映画村",
-                theme: "王朝文化と忍者の里体験",
-                chart: [20, 60, 20],
+                date: "3/29 (日)", title: "御所・映画村",
+                image: "./day3_4.png",
                 events: [
-                    {t:"08:00", i:"🍚", h:"旅館の和朝食", d:"お膳で出る美味しい和朝食をゆっくり。"},
-                    {t:"10:00", i:"⚽", h:"✅ 京都御所 蹴鞠実演", d:"3/29は実演日！10:00/11:00から。平安の遊びを間近で。"},
-                    {t:"12:00", i:"🚕", h:"ランチ & 移動", d:"御所周辺でランチ後、タクシーで映画村へ（約25分）。"},
-                    {t:"13:30", i:"🥷", h:"東映太秦映画村", d:"忍者屋敷、立体迷路、チャンバラショー！子供が遊べる施設が豊富。"},
-                    {t:"18:30", i:"🍱", h:"夕食 (京都駅)", d:"伊勢丹レストラン街やポルタで。お土産の下見も兼ねて。"}
+                    { t: "10:00", i: "⚽", title: "京都御所 蹴鞠", desc: "実演日！平安の文化に触れる", map: "京都御所" },
+                    { t: "13:30", i: "🥷", title: "太秦映画村", desc: "忍者・ちゃんばら・立体迷路", map: "東映太秦映画村" },
+                    { t: "18:30", i: "🍱", title: "夕食", desc: "京都駅周辺（伊勢丹など）", map: "ジェイアール京都伊勢丹" }
                 ]
             },
             {
-                date: "3/30 (月)",
-                title: "石庭・金閣寺 & 嵐山",
-                theme: "最終日の絶景散策と帰路",
-                chart: [25, 50, 25],
+                date: "3/30 (月)", title: "金閣・嵐山・帰路",
+                image: "./day3_4.png", 
                 events: [
-                    {t:"08:30", i:"🚕", h:"タクシーで龍安寺へ", d:"旅館に荷物は預けたまま。朝一の静かな石庭へ。"},
-                    {t:"10:00", i:"✨", h:"金閣寺 (輝く舎利殿)", d:"龍安寺からすぐ。光り輝く金閣を背景に家族写真。"},
-                    {t:"11:00", i:"🚃", h:"嵐電で嵐山へ", d:"レトロな路面電車でお子様も楽しい移動。"},
-                    {t:"12:00", i:"🎋", h:"嵐山散策 & ランチ", d:"⚠️11時台の早め入店を。竹林の小径や渡月橋を満喫。"},
-                    {t:"16:30", i:"🚃", h:"⚠️ 混雑対策・京都駅へ", d:"嵯峨野線は夕方満員に。早めにホームへ。特急課金もアリ。"},
-                    {t:"17:30", i:"🍱", h:"お土産 & 駅弁購入", d:"旅館で荷物を拾い、新幹線の車内で食べる駅弁を購入。"},
-                    {t:"18:30", i:"🚅", h:"新幹線出発", d:"思い出を胸に帰路へ。お疲れ様でした！"}
+                    { t: "08:30", i: "🚕", title: "龍安寺", desc: "朝イチの石庭は静かでおすすめ", map: "龍安寺" },
+                    { t: "10:00", i: "✨", title: "金閣寺", desc: "輝く舎利殿で家族写真", map: "金閣寺" },
+                    { t: "12:00", i: "🎋", title: "嵐山・渡月橋", desc: "竹林の小径。早めランチ推奨", map: "嵐山 渡月橋" },
+                    { t: "18:30", i: "🚅", title: "新幹線", desc: "京都駅発。お疲れ様でした！", map: "京都駅" }
                 ]
             }
         ];
 
-        // Filenames confirmed in earlier step
-        const guideImages = ["day1_2.png", "day1_2.png", "day3_4.png", "day3_4.png", "day5_hotel.png"];
-        
-        let activityChart = null;
+        // --- ロジック ---
 
-        function navTo(id) {
-            // View toggle
+        // タブ切り替え
+        function switchView(viewName) {
+            // 全セクション非表示
             document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
-            document.getElementById(id).classList.remove('hidden');
-            
-            // Tab active toggle
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('nav-btn-active', 'bg-white', 'shadow-sm', 'text-pink-600'));
-            const activeBtn = document.getElementById('btn-' + id);
-            activeBtn.classList.add('nav-btn-active', 'bg-white', 'shadow-sm');
+            document.getElementById('view-' + viewName).classList.remove('hidden');
 
-            if (id === 'itinerary' && !activityChart) selectDay(0);
+            // ナビボタンのアクティブ切り替え
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            document.getElementById('nav-' + viewName).classList.add('active');
+
+            // 日程タブを開いた時の初期動作
+            if(viewName === 'schedule') {
+                autoSelectDay();
+            }
+            window.scrollTo(0,0);
         }
 
-        function selectDay(idx) {
-            // Day button active style
-            document.querySelectorAll('.day-btn').forEach((btn, i) => {
-                btn.style.borderColor = (i === idx ? '#f472b6' : '#f3f4f6');
-                btn.style.backgroundColor = (i === idx ? '#fdf2f8' : 'transparent');
-            });
-
-            const data = itineraryData[idx];
-            document.getElementById('current-day-title').textContent = data.date + " " + data.title;
-            document.getElementById('current-day-theme').textContent = data.theme;
+        // 日程レンダリング
+        function renderDay(index) {
+            const data = scheduleData[index];
+            const container = document.getElementById('day-content');
             
-            // Image update (Renamed to match user's GitHub structure)
-            const imgEl = document.getElementById('daily-guide-img');
-            imgEl.src = guideImages[idx];
-
-            const cont = document.getElementById('timeline-container');
-            cont.innerHTML = '<div class="timeline-line"></div>';
-            
-            data.events.forEach((e, i) => {
-                const item = document.createElement('div');
-                item.className = 'timeline-item flex gap-4 mb-8 opacity-0 animate-[fadeIn_0.5s_ease-out_forwards]';
-                item.style.animationDelay = (i * 0.1) + 's';
-                item.innerHTML = `
-                    <div class="w-12 text-right text-[10px] font-bold text-gray-300 pt-1.5">${e.t}</div>
-                    <div class="relative flex-grow pl-4">
-                        <div class="absolute -left-[22px] top-2 w-3.5 h-3.5 rounded-full bg-white border-2 border-pink-300 ring-4 ring-pink-50"></div>
-                        <h4 class="font-bold text-sm text-gray-800 leading-tight">${e.i} ${e.h}</h4>
-                        <p class="text-xs text-gray-500 mt-1.5 leading-relaxed">${e.d}</p>
-                    </div>`;
-                cont.appendChild(item);
-            });
-
-            updateChart(data.chart);
-        }
-
-        function updateChart(vals) {
-            const ctx = document.getElementById('activityChart').getContext('2d');
-            if (activityChart) activityChart.destroy();
-            activityChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['移動', '観光/遊び', '食事/休憩'],
-                    datasets: [{
-                        data: vals,
-                        backgroundColor: ['#bfdbfe', '#fbcfe8', '#fde68a'],
-                        borderWidth: 0,
-                        hoverOffset: 10
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: '75%',
-                    plugins: {
-                        legend: { position: 'bottom', labels: { boxWidth: 8, font: { size: 9, family: "'Zen Maru Gothic', sans-serif" }, usePointStyle: true } }
-                    }
+            // タブのスタイル更新
+            document.querySelectorAll('.day-tab').forEach((el, i) => {
+                if (i === index) {
+                    el.classList.add('bg-pink-500', 'text-white', 'border-pink-600', 'shadow-md');
+                    el.classList.remove('bg-white', 'text-gray-500');
+                } else {
+                    el.classList.remove('bg-pink-500', 'text-white', 'border-pink-600', 'shadow-md');
+                    el.classList.add('bg-white', 'text-gray-500');
                 }
             });
+
+            let html = `
+                <div class="mt-4 mb-6 text-center fade-enter">
+                    <h2 class="text-xl font-bold text-gray-800">${data.title}</h2>
+                    <p class="text-xs text-pink-500 font-bold tracking-widest uppercase">${data.date}</p>
+                </div>
+                
+                <div class="bg-white p-2 rounded-xl border border-gray-100 shadow-sm mb-6 fade-enter">
+                    <img src="${data.image}" class="w-full rounded-lg" onerror="this.style.display='none'">
+                </div>
+
+                <div class="relative pl-4 space-y-8 fade-enter">
+                    <div class="absolute left-[27px] top-2 bottom-2 w-0.5 bg-pink-100"></div>
+            `;
+
+            data.events.forEach(e => {
+                const mapBtn = e.map ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(e.map)}" target="_blank" class="ml-auto bg-gray-100 text-[10px] text-gray-500 px-3 py-1.5 rounded-full font-bold hover:bg-pink-100 hover:text-pink-600 transition"><i class="fa-solid fa-map-location-dot mr-1"></i>マップ</a>` : '';
+                
+                html += `
+                    <div class="relative flex gap-4 items-start">
+                        <div class="z-10 w-6 h-6 rounded-full bg-white border-2 border-pink-400 flex items-center justify-center text-[10px] shrink-0 mt-1 shadow-sm">
+                            ${e.i}
+                        </div>
+                        <div class="flex-grow bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="text-pink-400 text-xs font-bold">${e.t}</span>
+                                ${mapBtn}
+                            </div>
+                            <h3 class="font-bold text-gray-800">${e.title}</h3>
+                            <p class="text-xs text-gray-500 mt-1 leading-relaxed">${e.desc}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div>`; // end timeline
+            
+            // フッター余白（最終日のみメッセージ）
+            if(index === 4) {
+                html += `<div class="mt-10 text-center text-xs text-gray-300 font-bold">HAVE A NICE TRIP! 🌸</div>`;
+            }
+
+            container.innerHTML = html;
         }
 
-        document.addEventListener('DOMContentLoaded', () => navTo('overview'));
+        // 日付自動判定
+        function autoSelectDay() {
+            const today = new Date();
+            const month = today.getMonth() + 1;
+            const date = today.getDate();
+            
+            // 旅行期間判定 (2026年想定だが、日付だけで簡易判定)
+            if (month === 3) {
+                if (date === 26) renderDay(0);
+                else if (date === 27) renderDay(1);
+                else if (date === 28) renderDay(2);
+                else if (date === 29) renderDay(3);
+                else if (date === 30) renderDay(4);
+                else renderDay(0); // 期間外は初日
+            } else {
+                renderDay(0);
+            }
+            
+            // スムーズスクロールで該当タブを表示
+            const activeTab = document.querySelector('.bg-pink-500');
+            if(activeTab) {
+                activeTab.scrollIntoView({behavior: "smooth", inline: "center"});
+            }
+        }
+
+        // 初期化
+        document.addEventListener('DOMContentLoaded', () => {
+            switchView('home');
+        });
+
     </script>
 </body>
 </html>
