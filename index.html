@@ -15,7 +15,7 @@
             color: #334155;
             padding-bottom: 80px; /* Bottom Navの分だけ空ける */
         }
-        /* スクロールバー非表示（見た目スッキリ） */
+        /* スクロールバー非表示 */
         .hide-scroll::-webkit-scrollbar {
             display: none;
         }
@@ -37,6 +37,10 @@
         .nav-item.active .icon-box {
             background-color: #fdf2f8; /* pink-50 */
             color: #db2777; /* pink-600 */
+        }
+        /* 天気バッジのスタイル */
+        .weather-badge {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; /* 数字を見やすく */
         }
     </style>
 </head>
@@ -231,9 +235,11 @@
 
     <script>
         // --- データ定義 ---
+        // isoDate, lat, lon を追加
         const scheduleData = [
             {
                 date: "3/26 (木)", title: "大阪城・古墳・海遊館",
+                isoDate: "2026-03-26", lat: 34.6937, lon: 135.5023,
                 image: "./day1_2.png",
                 events: [
                     { t: "09:00", i: "🚄", title: "大阪着 & 荷物配送", desc: "新大阪駅「Crosta」でホテルへ荷物送付。手ぶらで開始！", map: "新大阪駅 キャリーサービス" },
@@ -247,6 +253,7 @@
             },
             {
                 date: "3/27 (金)", title: "USJ 全力投球！",
+                isoDate: "2026-03-27", lat: 34.6654, lon: 135.4323,
                 image: "./day1_2.png",
                 events: [
                     { t: "06:30", i: "🏃", title: "ホテル出発", desc: "ゲート前待機。開園ダッシュ！", map: "ユニバーサル・スタジオ・ジャパン" },
@@ -257,6 +264,7 @@
             },
             {
                 date: "3/28 (土)", title: "宇治・伏見・清水",
+                isoDate: "2026-03-28", lat: 35.0116, lon: 135.7681,
                 image: "./day3_4.png",
                 events: [
                     { t: "10:00", i: "👜", title: "荷物預け", desc: "京都駅 ひふみ旅館へ", map: "ひふみ旅館" },
@@ -274,6 +282,7 @@
             },
             {
                 date: "3/29 (日)", title: "御所・映画村・ご馳走",
+                isoDate: "2026-03-29", lat: 35.0116, lon: 135.7681,
                 image: "./day3_4.png",
                 events: [
                     { t: "10:00", i: "⚽", title: "京都御所 蹴鞠", desc: "実演日！平安の文化に触れる", map: "京都御所" },
@@ -289,6 +298,7 @@
             },
             {
                 date: "3/30 (月)", title: "金閣・嵐山・帰路",
+                isoDate: "2026-03-30", lat: 35.0116, lon: 135.7681,
                 image: "./day5_hotel.png", 
                 events: [
                     { t: "08:30", i: "🚕", title: "龍安寺", desc: "朝イチの石庭は静かでおすすめ", map: "龍安寺" },
@@ -334,9 +344,13 @@
                 }
             });
 
+            // HTML生成: タイトルと天気を横並び(Flex)に
             let html = `
                 <div class="mt-4 mb-6 text-center fade-enter">
-                    <h2 class="text-xl font-bold text-gray-800">${data.title}</h2>
+                    <div class="flex flex-wrap justify-center items-center gap-x-2 gap-y-1 mb-1">
+                        <h2 class="text-xl font-bold text-gray-800">${data.title}</h2>
+                        <div id="weather-display" class="empty:hidden"></div>
+                    </div>
                     <p class="text-xs text-pink-500 font-bold tracking-widest uppercase">${data.date}</p>
                 </div>
                 
@@ -376,6 +390,63 @@
             }
 
             container.innerHTML = html;
+            
+            // 天気取得呼び出し
+            if(data.isoDate && data.lat) {
+                fetchWeather(data.lat, data.lon, data.isoDate);
+            }
+        }
+
+        // 天気取得 (Open-Meteo API)
+        async function fetchWeather(lat, lon, date) {
+            const display = document.getElementById('weather-display');
+            if (!lat || !date || !display) return;
+
+            // スッキリさせるため、ローディング中は何も出さない(または最小限)
+            // display.innerHTML = `<i class="fa-solid fa-spinner fa-spin text-gray-300 text-xs"></i>`;
+
+            try {
+                // API URL (過去データではなく予報データを取得)
+                // daily=weathercode,temperature_2m_max,temperature_2m_min
+                const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&start_date=${date}&end_date=${date}`;
+                
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.daily && data.daily.weathercode && data.daily.weathercode.length > 0) {
+                    const code = data.daily.weathercode[0];
+                    const max = Math.round(data.daily.temperature_2m_max[0]);
+                    const min = Math.round(data.daily.temperature_2m_min[0]);
+                    const weatherIcon = getWeatherIcon(code);
+                    
+                    // スッキリしたPillデザイン
+                    display.innerHTML = `
+                        <div class="weather-badge inline-flex items-center gap-1.5 bg-blue-50 px-2.5 py-1 rounded-full text-blue-600 border border-blue-100 shadow-sm animate-[fadeEnter_0.5s]">
+                            <span class="text-sm">${weatherIcon}</span> 
+                            <span class="text-xs font-bold tracking-tight">${max}<span class="text-[9px] opacity-70">℃</span> / ${min}<span class="text-[9px] opacity-70">℃</span></span>
+                        </div>
+                    `;
+                } else {
+                    // データがまだない場合 (16日以上先) -> 何も表示しない (スッキリ維持)
+                    display.innerHTML = "";
+                }
+            } catch (e) {
+                console.error("Weather fetch failed", e);
+                display.innerHTML = ""; // エラー時も非表示で見た目を守る
+            }
+        }
+
+        // 天気コード変換
+        function getWeatherIcon(code) {
+            // WMO Weather interpretation codes (WW)
+            if (code === 0) return "☀️"; // 快晴
+            if (code === 1 || code === 2 || code === 3) return "⛅"; // 晴れ・薄曇り
+            if (code >= 45 && code <= 48) return "🌫️"; // 霧
+            if (code >= 51 && code <= 67) return "☂️"; // 雨
+            if (code >= 71 && code <= 77) return "☃️"; // 雪
+            if (code >= 80 && code <= 82) return "☔"; // にわか雨
+            if (code >= 95) return "⚡"; // 雷雨
+            return "☁️";
         }
 
         // 日付自動判定
