@@ -57,6 +57,18 @@
         .crowd-high   { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
         .crowd-medium { background: #fefce8; color: #ca8a04; border: 1px solid #fde68a; }
         .crowd-low    { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+        /* スワイプヒント */
+        .swipe-hint {
+            animation: swipeHint 2s ease-in-out 1s 1;
+            opacity: 0;
+        }
+        @keyframes swipeHint {
+            0% { opacity: 0; transform: translateX(0); }
+            20% { opacity: 1; }
+            50% { opacity: 1; transform: translateX(-15px); }
+            80% { opacity: 1; transform: translateX(0); }
+            100% { opacity: 0; }
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -80,10 +92,11 @@
                 <div class="relative z-10">
                     <p class="text-xs font-bold opacity-80 mb-1">TRIP THEME</p>
                     <h2 class="text-2xl font-bold leading-tight mb-2">USJ全力遊び &<br>京都の歴史満喫</h2>
-                    <div class="mt-4 flex gap-2">
+                    <div class="mt-4 flex gap-2 flex-wrap">
                         <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm">👨‍👩‍👧‍👦 家族4人</span>
                         <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm">🚄 4泊5日</span>
                     </div>
+                    <div id="countdown-display" class="mt-3"></div>
                 </div>
                 <i class="fa-solid fa-torii-gate absolute -bottom-4 -right-4 text-9xl text-white opacity-10 rotate-12"></i>
             </div>
@@ -175,6 +188,15 @@
 
             <div id="day-content" class="pb-20">
                 </div>
+            <div id="day-nav-buttons" class="flex justify-between items-center px-2 pb-6 -mt-14">
+                <button id="prev-day-btn" onclick="if(currentDayIndex>0) renderDay(currentDayIndex-1)" class="bg-white shadow-md border border-gray-200 text-gray-500 w-10 h-10 rounded-full flex items-center justify-center text-sm active:scale-90 transition hover:bg-pink-50 hover:text-pink-500 disabled:opacity-30">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <span class="swipe-hint text-[10px] text-gray-300"><i class="fa-solid fa-hand-point-up mr-1"></i>スワイプで日程切替</span>
+                <button id="next-day-btn" onclick="if(currentDayIndex<4) renderDay(currentDayIndex+1)" class="bg-white shadow-md border border-gray-200 text-gray-500 w-10 h-10 rounded-full flex items-center justify-center text-sm active:scale-90 transition hover:bg-pink-50 hover:text-pink-500 disabled:opacity-30">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
         </div>
 
         <div id="view-info" class="view-section hidden fade-enter">
@@ -207,7 +229,7 @@
             </div>
 
             <h3 class="text-sm font-bold text-gray-400 mb-3 uppercase tracking-widest">Check List</h3>
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-8">
                 <label class="flex items-center p-4 border-b border-gray-50 cursor-pointer hover:bg-pink-50 transition">
                     <input type="checkbox" class="w-5 h-5 accent-pink-500 rounded border-gray-300">
                     <span class="ml-3 text-sm font-bold text-gray-700">USJ エクスプレス・パス (印刷/スクショ)</span>
@@ -224,6 +246,51 @@
                     <input type="checkbox" class="w-5 h-5 accent-pink-500 rounded border-gray-300">
                     <span class="ml-3 text-sm font-bold text-gray-700">スマホ充電器 & モバイルバッテリー</span>
                 </label>
+            </div>
+
+            <h3 class="text-sm font-bold text-gray-400 mb-3 uppercase tracking-widest">Useful Info</h3>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-4">
+                <div class="p-4 border-b border-gray-50">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-7 h-7 rounded-full bg-red-100 flex items-center justify-center text-red-500 text-xs"><i class="fa-solid fa-phone"></i></div>
+                        <span class="text-sm font-bold text-gray-800">緊急連絡先</span>
+                    </div>
+                    <div class="space-y-1.5 text-xs text-gray-600 ml-9">
+                        <p><span class="font-bold">警察:</span> <a href="tel:110" class="text-blue-500 underline">110</a></p>
+                        <p><span class="font-bold">救急・消防:</span> <a href="tel:119" class="text-blue-500 underline">119</a></p>
+                        <p><span class="font-bold">災害伝言ダイヤル:</span> <a href="tel:171" class="text-blue-500 underline">171</a></p>
+                    </div>
+                </div>
+                <div class="p-4 border-b border-gray-50">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center text-blue-500 text-xs"><i class="fa-solid fa-train"></i></div>
+                        <span class="text-sm font-bold text-gray-800">交通ICカード</span>
+                    </div>
+                    <p class="text-xs text-gray-600 ml-9">ICOCA / Suica / PASMO 利用可。<br>バス・地下鉄・JR全てタッチ決済OK。<br>チャージは各駅の券売機で。</p>
+                </div>
+                <div class="p-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-7 h-7 rounded-full bg-purple-100 flex items-center justify-center text-purple-500 text-xs"><i class="fa-solid fa-kit-medical"></i></div>
+                        <span class="text-sm font-bold text-gray-800">体調管理メモ</span>
+                    </div>
+                    <p class="text-xs text-gray-600 ml-9">3月下旬の大阪・京都は日中15-18℃、<br>朝晩は10℃前後。薄手の上着必須。<br>花粉シーズン — マスク・目薬を推奨。</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-20">
+                <div class="p-4 border-b border-gray-50">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-7 h-7 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600 text-xs"><i class="fa-solid fa-lightbulb"></i></div>
+                        <span class="text-sm font-bold text-gray-800">旅のコツ</span>
+                    </div>
+                    <div class="space-y-2 text-xs text-gray-600 ml-9">
+                        <p><i class="fa-solid fa-shoe-prints text-pink-400 mr-1"></i> 1日1万歩以上歩くので靴選びが重要</p>
+                        <p><i class="fa-solid fa-clock text-pink-400 mr-1"></i> 人気スポットは朝イチか夕方以降が穴場</p>
+                        <p><i class="fa-solid fa-coins text-pink-400 mr-1"></i> 寺社仏閣は現金のみの場所が多い</p>
+                        <p><i class="fa-solid fa-bottle-water text-pink-400 mr-1"></i> こまめな水分補給と休憩を忘れずに</p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -259,12 +326,12 @@
                 isoDate: "2026-03-26", lat: 34.6937, lon: 135.5023,
                 image: "./day1_2.png",
                 events: [
-                    { t: "09:00", i: "🚄", title: "大阪着 & 荷物配送", desc: "新大阪駅「Crosta」でホテルへ荷物送付。手ぶらで開始！", map: "新大阪駅 キャリーサービス" },
-                    { t: "10:00", i: "🏯", title: "大阪城", desc: "公園散策と天守閣見学。春の風を感じて。", map: "大阪城天守閣", crowd: "high" },
-                    { t: "11:00", i: "🍽️", title: "早めのランチ", desc: "JO-TERRACE OSAKAにて。混雑回避。", map: "JO-TERRACE OSAKA", crowd: "medium" },
-                    { t: "13:00", i: "🔑", title: "大仙古墳 (仁徳天皇陵)", desc: "世界最大級の古墳。百舌鳥駅すぐ。", map: "仁徳天皇陵 拝所", crowd: "low" },
-                    { t: "15:30", i: "🐠", title: "海遊館", desc: "夕方〜夜の海遊館。ジンベエザメ鑑賞。", map: "海遊館", crowd: "medium" },
-                    { t: "18:00", i: "🚢", title: "キャプテンライン", desc: "海遊館裏からシャトル船でUSJエリアへ直行。", map: "キャプテンライン 海遊館西はとば", crowd: "low" },
+                    { t: "09:00", i: "🚄", title: "大阪着 & 荷物配送", desc: "新大阪駅「Crosta」でホテルへ荷物送付。手ぶらで開始！", map: "新大阪駅 キャリーサービス", move: "🚃 JR大阪環状線 約20分" },
+                    { t: "10:00", i: "🏯", title: "大阪城", desc: "公園散策と天守閣見学。春の風を感じて。", map: "大阪城天守閣", crowd: "high", move: "🚶 徒歩すぐ (公園内)" },
+                    { t: "11:00", i: "🍽️", title: "早めのランチ", desc: "JO-TERRACE OSAKAにて。混雑回避。", map: "JO-TERRACE OSAKA", crowd: "medium", move: "🚃 JR阪和線 約40分" },
+                    { t: "13:00", i: "🔑", title: "大仙古墳 (仁徳天皇陵)", desc: "世界最大級の古墳。百舌鳥駅すぐ。", map: "仁徳天皇陵 拝所", crowd: "low", move: "🚃 JR+地下鉄 約50分" },
+                    { t: "15:30", i: "🐠", title: "海遊館", desc: "夕方〜夜の海遊館。ジンベエザメ鑑賞。", map: "海遊館", crowd: "medium", move: "🚢 キャプテンライン 約10分" },
+                    { t: "18:00", i: "🚢", title: "キャプテンライン", desc: "海遊館裏からシャトル船でUSJエリアへ直行。", map: "キャプテンライン 海遊館西はとば", crowd: "low", move: "🚶 徒歩 約5分" },
                     { t: "18:30", i: "🏨", title: "ホテル チェックイン", desc: "ホテル京阪で荷物受取。夕食はシティウォークで。", map: "ホテル京阪ユニバーサル・タワー" }
                 ]
             },
@@ -273,9 +340,9 @@
                 isoDate: "2026-03-27", lat: 34.6654, lon: 135.4323,
                 image: "./day1_2.png",
                 events: [
-                    { t: "06:30", i: "🏃", title: "ホテル出発", desc: "ゲート前待機。開園ダッシュ！", map: "ユニバーサル・スタジオ・ジャパン" },
+                    { t: "06:30", i: "🏃", title: "ホテル出発", desc: "ゲート前待機。開園ダッシュ！", map: "ユニバーサル・スタジオ・ジャパン", move: "🚶 徒歩 約5分" },
                     { t: "午前", i: "🍄", title: "マリオエリア", desc: "整理券/確約券で入場。全力で遊ぶ", map: "", crowd: "high" },
-                    { t: "19:00", i: "🍖", title: "夕食", desc: "パーク内 三本の箒など", map: "", crowd: "high" },
+                    { t: "19:00", i: "🍖", title: "夕食", desc: "パーク内 三本の箒など", map: "", crowd: "high", move: "🚶 パーク内移動" },
                     { t: "21:00", i: "♨️", title: "展望温泉", desc: "ホテル31階で疲れを癒やす", map: "", crowd: "low" }
                 ]
             },
@@ -284,16 +351,17 @@
                 isoDate: "2026-03-28", lat: 35.0116, lon: 135.7681,
                 image: "./day3_4.png",
                 events: [
-                    { t: "10:00", i: "👜", title: "荷物預け", desc: "京都駅 アパホテルへ", map: "アパホテル 京都駅北" },
-                    { t: "11:30", i: "🍵", title: "宇治 平等院", desc: "中村藤吉は整理券必須！", map: "平等院", crowd: "high" },
-                    { t: "14:00", i: "⛩️", title: "伏見稲荷", desc: "千本鳥居。スニーカー推奨。", map: "伏見稲荷大社", crowd: "high" },
+                    { t: "10:00", i: "👜", title: "荷物預け", desc: "京都駅 アパホテルへ", map: "アパホテル 京都駅北", move: "🚃 JR奈良線 約20分" },
+                    { t: "11:30", i: "🍵", title: "宇治 平等院", desc: "中村藤吉は整理券必須！", map: "平等院", crowd: "high", move: "🚃 JR奈良線+京阪 約40分" },
+                    { t: "14:00", i: "⛩️", title: "伏見稲荷", desc: "千本鳥居。スニーカー推奨。", map: "伏見稲荷大社", crowd: "high", move: "🚃 JR奈良線 約10分 → 京都駅" },
                     {
                         t: "17:00",
                         i: "🥢",
                         title: "夕食：京野菜料理 接方来",
                         desc: "予約済：17:00〜19:00 (6名)<br>場所：京都駅ビル店",
                         map: "接方来 京都駅ビル店",
-                        crowd: "low"
+                        crowd: "low",
+                        move: "🚕 タクシー 約15分"
                     },
                     { t: "19:00", i: "✨", title: "清水寺 夜間拝観", desc: "タクシー移動推奨。幻想的な夜桜。", map: "清水寺", crowd: "high" }
                 ]
@@ -303,8 +371,8 @@
                 isoDate: "2026-03-29", lat: 35.0116, lon: 135.7681,
                 image: "./day3_4.png",
                 events: [
-                    { t: "10:00", i: "⚽", title: "京都御所 蹴鞠", desc: "実演日！平安の文化に触れる", map: "京都御所", crowd: "medium" },
-                    { t: "13:30", i: "🥷", title: "太秦映画村", desc: "忍者・ちゃんばら・立体迷路", map: "東映太秦映画村", crowd: "medium" },
+                    { t: "10:00", i: "⚽", title: "京都御所 蹴鞠", desc: "実演日！平安の文化に触れる", map: "京都御所", crowd: "medium", move: "🚃 地下鉄+嵐電 約40分" },
+                    { t: "13:30", i: "🥷", title: "太秦映画村", desc: "忍者・ちゃんばら・立体迷路", map: "東映太秦映画村", crowd: "medium", move: "🚃 嵐電+JR 約40分 → 京都駅" },
                     {
                         t: "18:30",
                         i: "🍢",
@@ -320,17 +388,18 @@
                 isoDate: "2026-03-30", lat: 35.0133, lon: 135.6778, // 嵐山周辺の座標
                 image: "./day5_hotel.png",
                 events: [
-                    { t: "08:30", i: "🚕", title: "龍安寺", desc: "朝イチの石庭は静かでおすすめ", map: "龍安寺", crowd: "low" },
-                    { t: "10:00", i: "✨", title: "金閣寺", desc: "輝く舎利殿で家族写真", map: "金閣寺", crowd: "high" },
+                    { t: "08:30", i: "🚕", title: "龍安寺", desc: "朝イチの石庭は静かでおすすめ", map: "龍安寺", crowd: "low", move: "🚌 市バス 約15分" },
+                    { t: "10:00", i: "✨", title: "金閣寺", desc: "輝く舎利殿で家族写真", map: "金閣寺", crowd: "high", move: "🚕 タクシー 約20分" },
                     {
                         t: "11:30",
                         i: "🍱",
                         title: "昼食 & 温泉：花のいえ",
                         desc: "予約済：11:30〜 (6名/Pあり)<br>個室会席「嵯峨野」＆子供懐石<br>15時まで滞在可・温泉入浴OK♨️",
                         map: "花のいえ",
-                        crowd: "low"
+                        crowd: "low",
+                        move: "🚶 徒歩 約15分"
                     },
-                    { t: "15:00", i: "🎋", title: "嵐山散策", desc: "渡月橋・竹林の小径など。<br>お土産購入タイム。", map: "嵐山 渡月橋", crowd: "medium" },
+                    { t: "15:00", i: "🎋", title: "嵐山散策", desc: "渡月橋・竹林の小径など。<br>お土産購入タイム。", map: "嵐山 渡月橋", crowd: "medium", move: "🚃 JR嵯峨野線 約15分 → 京都駅" },
                     { t: "18:30", i: "🚅", title: "新幹線", desc: "京都駅発。お疲れ様でした！", map: "京都駅" }
                 ]
             }
@@ -390,12 +459,12 @@
                     <div class="absolute left-[27px] top-2 bottom-2 w-0.5 bg-pink-100"></div>
             `;
 
-            data.events.forEach(e => {
+            data.events.forEach((e, idx) => {
                 const mapBtn = e.map ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(e.map)}" target="_blank" class="ml-auto bg-gray-100 text-[10px] text-gray-500 px-3 py-1.5 rounded-full font-bold hover:bg-pink-100 hover:text-pink-600 transition"><i class="fa-solid fa-map-location-dot mr-1"></i>マップ</a>` : '';
                 const crowdBadge = getCrowdBadge(e.crowd);
 
                 html += `
-                    <div class="relative flex gap-4 items-start">
+                    <div class="event-card relative flex gap-4 items-start">
                         <div class="z-10 w-6 h-6 rounded-full bg-white border-2 border-pink-400 flex items-center justify-center text-[10px] shrink-0 mt-1 shadow-sm">
                             ${e.i}
                         </div>
@@ -412,6 +481,17 @@
                         </div>
                     </div>
                 `;
+
+                // 移動手段の表示（次のイベントがある場合のみ）
+                if (e.move && idx < data.events.length - 1) {
+                    html += `
+                        <div class="relative flex gap-4 items-center ml-[11px] -my-3">
+                            <div class="z-10 w-auto pl-6 flex items-center">
+                                <span class="text-[10px] text-gray-400 bg-gray-50 px-2 py-0.5 rounded-full border border-gray-100 whitespace-nowrap"><i class="fa-solid fa-route mr-1 text-pink-300"></i>${e.move}</span>
+                            </div>
+                        </div>
+                    `;
+                }
             });
 
             html += `</div>`; // end timeline
@@ -519,8 +599,137 @@
             }
         }
 
+        // --- カウントダウン ---
+        function updateCountdown() {
+            const display = document.getElementById('countdown-display');
+            if (!display) return;
+            const now = new Date();
+            const tripStart = new Date('2026-03-26T00:00:00+09:00');
+            const tripEnd   = new Date('2026-03-30T23:59:59+09:00');
+
+            if (now < tripStart) {
+                const diff = Math.ceil((tripStart - now) / (1000 * 60 * 60 * 24));
+                display.innerHTML = `<div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 inline-block"><span class="text-2xl font-bold">${diff}</span><span class="text-xs font-bold ml-1">日後に出発!</span></div>`;
+            } else if (now <= tripEnd) {
+                const dayNum = Math.floor((now - tripStart) / (1000 * 60 * 60 * 24)) + 1;
+                display.innerHTML = `<div class="bg-white/30 backdrop-blur-sm rounded-xl px-4 py-2 inline-block animate-pulse"><span class="text-xs font-bold">旅行</span><span class="text-2xl font-bold mx-1">${dayNum}</span><span class="text-xs font-bold">日目！楽しんで!</span></div>`;
+            } else {
+                display.innerHTML = `<div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 inline-block"><span class="text-xs font-bold">お疲れ様でした! 素敵な思い出に</span></div>`;
+            }
+        }
+
+        // --- チェックリスト localStorage 永続化 ---
+        function initChecklist() {
+            const checkboxes = document.querySelectorAll('#view-info input[type="checkbox"]');
+            const saved = JSON.parse(localStorage.getItem('tripChecklist') || '[]');
+            checkboxes.forEach((cb, i) => {
+                if (saved[i]) cb.checked = true;
+                cb.addEventListener('change', () => {
+                    const states = [];
+                    checkboxes.forEach(c => states.push(c.checked));
+                    localStorage.setItem('tripChecklist', JSON.stringify(states));
+                });
+            });
+        }
+
+        // --- 現在のアクティビティ判定 ---
+        function getCurrentEventIndex(events, isoDate) {
+            const now = new Date();
+            const eventDate = new Date(isoDate + 'T00:00:00+09:00');
+            // 旅行日でなければハイライトなし
+            if (now.toDateString() !== eventDate.toDateString()) return { current: -1, next: -1 };
+
+            const currentHour = now.getHours();
+            const currentMin = now.getMinutes();
+            const nowMinutes = currentHour * 60 + currentMin;
+
+            let current = -1;
+            let next = -1;
+
+            for (let i = 0; i < events.length; i++) {
+                const t = events[i].t;
+                const match = t.match(/(\d{1,2}):(\d{2})/);
+                if (!match) continue;
+                const evtMinutes = parseInt(match[1]) * 60 + parseInt(match[2]);
+                if (nowMinutes >= evtMinutes) {
+                    current = i;
+                    next = i + 1 < events.length ? i + 1 : -1;
+                }
+            }
+            return { current, next };
+        }
+
+        // --- スワイプナビゲーション ---
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let currentDayIndex = 0;
+
+        function initSwipe() {
+            const container = document.getElementById('day-content');
+            container.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+            container.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+        }
+
+        function handleSwipe() {
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) < 60) return; // 閾値未満は無視
+            if (diff > 0 && currentDayIndex < 4) {
+                renderDay(currentDayIndex + 1);
+            } else if (diff < 0 && currentDayIndex > 0) {
+                renderDay(currentDayIndex - 1);
+            }
+        }
+
+        // renderDay を拡張: currentDayIndex を記録 & 現在地ハイライト対応
+        const _origRenderDay = renderDay;
+        renderDay = function(index) {
+            currentDayIndex = index;
+            _origRenderDay(index);
+
+            // 現在のアクティビティをハイライト
+            const data = scheduleData[index];
+            const { current, next } = getCurrentEventIndex(data.events, data.isoDate);
+            const cards = document.querySelectorAll('#day-content .event-card');
+            cards.forEach((card, i) => {
+                const inner = card.querySelector('.bg-white.p-4');
+                if (!inner) return;
+                if (i === current) {
+                    inner.classList.remove('bg-white', 'border-gray-100');
+                    inner.classList.add('bg-pink-50', 'border-pink-300', 'ring-2', 'ring-pink-200');
+                    // 「いまココ」バッジ
+                    const badge = document.createElement('span');
+                    badge.className = 'absolute -top-2 -left-1 bg-pink-500 text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow z-20';
+                    badge.textContent = 'いまココ';
+                    card.style.position = 'relative';
+                    card.appendChild(badge);
+                } else if (i === next) {
+                    inner.classList.remove('border-gray-100');
+                    inner.classList.add('border-blue-200');
+                    const badge = document.createElement('span');
+                    badge.className = 'absolute -top-2 -left-1 bg-blue-500 text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow z-20';
+                    badge.textContent = 'つぎ';
+                    card.style.position = 'relative';
+                    card.appendChild(badge);
+                }
+            });
+
+            // アクティブタブをスクロール
+            const activeTab = document.getElementById('tab-' + index);
+            if (activeTab) {
+                activeTab.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+            }
+        };
+
         // 初期化
         document.addEventListener('DOMContentLoaded', () => {
+            updateCountdown();
+            initChecklist();
+            initSwipe();
             switchView('home');
         });
 
