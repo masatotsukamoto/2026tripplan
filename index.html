@@ -42,6 +42,21 @@
         .weather-badge {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; /* 数字を見やすく */
         }
+        /* 混雑バッジのスタイル */
+        .crowd-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            font-size: 10px;
+            padding: 2px 7px;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            white-space: nowrap;
+        }
+        .crowd-high   { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+        .crowd-medium { background: #fefce8; color: #ca8a04; border: 1px solid #fde68a; }
+        .crowd-low    { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
     </style>
 </head>
 <body class="min-h-screen">
@@ -245,11 +260,11 @@
                 image: "./day1_2.png",
                 events: [
                     { t: "09:00", i: "🚄", title: "大阪着 & 荷物配送", desc: "新大阪駅「Crosta」でホテルへ荷物送付。手ぶらで開始！", map: "新大阪駅 キャリーサービス" },
-                    { t: "10:00", i: "🏯", title: "大阪城", desc: "公園散策と天守閣見学。春の風を感じて。", map: "大阪城天守閣" },
-                    { t: "11:00", i: "🍽️", title: "早めのランチ", desc: "JO-TERRACE OSAKAにて。混雑回避。", map: "JO-TERRACE OSAKA" },
-                    { t: "13:00", i: "🔑", title: "大仙古墳 (仁徳天皇陵)", desc: "世界最大級の古墳。百舌鳥駅すぐ。", map: "仁徳天皇陵 拝所" },
-                    { t: "15:30", i: "🐠", title: "海遊館", desc: "夕方〜夜の海遊館。ジンベエザメ鑑賞。", map: "海遊館" },
-                    { t: "18:00", i: "🚢", title: "キャプテンライン", desc: "海遊館裏からシャトル船でUSJエリアへ直行。", map: "キャプテンライン 海遊館西はとば" },
+                    { t: "10:00", i: "🏯", title: "大阪城", desc: "公園散策と天守閣見学。春の風を感じて。", map: "大阪城天守閣", crowd: "high" },
+                    { t: "11:00", i: "🍽️", title: "早めのランチ", desc: "JO-TERRACE OSAKAにて。混雑回避。", map: "JO-TERRACE OSAKA", crowd: "medium" },
+                    { t: "13:00", i: "🔑", title: "大仙古墳 (仁徳天皇陵)", desc: "世界最大級の古墳。百舌鳥駅すぐ。", map: "仁徳天皇陵 拝所", crowd: "low" },
+                    { t: "15:30", i: "🐠", title: "海遊館", desc: "夕方〜夜の海遊館。ジンベエザメ鑑賞。", map: "海遊館", crowd: "medium" },
+                    { t: "18:00", i: "🚢", title: "キャプテンライン", desc: "海遊館裏からシャトル船でUSJエリアへ直行。", map: "キャプテンライン 海遊館西はとば", crowd: "low" },
                     { t: "18:30", i: "🏨", title: "ホテル チェックイン", desc: "ホテル京阪で荷物受取。夕食はシティウォークで。", map: "ホテル京阪ユニバーサル・タワー" }
                 ]
             },
@@ -259,9 +274,9 @@
                 image: "./day1_2.png",
                 events: [
                     { t: "06:30", i: "🏃", title: "ホテル出発", desc: "ゲート前待機。開園ダッシュ！", map: "ユニバーサル・スタジオ・ジャパン" },
-                    { t: "午前", i: "🍄", title: "マリオエリア", desc: "整理券/確約券で入場。全力で遊ぶ", map: "" },
-                    { t: "19:00", i: "🍖", title: "夕食", desc: "パーク内 三本の箒など", map: "" },
-                    { t: "21:00", i: "♨️", title: "展望温泉", desc: "ホテル31階で疲れを癒やす", map: "" }
+                    { t: "午前", i: "🍄", title: "マリオエリア", desc: "整理券/確約券で入場。全力で遊ぶ", map: "", crowd: "high" },
+                    { t: "19:00", i: "🍖", title: "夕食", desc: "パーク内 三本の箒など", map: "", crowd: "high" },
+                    { t: "21:00", i: "♨️", title: "展望温泉", desc: "ホテル31階で疲れを癒やす", map: "", crowd: "low" }
                 ]
             },
             {
@@ -270,16 +285,17 @@
                 image: "./day3_4.png",
                 events: [
                     { t: "10:00", i: "👜", title: "荷物預け", desc: "京都駅 アパホテルへ", map: "アパホテル 京都駅北" },
-                    { t: "11:30", i: "🍵", title: "宇治 平等院", desc: "中村藤吉は整理券必須！", map: "平等院" },
-                    { t: "14:00", i: "⛩️", title: "伏見稲荷", desc: "千本鳥居。スニーカー推奨。", map: "伏見稲荷大社" },
-                    { 
-                        t: "17:00", 
-                        i: "🥢", 
-                        title: "夕食：京野菜料理 接方来", 
-                        desc: "予約済：17:00〜19:00 (6名)<br>場所：京都駅ビル店", 
-                        map: "接方来 京都駅ビル店" 
+                    { t: "11:30", i: "🍵", title: "宇治 平等院", desc: "中村藤吉は整理券必須！", map: "平等院", crowd: "high" },
+                    { t: "14:00", i: "⛩️", title: "伏見稲荷", desc: "千本鳥居。スニーカー推奨。", map: "伏見稲荷大社", crowd: "high" },
+                    {
+                        t: "17:00",
+                        i: "🥢",
+                        title: "夕食：京野菜料理 接方来",
+                        desc: "予約済：17:00〜19:00 (6名)<br>場所：京都駅ビル店",
+                        map: "接方来 京都駅ビル店",
+                        crowd: "low"
                     },
-                    { t: "19:00", i: "✨", title: "清水寺 夜間拝観", desc: "タクシー移動推奨。幻想的な夜桜。", map: "清水寺" }
+                    { t: "19:00", i: "✨", title: "清水寺 夜間拝観", desc: "タクシー移動推奨。幻想的な夜桜。", map: "清水寺", crowd: "high" }
                 ]
             },
             {
@@ -287,32 +303,34 @@
                 isoDate: "2026-03-29", lat: 35.0116, lon: 135.7681,
                 image: "./day3_4.png",
                 events: [
-                    { t: "10:00", i: "⚽", title: "京都御所 蹴鞠", desc: "実演日！平安の文化に触れる", map: "京都御所" },
-                    { t: "13:30", i: "🥷", title: "太秦映画村", desc: "忍者・ちゃんばら・立体迷路", map: "東映太秦映画村" },
-                    { 
-                        t: "18:30", 
-                        i: "🍢", 
-                        title: "夕食：炭火串焼 こけこっこ", 
-                        desc: "予約済：18:30〜20:30<br>場所：JR京都伊勢丹 10F<br>予約番号：SDA534993", 
-                        map: "炭火串焼 こけこっこ 京都" 
+                    { t: "10:00", i: "⚽", title: "京都御所 蹴鞠", desc: "実演日！平安の文化に触れる", map: "京都御所", crowd: "medium" },
+                    { t: "13:30", i: "🥷", title: "太秦映画村", desc: "忍者・ちゃんばら・立体迷路", map: "東映太秦映画村", crowd: "medium" },
+                    {
+                        t: "18:30",
+                        i: "🍢",
+                        title: "夕食：炭火串焼 こけこっこ",
+                        desc: "予約済：18:30〜20:30<br>場所：JR京都伊勢丹 10F<br>予約番号：SDA534993",
+                        map: "炭火串焼 こけこっこ 京都",
+                        crowd: "low"
                     }
                 ]
             },
             {
                 date: "3/30 (月)", title: "金閣・嵐山・帰路",
                 isoDate: "2026-03-30", lat: 35.0133, lon: 135.6778, // 嵐山周辺の座標
-                image: "./day5_hotel.png", 
+                image: "./day5_hotel.png",
                 events: [
-                    { t: "08:30", i: "🚕", title: "龍安寺", desc: "朝イチの石庭は静かでおすすめ", map: "龍安寺" },
-                    { t: "10:00", i: "✨", title: "金閣寺", desc: "輝く舎利殿で家族写真", map: "金閣寺" },
-                    { 
-                        t: "11:30", 
-                        i: "🍱", 
-                        title: "昼食 & 温泉：花のいえ", 
-                        desc: "予約済：11:30〜 (6名/Pあり)<br>個室会席「嵯峨野」＆子供懐石<br>15時まで滞在可・温泉入浴OK♨️", 
-                        map: "花のいえ" 
+                    { t: "08:30", i: "🚕", title: "龍安寺", desc: "朝イチの石庭は静かでおすすめ", map: "龍安寺", crowd: "low" },
+                    { t: "10:00", i: "✨", title: "金閣寺", desc: "輝く舎利殿で家族写真", map: "金閣寺", crowd: "high" },
+                    {
+                        t: "11:30",
+                        i: "🍱",
+                        title: "昼食 & 温泉：花のいえ",
+                        desc: "予約済：11:30〜 (6名/Pあり)<br>個室会席「嵯峨野」＆子供懐石<br>15時まで滞在可・温泉入浴OK♨️",
+                        map: "花のいえ",
+                        crowd: "low"
                     },
-                    { t: "15:00", i: "🎋", title: "嵐山散策", desc: "渡月橋・竹林の小径など。<br>お土産購入タイム。", map: "嵐山 渡月橋" },
+                    { t: "15:00", i: "🎋", title: "嵐山散策", desc: "渡月橋・竹林の小径など。<br>お土産購入タイム。", map: "嵐山 渡月橋", crowd: "medium" },
                     { t: "18:30", i: "🚅", title: "新幹線", desc: "京都駅発。お疲れ様でした！", map: "京都駅" }
                 ]
             }
@@ -361,8 +379,9 @@
                         <div id="weather-display" class="empty:hidden"></div>
                     </div>
                     <p class="text-xs text-pink-500 font-bold tracking-widest uppercase">${data.date}</p>
+                    <p class="text-[10px] text-gray-400 mt-1">🟢🟡🔴 混雑アイコンは過去傾向の目安です</p>
                 </div>
-                
+
                 <div class="bg-white p-2 rounded-xl border border-gray-100 shadow-sm mb-6 fade-enter">
                     <img src="${data.image}" class="w-full rounded-lg" onerror="this.style.display='none'">
                 </div>
@@ -373,7 +392,8 @@
 
             data.events.forEach(e => {
                 const mapBtn = e.map ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(e.map)}" target="_blank" class="ml-auto bg-gray-100 text-[10px] text-gray-500 px-3 py-1.5 rounded-full font-bold hover:bg-pink-100 hover:text-pink-600 transition"><i class="fa-solid fa-map-location-dot mr-1"></i>マップ</a>` : '';
-                
+                const crowdBadge = getCrowdBadge(e.crowd);
+
                 html += `
                     <div class="relative flex gap-4 items-start">
                         <div class="z-10 w-6 h-6 rounded-full bg-white border-2 border-pink-400 flex items-center justify-center text-[10px] shrink-0 mt-1 shadow-sm">
@@ -381,7 +401,10 @@
                         </div>
                         <div class="flex-grow bg-white p-4 rounded-xl shadow-sm border border-gray-100">
                             <div class="flex justify-between items-start mb-1">
-                                <span class="text-pink-400 text-xs font-bold">${e.t}</span>
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <span class="text-pink-400 text-xs font-bold">${e.t}</span>
+                                    ${crowdBadge}
+                                </div>
                                 ${mapBtn}
                             </div>
                             <h3 class="font-bold text-gray-800">${e.title}</h3>
@@ -443,6 +466,19 @@
                 console.error("Weather fetch failed", e);
                 display.innerHTML = ""; // エラー時も非表示で見た目を守る
             }
+        }
+
+        // 混雑バッジ生成
+        function getCrowdBadge(level) {
+            if (!level) return '';
+            const map = {
+                high:   { dot: '🔴', label: '混雑',     cls: 'crowd-high' },
+                medium: { dot: '🟡', label: 'やや混雑', cls: 'crowd-medium' },
+                low:    { dot: '🟢', label: '空いてる', cls: 'crowd-low' }
+            };
+            const m = map[level];
+            if (!m) return '';
+            return `<span class="crowd-badge ${m.cls}">${m.dot} ${m.label}</span>`;
         }
 
         // 天気コード変換
