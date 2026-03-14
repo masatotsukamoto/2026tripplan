@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>2026春 京都・大阪 家族旅行</title>
+    <title>2026はる 京都・大阪 かぞくりょこう</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -93,6 +93,20 @@
             80% { opacity: 1; transform: translateX(0); }
             100% { opacity: 0; }
         }
+        /* ふりがな（ルビ）のスタイル */
+        ruby {
+            ruby-position: over;
+        }
+        rt {
+            font-size: 0.6em;
+            color: #9ca3af;
+            font-weight: normal;
+            line-height: 1;
+        }
+        /* 小学生向け：少し大きめのベースフォント */
+        body {
+            font-size: 15px;
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -100,7 +114,7 @@
     <header class="bg-white/90 backdrop-blur-md sticky top-0 z-40 border-b border-pink-100 shadow-sm">
         <div class="max-w-md mx-auto px-4 py-3 flex justify-between items-center">
             <div>
-                <h1 class="text-lg font-bold text-gray-800">🌸 2026春 家族旅行</h1>
+                <h1 class="text-lg font-bold text-gray-800">🌸 2026<ruby>春<rt>はる</rt></ruby> <ruby>家族旅行<rt>かぞくりょこう</rt></ruby></h1>
                 <p class="text-[10px] text-pink-500 font-bold tracking-widest">OSAKA & KYOTO / 3.26-30</p>
             </div>
             <div id="weather-icon" class="text-gray-400 text-sm">
@@ -115,10 +129,10 @@
             <div class="bg-gradient-to-br from-pink-500 to-orange-400 rounded-2xl p-6 text-white shadow-lg mb-6 relative overflow-hidden">
                 <div class="relative z-10">
                     <p class="text-xs font-bold opacity-80 mb-1">TRIP THEME</p>
-                    <h2 class="text-2xl font-bold leading-tight mb-2">USJ全力遊び &<br>京都の歴史満喫</h2>
+                    <h2 class="text-2xl font-bold leading-tight mb-2">USJ<ruby>全力<rt>ぜんりょく</rt></ruby><ruby>遊<rt>あそ</rt></ruby>び &<br><ruby>京都<rt>きょうと</rt></ruby>の<ruby>歴史<rt>れきし</rt></ruby><ruby>満喫<rt>まんきつ</rt></ruby></h2>
                     <div class="mt-4 flex gap-2 flex-wrap">
-                        <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm">👨‍👩‍👧‍👦 家族4人</span>
-                        <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm">🚄 4泊5日</span>
+                        <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm">👨‍👩‍👧‍👦 <ruby>家族<rt>かぞく</rt></ruby>4<ruby>人<rt>にん</rt></ruby></span>
+                        <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm">🚄 4<ruby>泊<rt>はく</rt></ruby>5<ruby>日<rt>にち</rt></ruby></span>
                     </div>
                     <div id="countdown-display" class="mt-3"></div>
                 </div>
@@ -126,106 +140,106 @@
             </div>
 
             <div class="mb-6">
-                <h3 class="text-sm font-bold text-gray-400 mb-2 px-1">全体マップ</h3>
+                <h3 class="text-sm font-bold text-gray-400 mb-2 px-1">🗺️ <ruby>全体<rt>ぜんたい</rt></ruby>マップ</h3>
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-2">
                     <img src="./summary.png" alt="Map" class="w-full rounded-lg" onerror="this.src='https://placehold.co/600x400/pink/white?text=Map+Image'">
                 </div>
             </div>
 
-            <h3 class="text-sm font-bold text-gray-400 mb-2 px-1">新幹線</h3>
+            <h3 class="text-sm font-bold text-gray-400 mb-2 px-1">🚅 <ruby>新幹線<rt>しんかんせん</rt></ruby></h3>
             <div class="grid grid-cols-1 gap-3 mb-6">
                 <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100">
                     <div class="flex items-center gap-3 mb-2">
                         <div class="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center text-pink-500"><i class="fa-solid fa-train"></i></div>
-                        <div class="text-xs font-bold">行き：3/26（木）</div>
+                        <div class="text-xs font-bold"><ruby>行<rt>い</rt></ruby>き：3/26（<ruby>木<rt>もく</rt></ruby>）</div>
                     </div>
-                    <div class="text-xs text-gray-500 ml-11">品川 <span class="font-bold text-gray-700">07:07</span> → 新大阪 <span class="font-bold text-gray-700">09:27</span></div>
+                    <div class="text-xs text-gray-500 ml-11"><ruby>品川<rt>しながわ</rt></ruby> <span class="font-bold text-gray-700">07:07</span> → <ruby>新大阪<rt>しんおおさか</rt></ruby> <span class="font-bold text-gray-700">09:27</span></div>
                 </div>
                 <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100">
                     <div class="flex items-center gap-3 mb-2">
                         <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-500"><i class="fa-solid fa-train"></i></div>
-                        <div class="text-xs font-bold">帰り：3/30（月）</div>
+                        <div class="text-xs font-bold"><ruby>帰<rt>かえ</rt></ruby>り：3/30（<ruby>月<rt>げつ</rt></ruby>）</div>
                     </div>
-                    <div class="text-xs text-gray-500 ml-11">京都 <span class="font-bold text-gray-700">17:54</span> → 品川 <span class="font-bold text-gray-700">19:59</span></div>
+                    <div class="text-xs text-gray-500 ml-11"><ruby>京都<rt>きょうと</rt></ruby> <span class="font-bold text-gray-700">17:54</span> → <ruby>品川<rt>しながわ</rt></ruby> <span class="font-bold text-gray-700">19:59</span></div>
                 </div>
             </div>
 
-            <h3 class="text-sm font-bold text-gray-400 mb-2 px-1">予約・移動</h3>
+            <h3 class="text-sm font-bold text-gray-400 mb-2 px-1">📱 <ruby>予約<rt>よやく</rt></ruby>・<ruby>移動<rt>いどう</rt></ruby></h3>
             <div class="grid grid-cols-2 gap-3 mb-6">
                 <a href="https://www.usj.co.jp/web/ja/jp" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-3 active:scale-95 transition">
                     <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-500"><i class="fa-solid fa-ticket"></i></div>
-                    <div class="text-xs font-bold">USJ公式<br><span class="text-[10px] text-gray-400 font-normal">待ち時間</span></div>
+                    <div class="text-xs font-bold">USJ<ruby>公式<rt>こうしき</rt></ruby><br><span class="text-[10px] text-gray-400 font-normal"><ruby>待<rt>ま</rt></ruby>ち<ruby>時間<rt>じかん</rt></ruby></span></div>
                 </a>
                 <a href="https://go.goinc.jp/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-3 active:scale-95 transition">
                     <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-500"><i class="fa-solid fa-taxi"></i></div>
-                    <div class="text-xs font-bold">GOアプリ<br><span class="text-[10px] text-gray-400 font-normal">タクシー呼出</span></div>
+                    <div class="text-xs font-bold">GOアプリ<br><span class="text-[10px] text-gray-400 font-normal">タクシー<ruby>呼出<rt>よびだし</rt></ruby></span></div>
                 </a>
                  <a href="https://www.mmjp.or.jp/Capt-Line/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-3 active:scale-95 transition">
                     <div class="w-8 h-8 rounded-full bg-cyan-100 flex items-center justify-center text-cyan-500"><i class="fa-solid fa-ship"></i></div>
-                    <div class="text-xs font-bold">キャプテンライン<br><span class="text-[10px] text-gray-400 font-normal">時刻表</span></div>
+                    <div class="text-xs font-bold">キャプテンライン<br><span class="text-[10px] text-gray-400 font-normal"><ruby>時刻表<rt>じこくひょう</rt></ruby></span></div>
                 </a>
                  <a href="https://crosta.jp/osaka/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-3 active:scale-95 transition">
                     <div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-orange-500"><i class="fa-solid fa-suitcase-rolling"></i></div>
-                    <div class="text-xs font-bold">Crosta大阪<br><span class="text-[10px] text-gray-400 font-normal">荷物配送</span></div>
+                    <div class="text-xs font-bold">Crosta<ruby>大阪<rt>おおさか</rt></ruby><br><span class="text-[10px] text-gray-400 font-normal"><ruby>荷物<rt>にもつ</rt></ruby><ruby>配送<rt>はいそう</rt></ruby></span></div>
                 </a>
             </div>
 
-            <h3 class="text-sm font-bold text-gray-400 mb-2 px-1">訪問スポット公式</h3>
+            <h3 class="text-sm font-bold text-gray-400 mb-2 px-1">📍 <ruby>訪問<rt>ほうもん</rt></ruby>スポット<ruby>公式<rt>こうしき</rt></ruby></h3>
             <div class="grid grid-cols-2 gap-3 mb-20">
                 <a href="https://www.osakacastle.net/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
                     <i class="fa-brands fa-fort-awesome text-orange-400 w-5 text-center"></i>
-                    <span class="text-xs font-bold">大阪城</span>
+                    <span class="text-xs font-bold"><ruby>大阪城<rt>おおさかじょう</rt></ruby></span>
                 </a>
                 <a href="https://www.sakai-tcb.or.jp/spot/detail/126" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
                     <i class="fa-solid fa-mountain text-green-600 w-5 text-center"></i>
-                    <span class="text-xs font-bold">大仙古墳</span>
+                    <span class="text-xs font-bold"><ruby>大仙古墳<rt>だいせんこふん</rt></ruby></span>
                 </a>
                 <a href="https://www.kaiyukan.com/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
                     <i class="fa-solid fa-fish-fins text-blue-400 w-5 text-center"></i>
-                    <span class="text-xs font-bold">海遊館</span>
+                    <span class="text-xs font-bold"><ruby>海遊館<rt>かいゆうかん</rt></ruby></span>
                 </a>
                 <a href="https://www.byodoin.or.jp/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
                     <i class="fa-solid fa-building-columns text-red-400 w-5 text-center"></i>
-                    <span class="text-xs font-bold">平等院</span>
+                    <span class="text-xs font-bold"><ruby>平等院<rt>びょうどういん</rt></ruby></span>
                 </a>
                 <a href="http://inari.jp/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
                     <i class="fa-solid fa-torii-gate text-red-600 w-5 text-center"></i>
-                    <span class="text-xs font-bold">伏見稲荷</span>
+                    <span class="text-xs font-bold"><ruby>伏見稲荷<rt>ふしみいなり</rt></ruby></span>
                 </a>
                 <a href="https://www.kiyomizudera.or.jp/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
                     <i class="fa-solid fa-gopuram text-purple-400 w-5 text-center"></i>
-                    <span class="text-xs font-bold">清水寺</span>
+                    <span class="text-xs font-bold"><ruby>清水寺<rt>きよみずでら</rt></ruby></span>
                 </a>
                  <a href="https://kyoto-gosho.kunaicho.go.jp/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
                     <i class="fa-solid fa-crown text-yellow-500 w-5 text-center"></i>
-                    <span class="text-xs font-bold">京都御所</span>
+                    <span class="text-xs font-bold"><ruby>京都御所<rt>きょうとごしょ</rt></ruby></span>
                 </a>
                 <a href="https://www.toei-eigamura.com/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
                     <i class="fa-solid fa-mask text-gray-600 w-5 text-center"></i>
-                    <span class="text-xs font-bold">映画村</span>
+                    <span class="text-xs font-bold"><ruby>映画村<rt>えいがむら</rt></ruby></span>
                 </a>
                 <a href="http://www.ryoanji.com/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
                     <i class="fa-solid fa-seedling text-green-700 w-5 text-center"></i>
-                    <span class="text-xs font-bold">龍安寺</span>
+                    <span class="text-xs font-bold"><ruby>龍安寺<rt>りょうあんじ</rt></ruby></span>
                 </a>
                 <a href="https://www.shokoku-ji.jp/kinkakuji/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
                     <i class="fa-solid fa-place-of-worship text-yellow-400 w-5 text-center"></i>
-                    <span class="text-xs font-bold">金閣寺</span>
+                    <span class="text-xs font-bold"><ruby>金閣寺<rt>きんかくじ</rt></ruby></span>
                 </a>
                  <a href="https://www.arayama-hoshokai.com/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
                     <i class="fa-solid fa-tree text-green-500 w-5 text-center"></i>
-                    <span class="text-xs font-bold">嵐山</span>
+                    <span class="text-xs font-bold"><ruby>嵐山<rt>あらしやま</rt></ruby></span>
                 </a>
             </div>
         </div>
 
         <div id="view-schedule" class="view-section hidden fade-enter">
             <div class="flex overflow-x-auto hide-scroll gap-2 mb-6 pb-2 sticky top-0 bg-[#f8fafc] pt-2 z-30">
-                <button onclick="renderDay(0)" id="tab-0" class="day-tab flex-shrink-0 px-4 py-2 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-500 shadow-sm transition-all whitespace-nowrap">3/26 大阪</button>
+                <button onclick="renderDay(0)" id="tab-0" class="day-tab flex-shrink-0 px-4 py-2 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-500 shadow-sm transition-all whitespace-nowrap">3/26 <ruby>大阪<rt>おおさか</rt></ruby></button>
                 <button onclick="renderDay(1)" id="tab-1" class="day-tab flex-shrink-0 px-4 py-2 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-500 shadow-sm transition-all whitespace-nowrap">3/27 USJ</button>
-                <button onclick="renderDay(2)" id="tab-2" class="day-tab flex-shrink-0 px-4 py-2 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-500 shadow-sm transition-all whitespace-nowrap">3/28 宇治</button>
-                <button onclick="renderDay(3)" id="tab-3" class="day-tab flex-shrink-0 px-4 py-2 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-500 shadow-sm transition-all whitespace-nowrap">3/29 御所</button>
-                <button onclick="renderDay(4)" id="tab-4" class="day-tab flex-shrink-0 px-4 py-2 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-500 shadow-sm transition-all whitespace-nowrap">3/30 嵐山</button>
+                <button onclick="renderDay(2)" id="tab-2" class="day-tab flex-shrink-0 px-4 py-2 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-500 shadow-sm transition-all whitespace-nowrap">3/28 <ruby>宇治<rt>うじ</rt></ruby></button>
+                <button onclick="renderDay(3)" id="tab-3" class="day-tab flex-shrink-0 px-4 py-2 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-500 shadow-sm transition-all whitespace-nowrap">3/29 <ruby>御所<rt>ごしょ</rt></ruby></button>
+                <button onclick="renderDay(4)" id="tab-4" class="day-tab flex-shrink-0 px-4 py-2 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-500 shadow-sm transition-all whitespace-nowrap">3/30 <ruby>嵐山<rt>あらしやま</rt></ruby></button>
             </div>
 
             <div id="day-content" class="pb-20">
@@ -234,7 +248,7 @@
                 <button id="prev-day-btn" onclick="if(currentDayIndex>0) renderDay(currentDayIndex-1)" class="bg-white shadow-md border border-gray-200 text-gray-500 w-10 h-10 rounded-full flex items-center justify-center text-sm active:scale-90 transition hover:bg-pink-50 hover:text-pink-500 disabled:opacity-30">
                     <i class="fa-solid fa-chevron-left"></i>
                 </button>
-                <span class="swipe-hint text-[10px] text-gray-300"><i class="fa-solid fa-hand-point-up mr-1"></i>スワイプで日程切替</span>
+                <span class="swipe-hint text-[10px] text-gray-300"><i class="fa-solid fa-hand-point-up mr-1"></i>スワイプで<ruby>日程<rt>にってい</rt></ruby><ruby>切替<rt>きりかえ</rt></ruby></span>
                 <button id="next-day-btn" onclick="if(currentDayIndex<4) renderDay(currentDayIndex+1)" class="bg-white shadow-md border border-gray-200 text-gray-500 w-10 h-10 rounded-full flex items-center justify-center text-sm active:scale-90 transition hover:bg-pink-50 hover:text-pink-500 disabled:opacity-30">
                     <i class="fa-solid fa-chevron-right"></i>
                 </button>
@@ -246,27 +260,27 @@
             
             <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-4">
                 <div class="flex justify-between items-start mb-2">
-                    <span class="bg-blue-100 text-blue-600 text-[10px] font-bold px-2 py-1 rounded">1-2泊目 (大阪)</span>
+                    <span class="bg-blue-100 text-blue-600 text-[10px] font-bold px-2 py-1 rounded">1-2<ruby>泊目<rt>はくめ</rt></ruby> (<ruby>大阪<rt>おおさか</rt></ruby>)</span>
                 </div>
-                <h4 class="font-bold text-lg text-gray-800 mb-1">ホテル京阪<br>ユニバーサル・タワー</h4>
-                <p class="text-xs text-gray-500 mb-4"><i class="fa-solid fa-location-dot mr-1"></i>ユニバーサルシティ駅 直結</p>
+                <h4 class="font-bold text-lg text-gray-800 mb-1">ホテル<ruby>京阪<rt>けいはん</rt></ruby><br>ユニバーサル・タワー</h4>
+                <p class="text-xs text-gray-500 mb-4"><i class="fa-solid fa-location-dot mr-1"></i>ユニバーサルシティ<ruby>駅<rt>えき</rt></ruby> <ruby>直結<rt>ちょっけつ</rt></ruby></p>
                 <div class="flex gap-2">
                     <a href="https://goo.gl/maps/example" target="_blank" class="flex-1 bg-gray-50 py-2 rounded-lg text-center text-xs font-bold text-gray-600 hover:bg-gray-100 border border-gray-200">📍 マップ</a>
-                    <a href="https://www.hotelkeihan.co.jp/tower/" target="_blank" class="flex-1 bg-blue-50 py-2 rounded-lg text-center text-xs font-bold text-blue-600 hover:bg-blue-100 border border-blue-200">公式サイト</a>
+                    <a href="https://www.hotelkeihan.co.jp/tower/" target="_blank" class="flex-1 bg-blue-50 py-2 rounded-lg text-center text-xs font-bold text-blue-600 hover:bg-blue-100 border border-blue-200"><ruby>公式<rt>こうしき</rt></ruby>サイト</a>
                 </div>
             </div>
 
             <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-8">
                 <div class="flex justify-between items-start mb-2">
-                    <span class="bg-green-100 text-green-600 text-[10px] font-bold px-2 py-1 rounded">3-4泊目 (京都)</span>
-                    <span class="bg-orange-100 text-orange-600 text-[10px] font-bold px-2 py-1 rounded ml-2">朝食付</span>
+                    <span class="bg-green-100 text-green-600 text-[10px] font-bold px-2 py-1 rounded">3-4<ruby>泊目<rt>はくめ</rt></ruby> (<ruby>京都<rt>きょうと</rt></ruby>)</span>
+                    <span class="bg-orange-100 text-orange-600 text-[10px] font-bold px-2 py-1 rounded ml-2"><ruby>朝食付<rt>ちょうしょくつき</rt></ruby></span>
                 </div>
-                <h4 class="font-bold text-lg text-gray-800 mb-1">アパホテル〈京都駅北〉</h4>
-                <p class="text-xs text-gray-500 mb-1"><i class="fa-solid fa-location-dot mr-1"></i>京都駅 徒歩3-5分</p>
+                <h4 class="font-bold text-lg text-gray-800 mb-1">アパホテル〈<ruby>京都駅北<rt>きょうとえききた</rt></ruby>〉</h4>
+                <p class="text-xs text-gray-500 mb-1"><i class="fa-solid fa-location-dot mr-1"></i><ruby>京都駅<rt>きょうとえき</rt></ruby> <ruby>徒歩<rt>とほ</rt></ruby>3-5<ruby>分<rt>ふん</rt></ruby></p>
                 <p class="text-xs text-gray-400 mb-4">コネクティングルームプラン</p>
                 <div class="flex gap-2">
                     <a href="https://goo.gl/maps/qA6a9d7H3mZ2" target="_blank" class="flex-1 bg-gray-50 py-2 rounded-lg text-center text-xs font-bold text-gray-600 hover:bg-gray-100 border border-gray-200">📍 マップ</a>
-                    <a href="https://www.apahotel.com/hotel/kansai/kyoto/kyoto-ekikita/" target="_blank" class="flex-1 bg-green-50 py-2 rounded-lg text-center text-xs font-bold text-green-600 hover:bg-green-100 border border-green-200">公式サイト</a>
+                    <a href="https://www.apahotel.com/hotel/kansai/kyoto/kyoto-ekikita/" target="_blank" class="flex-1 bg-green-50 py-2 rounded-lg text-center text-xs font-bold text-green-600 hover:bg-green-100 border border-green-200"><ruby>公式<rt>こうしき</rt></ruby>サイト</a>
                 </div>
             </div>
 
@@ -274,19 +288,19 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-8">
                 <label class="flex items-center p-4 border-b border-gray-50 cursor-pointer hover:bg-pink-50 transition">
                     <input type="checkbox" class="w-5 h-5 accent-pink-500 rounded border-gray-300">
-                    <span class="ml-3 text-sm font-bold text-gray-700">USJ エクスプレス・パス (印刷/スクショ)</span>
+                    <span class="ml-3 text-sm font-bold text-gray-700">USJ エクスプレス・パス (<ruby>印刷<rt>いんさつ</rt></ruby>/スクショ)</span>
                 </label>
                 <label class="flex items-center p-4 border-b border-gray-50 cursor-pointer hover:bg-pink-50 transition">
                     <input type="checkbox" class="w-5 h-5 accent-pink-500 rounded border-gray-300">
-                    <span class="ml-3 text-sm font-bold text-gray-700">海遊館・映画村 WEBチケット</span>
+                    <span class="ml-3 text-sm font-bold text-gray-700"><ruby>海遊館<rt>かいゆうかん</rt></ruby>・<ruby>映画村<rt>えいがむら</rt></ruby> WEBチケット</span>
                 </label>
                 <label class="flex items-center p-4 border-b border-gray-50 cursor-pointer hover:bg-pink-50 transition">
                     <input type="checkbox" class="w-5 h-5 accent-pink-500 rounded border-gray-300">
-                    <span class="ml-3 text-sm font-bold text-gray-700">歩きやすい靴 & 上着</span>
+                    <span class="ml-3 text-sm font-bold text-gray-700"><ruby>歩<rt>ある</rt></ruby>きやすい<ruby>靴<rt>くつ</rt></ruby> & <ruby>上着<rt>うわぎ</rt></ruby></span>
                 </label>
                 <label class="flex items-center p-4 cursor-pointer hover:bg-pink-50 transition">
                     <input type="checkbox" class="w-5 h-5 accent-pink-500 rounded border-gray-300">
-                    <span class="ml-3 text-sm font-bold text-gray-700">スマホ充電器 & モバイルバッテリー</span>
+                    <span class="ml-3 text-sm font-bold text-gray-700">スマホ<ruby>充電器<rt>じゅうでんき</rt></ruby> & モバイルバッテリー</span>
                 </label>
             </div>
 
@@ -296,23 +310,23 @@
                 <div class="flex items-center gap-2 mb-3">
                     <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm"><i class="fa-solid fa-wheelchair-move"></i></div>
                     <div>
-                        <span class="text-sm font-bold text-gray-800">車椅子メンバー合流 (Day3〜)</span>
-                        <p class="text-[10px] text-gray-500">各スポットのバリアフリー状況</p>
+                        <span class="text-sm font-bold text-gray-800"><ruby>車椅子<rt>くるまいす</rt></ruby>メンバー<ruby>合流<rt>ごうりゅう</rt></ruby> (Day3〜)</span>
+                        <p class="text-[10px] text-gray-500"><ruby>各<rt>かく</rt></ruby>スポットのバリアフリー<ruby>状況<rt>じょうきょう</rt></ruby></p>
                     </div>
                 </div>
 
                 <div class="space-y-2 text-xs">
-                    <div class="flex items-center gap-2"><span class="wc-badge wc-good">♿ 対応◎</span><span class="text-gray-600">概ね車椅子で問題なく利用可</span></div>
-                    <div class="flex items-center gap-2"><span class="wc-badge wc-partial">♿ 一部対応</span><span class="text-gray-600">一部制限あり・介助推奨</span></div>
-                    <div class="flex items-center gap-2"><span class="wc-badge wc-check">♿ 要確認</span><span class="text-gray-600">事前に電話確認が必要</span></div>
+                    <div class="flex items-center gap-2"><span class="wc-badge wc-good">♿ <ruby>対応<rt>たいおう</rt></ruby>◎</span><span class="text-gray-600">だいたい<ruby>車椅子<rt>くるまいす</rt></ruby>で<ruby>問題<rt>もんだい</rt></ruby>なく<ruby>利用<rt>りよう</rt></ruby>できるよ</span></div>
+                    <div class="flex items-center gap-2"><span class="wc-badge wc-partial">♿ <ruby>一部対応<rt>いちぶたいおう</rt></ruby></span><span class="text-gray-600">すこし<ruby>制限<rt>せいげん</rt></ruby>あり・<ruby>手伝<rt>てつだ</rt></ruby>いがあると<ruby>安心<rt>あんしん</rt></ruby></span></div>
+                    <div class="flex items-center gap-2"><span class="wc-badge wc-check">♿ <ruby>要確認<rt>ようかくにん</rt></ruby></span><span class="text-gray-600"><ruby>先<rt>さき</rt></ruby>に<ruby>電話<rt>でんわ</rt></ruby>で<ruby>確認<rt>かくにん</rt></ruby>してね</span></div>
                 </div>
 
                 <div class="mt-4 p-3 bg-white rounded-xl border border-blue-100">
-                    <p class="text-[11px] font-bold text-gray-700 mb-2"><i class="fa-solid fa-circle-info text-blue-500 mr-1"></i>各日の日程表で <span class="text-blue-500">「車椅子情報を見る」</span> をタップすると詳細が展開されます</p>
+                    <p class="text-[11px] font-bold text-gray-700 mb-2"><i class="fa-solid fa-circle-info text-blue-500 mr-1"></i><ruby>各日<rt>かくにち</rt></ruby>の<ruby>日程表<rt>にっていひょう</rt></ruby>で <span class="text-blue-500">「<ruby>車椅子情報<rt>くるまいすじょうほう</rt></ruby>を<ruby>見<rt>み</rt></ruby>る」</span> をタップすると<ruby>詳<rt>くわ</rt></ruby>しい<ruby>情報<rt>じょうほう</rt></ruby>が<ruby>出<rt>で</rt></ruby>るよ</p>
                     <div class="space-y-1.5 text-[11px] text-gray-600">
-                        <p><i class="fa-solid fa-taxi text-green-500 mr-1"></i> 京都のタクシーは介護研修済の運転手が多数</p>
+                        <p><i class="fa-solid fa-taxi text-green-500 mr-1"></i> <ruby>京都<rt>きょうと</rt></ruby>のタクシーは<ruby>介護研修済<rt>かいごけんしゅうずみ</rt></ruby>の<ruby>運転手<rt>うんてんしゅ</rt></ruby>がたくさんいるよ</p>
                         <p><i class="fa-solid fa-map mr-1 text-purple-500"></i> <a href="https://kyoto-universal.jp/" target="_blank" class="text-blue-500 underline">京都ユニバーサル観光ナビ</a> でBFコース確認</p>
-                        <p><i class="fa-solid fa-phone mr-1 text-red-500"></i> 京都市車椅子無料貸出: <a href="tel:075-343-0548" class="text-blue-500 underline">075-343-0548</a> (京なび)</p>
+                        <p><i class="fa-solid fa-phone mr-1 text-red-500"></i> <ruby>京都市<rt>きょうとし</rt></ruby><ruby>車椅子<rt>くるまいす</rt></ruby><ruby>無料<rt>むりょう</rt></ruby><ruby>貸出<rt>かしだし</rt></ruby>: <a href="tel:075-343-0548" class="text-blue-500 underline">075-343-0548</a> (<ruby>京<rt>きょう</rt></ruby>なび)</p>
                     </div>
                 </div>
             </div>
@@ -323,27 +337,27 @@
                 <div class="p-4 border-b border-gray-50">
                     <div class="flex items-center gap-2 mb-2">
                         <div class="w-7 h-7 rounded-full bg-red-100 flex items-center justify-center text-red-500 text-xs"><i class="fa-solid fa-phone"></i></div>
-                        <span class="text-sm font-bold text-gray-800">緊急連絡先</span>
+                        <span class="text-sm font-bold text-gray-800"><ruby>緊急連絡先<rt>きんきゅうれんらくさき</rt></ruby></span>
                     </div>
                     <div class="space-y-1.5 text-xs text-gray-600 ml-9">
-                        <p><span class="font-bold">警察:</span> <a href="tel:110" class="text-blue-500 underline">110</a></p>
-                        <p><span class="font-bold">救急・消防:</span> <a href="tel:119" class="text-blue-500 underline">119</a></p>
-                        <p><span class="font-bold">災害伝言ダイヤル:</span> <a href="tel:171" class="text-blue-500 underline">171</a></p>
+                        <p><span class="font-bold"><ruby>警察<rt>けいさつ</rt></ruby>:</span> <a href="tel:110" class="text-blue-500 underline">110</a></p>
+                        <p><span class="font-bold"><ruby>救急<rt>きゅうきゅう</rt></ruby>・<ruby>消防<rt>しょうぼう</rt></ruby>:</span> <a href="tel:119" class="text-blue-500 underline">119</a></p>
+                        <p><span class="font-bold"><ruby>災害伝言<rt>さいがいでんごん</rt></ruby>ダイヤル:</span> <a href="tel:171" class="text-blue-500 underline">171</a></p>
                     </div>
                 </div>
                 <div class="p-4 border-b border-gray-50">
                     <div class="flex items-center gap-2 mb-2">
                         <div class="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center text-blue-500 text-xs"><i class="fa-solid fa-train"></i></div>
-                        <span class="text-sm font-bold text-gray-800">交通ICカード</span>
+                        <span class="text-sm font-bold text-gray-800"><ruby>交通<rt>こうつう</rt></ruby>ICカード</span>
                     </div>
-                    <p class="text-xs text-gray-600 ml-9">ICOCA / Suica / PASMO 利用可。<br>バス・地下鉄・JR全てタッチ決済OK。<br>チャージは各駅の券売機で。</p>
+                    <p class="text-xs text-gray-600 ml-9">ICOCA / Suica / PASMO <ruby>利用<rt>りよう</rt></ruby>OK！<br>バス・<ruby>地下鉄<rt>ちかてつ</rt></ruby>・JR <ruby>全<rt>ぜん</rt></ruby>てタッチでOK。<br>チャージは<ruby>各駅<rt>かくえき</rt></ruby>の<ruby>券売機<rt>けんばいき</rt></ruby>で。</p>
                 </div>
                 <div class="p-4">
                     <div class="flex items-center gap-2 mb-2">
                         <div class="w-7 h-7 rounded-full bg-purple-100 flex items-center justify-center text-purple-500 text-xs"><i class="fa-solid fa-kit-medical"></i></div>
-                        <span class="text-sm font-bold text-gray-800">体調管理メモ</span>
+                        <span class="text-sm font-bold text-gray-800"><ruby>体調管理<rt>たいちょうかんり</rt></ruby>メモ</span>
                     </div>
-                    <p class="text-xs text-gray-600 ml-9">3月下旬の大阪・京都は日中15-18℃、<br>朝晩は10℃前後。薄手の上着必須。<br>花粉シーズン — マスク・目薬を推奨。</p>
+                    <p class="text-xs text-gray-600 ml-9">3<ruby>月<rt>がつ</rt></ruby><ruby>下旬<rt>げじゅん</rt></ruby>の<ruby>大阪<rt>おおさか</rt></ruby>・<ruby>京都<rt>きょうと</rt></ruby>は<ruby>昼<rt>ひる</rt></ruby>15-18℃、<br><ruby>朝晩<rt>あさばん</rt></ruby>は10℃くらい。<ruby>薄<rt>うす</rt></ruby>い<ruby>上着<rt>うわぎ</rt></ruby>をわすれずに！<br><ruby>花粉<rt>かふん</rt></ruby>シーズン — マスク・<ruby>目薬<rt>めぐすり</rt></ruby>があると<ruby>安心<rt>あんしん</rt></ruby>。</p>
                 </div>
             </div>
 
@@ -351,13 +365,13 @@
                 <div class="p-4 border-b border-gray-50">
                     <div class="flex items-center gap-2 mb-3">
                         <div class="w-7 h-7 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600 text-xs"><i class="fa-solid fa-lightbulb"></i></div>
-                        <span class="text-sm font-bold text-gray-800">旅のコツ</span>
+                        <span class="text-sm font-bold text-gray-800"><ruby>旅<rt>たび</rt></ruby>のコツ</span>
                     </div>
                     <div class="space-y-2 text-xs text-gray-600 ml-9">
-                        <p><i class="fa-solid fa-shoe-prints text-pink-400 mr-1"></i> 1日1万歩以上歩くので靴選びが重要</p>
-                        <p><i class="fa-solid fa-clock text-pink-400 mr-1"></i> 人気スポットは朝イチか夕方以降が穴場</p>
-                        <p><i class="fa-solid fa-coins text-pink-400 mr-1"></i> 寺社仏閣は現金のみの場所が多い</p>
-                        <p><i class="fa-solid fa-bottle-water text-pink-400 mr-1"></i> こまめな水分補給と休憩を忘れずに</p>
+                        <p><i class="fa-solid fa-shoe-prints text-pink-400 mr-1"></i> 1<ruby>日<rt>にち</rt></ruby>1<ruby>万歩以上<rt>まんぽいじょう</rt></ruby><ruby>歩<rt>ある</rt></ruby>くので<ruby>靴選<rt>くつえら</rt></ruby>びがだいじ！</p>
+                        <p><i class="fa-solid fa-clock text-pink-400 mr-1"></i> <ruby>人気<rt>にんき</rt></ruby>スポットは<ruby>朝<rt>あさ</rt></ruby>イチか<ruby>夕方以降<rt>ゆうがたいこう</rt></ruby>がねらいめ</p>
+                        <p><i class="fa-solid fa-coins text-pink-400 mr-1"></i> お<ruby>寺<rt>てら</rt></ruby>や<ruby>神社<rt>じんじゃ</rt></ruby>は<ruby>現金<rt>げんきん</rt></ruby>しか<ruby>使<rt>つか</rt></ruby>えない<ruby>場所<rt>ばしょ</rt></ruby>が<ruby>多<rt>おお</rt></ruby>いよ</p>
+                        <p><i class="fa-solid fa-bottle-water text-pink-400 mr-1"></i> こまめに<ruby>水<rt>みず</rt></ruby>を<ruby>飲<rt>の</rt></ruby>んで<ruby>休憩<rt>きゅうけい</rt></ruby>しよう！</p>
                     </div>
                 </div>
             </div>
@@ -370,19 +384,19 @@
             <div class="icon-box w-10 h-10 rounded-full flex items-center justify-center text-gray-400 mb-1 transition-colors">
                 <i class="fa-solid fa-house"></i>
             </div>
-            <span class="text-[10px] font-bold text-gray-500">ホーム</span>
+            <span class="text-[11px] font-bold text-gray-500">ホーム</span>
         </button>
         <button onclick="switchView('schedule')" class="nav-item flex flex-col items-center w-16 p-1 rounded-xl transition-all" id="nav-schedule">
             <div class="icon-box w-10 h-10 rounded-full flex items-center justify-center text-gray-400 mb-1 transition-colors">
                 <i class="fa-regular fa-calendar-check"></i>
             </div>
-            <span class="text-[10px] font-bold text-gray-500">日程表</span>
+            <span class="text-[11px] font-bold text-gray-500"><ruby>日程表<rt>にっていひょう</rt></ruby></span>
         </button>
         <button onclick="switchView('info')" class="nav-item flex flex-col items-center w-16 p-1 rounded-xl transition-all" id="nav-info">
             <div class="icon-box w-10 h-10 rounded-full flex items-center justify-center text-gray-400 mb-1 transition-colors">
                 <i class="fa-solid fa-suitcase"></i>
             </div>
-            <span class="text-[10px] font-bold text-gray-500">宿・準備</span>
+            <span class="text-[11px] font-bold text-gray-500"><ruby>宿<rt>やど</rt></ruby>・<ruby>準備<rt>じゅんび</rt></ruby></span>
         </button>
     </nav>
 
@@ -391,90 +405,90 @@
         // isoDate, lat, lon を追加
         const scheduleData = [
             {
-                date: "3/26 (木)", title: "大阪城・古墳・海遊館",
+                date: "3/26 (<ruby>木<rt>もく</rt></ruby>)", title: "<ruby>大阪城<rt>おおさかじょう</rt></ruby>・<ruby>古墳<rt>こふん</rt></ruby>・<ruby>海遊館<rt>かいゆうかん</rt></ruby>",
                 isoDate: "2026-03-26", lat: 34.6937, lon: 135.5023,
                 image: "./day1_2.png",
                 events: [
-                    { t: "07:07", i: "🚅", title: "新幹線 品川発", desc: "品川→新大阪（約2時間20分）", map: "品川駅", move: "🚄 新幹線 約2時間20分" },
-                    { t: "09:27", i: "🚄", title: "新大阪着 & 荷物配送", desc: "新大阪駅「Crosta」でホテルへ荷物送付。手ぶらで開始！", map: "新大阪駅 キャリーサービス", move: "🚃 JR大阪環状線 約20分" },
-                    { t: "10:00", i: "🏯", title: "大阪城", desc: "公園散策と天守閣見学。春の風を感じて。", map: "大阪城天守閣", crowd: "high", move: "🚶 徒歩すぐ (公園内)" },
-                    { t: "11:00", i: "🍽️", title: "早めのランチ", desc: "JO-TERRACE OSAKAにて。混雑回避。", map: "JO-TERRACE OSAKA", crowd: "medium", move: "🚃 JR阪和線 約40分" },
-                    { t: "13:00", i: "🔑", title: "大仙古墳 (仁徳天皇陵)", desc: "世界最大級の古墳。百舌鳥駅すぐ。", map: "仁徳天皇陵 拝所", crowd: "low", move: "🚃 JR+地下鉄 約50分" },
-                    { t: "15:30", i: "🐠", title: "海遊館", desc: "夕方〜夜の海遊館。ジンベエザメ鑑賞。", map: "海遊館", crowd: "medium", move: "🚢 キャプテンライン 約10分" },
-                    { t: "18:00", i: "🚢", title: "キャプテンライン", desc: "海遊館裏からシャトル船でUSJエリアへ直行。", map: "キャプテンライン 海遊館西はとば", crowd: "low", move: "🚶 徒歩 約5分" },
-                    { t: "18:30", i: "🏨", title: "ホテル チェックイン", desc: "ホテル京阪で荷物受取。夕食はシティウォークで。", map: "ホテル京阪ユニバーサル・タワー" }
+                    { t: "07:07", i: "🚅", title: "<ruby>新幹線<rt>しんかんせん</rt></ruby> <ruby>品川<rt>しながわ</rt></ruby><ruby>発<rt>はつ</rt></ruby>", desc: "<ruby>品川<rt>しながわ</rt></ruby>→<ruby>新大阪<rt>しんおおさか</rt></ruby>（<ruby>約<rt>やく</rt></ruby>2<ruby>時間<rt>じかん</rt></ruby>20<ruby>分<rt>ぷん</rt></ruby>）", map: "品川駅", move: "🚄 <ruby>新幹線<rt>しんかんせん</rt></ruby> <ruby>約<rt>やく</rt></ruby>2<ruby>時間<rt>じかん</rt></ruby>20<ruby>分<rt>ぷん</rt></ruby>" },
+                    { t: "09:27", i: "🚄", title: "<ruby>新大阪着<rt>しんおおさかちゃく</rt></ruby> & <ruby>荷物配送<rt>にもつはいそう</rt></ruby>", desc: "<ruby>新大阪駅<rt>しんおおさかえき</rt></ruby>「Crosta」でホテルへ<ruby>荷物<rt>にもつ</rt></ruby>おくるよ。<ruby>手<rt>て</rt></ruby>ぶらで<ruby>出発<rt>しゅっぱつ</rt></ruby>！", map: "新大阪駅 キャリーサービス", move: "🚃 JR<ruby>大阪環状線<rt>おおさかかんじょうせん</rt></ruby> <ruby>約<rt>やく</rt></ruby>20<ruby>分<rt>ぷん</rt></ruby>" },
+                    { t: "10:00", i: "🏯", title: "<ruby>大阪城<rt>おおさかじょう</rt></ruby>", desc: "<ruby>公園<rt>こうえん</rt></ruby>をおさんぽ＆<ruby>天守閣<rt>てんしゅかく</rt></ruby><ruby>見学<rt>けんがく</rt></ruby>。<ruby>春<rt>はる</rt></ruby>の<ruby>風<rt>かぜ</rt></ruby>をかんじよう！", map: "大阪城天守閣", crowd: "high", move: "🚶 <ruby>徒歩<rt>とほ</rt></ruby>すぐ (<ruby>公園内<rt>こうえんない</rt></ruby>)" },
+                    { t: "11:00", i: "🍽️", title: "<ruby>早<rt>はや</rt></ruby>めのランチ", desc: "JO-TERRACE OSAKAでごはん。<ruby>混<rt>こ</rt></ruby>むまえに<ruby>食<rt>た</rt></ruby>べよう！", map: "JO-TERRACE OSAKA", crowd: "medium", move: "🚃 JR<ruby>阪和線<rt>はんわせん</rt></ruby> <ruby>約<rt>やく</rt></ruby>40<ruby>分<rt>ぷん</rt></ruby>" },
+                    { t: "13:00", i: "🔑", title: "<ruby>大仙古墳<rt>だいせんこふん</rt></ruby> (<ruby>仁徳天皇陵<rt>にんとくてんのうりょう</rt></ruby>)", desc: "<ruby>世界最大級<rt>せかいさいだいきゅう</rt></ruby>の<ruby>古墳<rt>こふん</rt></ruby>。<ruby>百舌鳥駅<rt>もずえき</rt></ruby>すぐ。", map: "仁徳天皇陵 拝所", crowd: "low", move: "🚃 JR+<ruby>地下鉄<rt>ちかてつ</rt></ruby> <ruby>約<rt>やく</rt></ruby>50<ruby>分<rt>ぷん</rt></ruby>" },
+                    { t: "15:30", i: "🐠", title: "<ruby>海遊館<rt>かいゆうかん</rt></ruby>", desc: "<ruby>夕方<rt>ゆうがた</rt></ruby>〜<ruby>夜<rt>よる</rt></ruby>の<ruby>海遊館<rt>かいゆうかん</rt></ruby>。ジンベエザメを<ruby>見<rt>み</rt></ruby>よう！", map: "海遊館", crowd: "medium", move: "🚢 キャプテンライン <ruby>約<rt>やく</rt></ruby>10<ruby>分<rt>ぷん</rt></ruby>" },
+                    { t: "18:00", i: "🚢", title: "キャプテンライン", desc: "<ruby>海遊館<rt>かいゆうかん</rt></ruby>のうらからシャトル<ruby>船<rt>ぶね</rt></ruby>でUSJエリアへ！", map: "キャプテンライン 海遊館西はとば", crowd: "low", move: "🚶 <ruby>徒歩<rt>とほ</rt></ruby> <ruby>約<rt>やく</rt></ruby>5<ruby>分<rt>ふん</rt></ruby>" },
+                    { t: "18:30", i: "🏨", title: "ホテル チェックイン", desc: "ホテル<ruby>京阪<rt>けいはん</rt></ruby>で<ruby>荷物<rt>にもつ</rt></ruby>をうけとろう。<ruby>夕食<rt>ゆうしょく</rt></ruby>はシティウォークで！", map: "ホテル京阪ユニバーサル・タワー" }
                 ]
             },
             {
-                date: "3/27 (金)", title: "USJ 全力投球！",
+                date: "3/27 (<ruby>金<rt>きん</rt></ruby>)", title: "USJ <ruby>全力投球<rt>ぜんりょくとうきゅう</rt></ruby>！",
                 isoDate: "2026-03-27", lat: 34.6654, lon: 135.4323,
                 image: "./day1_2.png",
                 events: [
-                    { t: "06:30", i: "🏃", title: "ホテル出発", desc: "ゲート前待機。開園ダッシュ！", map: "ユニバーサル・スタジオ・ジャパン", move: "🚶 徒歩 約5分" },
-                    { t: "午前", i: "🍄", title: "マリオエリア", desc: "整理券/確約券で入場。全力で遊ぶ", map: "", crowd: "high" },
-                    { t: "19:00", i: "🍖", title: "夕食", desc: "パーク内 三本の箒など", map: "", crowd: "high", move: "🚶 パーク内移動" },
-                    { t: "21:00", i: "♨️", title: "展望温泉", desc: "ホテル31階で疲れを癒やす", map: "", crowd: "low" }
+                    { t: "06:30", i: "🏃", title: "ホテル<ruby>出発<rt>しゅっぱつ</rt></ruby>", desc: "ゲート<ruby>前<rt>まえ</rt></ruby>で<ruby>待<rt>ま</rt></ruby>とう。<ruby>開園<rt>かいえん</rt></ruby>ダッシュ！", map: "ユニバーサル・スタジオ・ジャパン", move: "🚶 <ruby>徒歩<rt>とほ</rt></ruby> <ruby>約<rt>やく</rt></ruby>5<ruby>分<rt>ふん</rt></ruby>" },
+                    { t: "<ruby>午前<rt>ごぜん</rt></ruby>", i: "🍄", title: "マリオエリア", desc: "<ruby>整理券<rt>せいりけん</rt></ruby>/<ruby>確約券<rt>かくやくけん</rt></ruby>で<ruby>入場<rt>にゅうじょう</rt></ruby>。<ruby>全力<rt>ぜんりょく</rt></ruby>であそぼう！", map: "", crowd: "high" },
+                    { t: "19:00", i: "🍖", title: "<ruby>夕食<rt>ゆうしょく</rt></ruby>", desc: "パーク<ruby>内<rt>ない</rt></ruby> <ruby>三本<rt>さんぼん</rt></ruby>の<ruby>箒<rt>ほうき</rt></ruby>など", map: "", crowd: "high", move: "🚶 パーク<ruby>内移動<rt>ないいどう</rt></ruby>" },
+                    { t: "21:00", i: "♨️", title: "<ruby>展望温泉<rt>てんぼうおんせん</rt></ruby>", desc: "ホテル31<ruby>階<rt>かい</rt></ruby>で<ruby>疲<rt>つか</rt></ruby>れをいやそう", map: "", crowd: "low" }
                 ]
             },
             {
-                date: "3/28 (土)", title: "宇治・伏見・清水",
+                date: "3/28 (<ruby>土<rt>ど</rt></ruby>)", title: "<ruby>宇治<rt>うじ</rt></ruby>・<ruby>伏見<rt>ふしみ</rt></ruby>・<ruby>清水<rt>きよみず</rt></ruby>",
                 isoDate: "2026-03-28", lat: 35.0116, lon: 135.7681,
                 image: "./day3_4.png",
                 events: [
-                    { t: "10:00", i: "👜", title: "荷物預け", desc: "京都駅 アパホテルへ", map: "アパホテル 京都駅北", move: "🚃 JR奈良線 約20分",
+                    { t: "10:00", i: "👜", title: "<ruby>荷物預<rt>にもつあず</rt></ruby>け", desc: "<ruby>京都駅<rt>きょうとえき</rt></ruby> アパホテルへ", map: "アパホテル 京都駅北", move: "🚃 JR<ruby>奈良線<rt>ならせん</rt></ruby> <ruby>約<rt>やく</rt></ruby>20<ruby>分<rt>ぷん</rt></ruby>",
                       wc: { level: "check", note: "要事前確認", detail: "バリアフリールームの有無は要電話確認。京都駅からは徒歩3-5分、歩道は平坦。" } },
-                    { t: "11:30", i: "🍵", title: "宇治 平等院", desc: "中村藤吉は整理券必須！", map: "平等院", crowd: "high", move: "🚃 JR奈良線+京阪 約40分",
+                    { t: "11:30", i: "🍵", title: "<ruby>宇治<rt>うじ</rt></ruby> <ruby>平等院<rt>びょうどういん</rt></ruby>", desc: "<ruby>中村藤吉<rt>なかむらとうきち</rt></ruby>は<ruby>整理券<rt>せいりけん</rt></ruby>がいるよ！", map: "平等院", crowd: "high", move: "🚃 JR<ruby>奈良線<rt>ならせん</rt></ruby>+<ruby>京阪<rt>けいはん</rt></ruby> <ruby>約<rt>やく</rt></ruby>40<ruby>分<rt>ぷん</rt></ruby>",
                       wc: { level: "partial", note: "砂利道あり・介助推奨", detail: "表門から入場推奨。庭園は砂利敷きで介助必要。鳳翔館（ミュージアム）はバリアフリー。鳳凰堂内部は階段あり不可。車椅子貸出あり（南門受付）。事前電話で表門前駐車場の開放可。TEL: 0774-21-2861" } },
-                    { t: "14:00", i: "⛩️", title: "伏見稲荷", desc: "千本鳥居。スニーカー推奨。", map: "伏見稲荷大社", crowd: "high", move: "🚃 JR奈良線 約10分 → 京都駅",
+                    { t: "14:00", i: "⛩️", title: "<ruby>伏見稲荷<rt>ふしみいなり</rt></ruby>", desc: "<ruby>千本鳥居<rt>せんぼんとりい</rt></ruby>。スニーカーがおすすめ！", map: "伏見稲荷大社", crowd: "high", move: "🚃 JR<ruby>奈良線<rt>ならせん</rt></ruby> <ruby>約<rt>やく</rt></ruby>10<ruby>分<rt>ぷん</rt></ruby> → <ruby>京都駅<rt>きょうとえき</rt></ruby>",
                       wc: { level: "partial", note: "奥社まで可・EV 9-15時", detail: "2020年にエレベーター設置済。本殿〜千本鳥居〜奥社まで車椅子参拝可能。エレベーター利用は9:00〜15:00限定。奥社より先（稲荷山）は階段のため不可。砂利道にネット敷設あり。JR稲荷駅から徒歩1分。" } },
                     {
                         t: "17:00", i: "🥢",
-                        title: "夕食：京野菜料理 接方来",
-                        desc: "予約済：17:00〜19:00 (6名)<br>場所：京都駅ビル店",
+                        title: "<ruby>夕食<rt>ゆうしょく</rt></ruby>：<ruby>京野菜料理<rt>きょうやさいりょうり</rt></ruby> <ruby>接方来<rt>せっぽうらい</rt></ruby>",
+                        desc: "<ruby>予約済<rt>よやくずみ</rt></ruby>：17:00〜19:00 (6<ruby>名<rt>めい</rt></ruby>)<br><ruby>場所<rt>ばしょ</rt></ruby>：<ruby>京都駅<rt>きょうとえき</rt></ruby>ビル<ruby>店<rt>てん</rt></ruby>",
                         map: "接方来 京都駅ビル店", crowd: "low", move: "🚕 タクシー 約15分",
                         wc: { level: "check", note: "店内段差あり・要確認", detail: "京都駅ビル東ゾーン2F。駅ビルにはエレベーターあり。口コミで店内に段差ありとの情報。事前にTEL: 075-353-9565 で車椅子利用の可否を要確認。" }
                     },
-                    { t: "19:00", i: "✨", title: "清水寺 夜間拝観", desc: "タクシー移動推奨。幻想的な夜桜。", map: "清水寺", crowd: "high",
+                    { t: "19:00", i: "✨", title: "<ruby>清水寺<rt>きよみずでら</rt></ruby> <ruby>夜間拝観<rt>やかんはいかん</rt></ruby>", desc: "タクシーで<ruby>移動<rt>いどう</rt></ruby>しよう。きれいな<ruby>夜桜<rt>よざくら</rt></ruby>が<ruby>見<rt>み</rt></ruby>られるよ！", map: "清水寺", crowd: "high",
                       wc: { level: "partial", note: "専用ルートあり・夜間注意", detail: "車椅子専用の境内一周ルートあり（公式マップ配布）。仁王門北側からスロープで入場。多目的トイレ2箇所。障害者手帳提示で本人＋付添1名無料。夜間は暗いため介助者必須。タクシーで裏手からのアクセスが段差少なくおすすめ。" } }
                 ]
             },
             {
-                date: "3/29 (日)", title: "御所・映画村・ご馳走",
+                date: "3/29 (<ruby>日<rt>にち</rt></ruby>)", title: "<ruby>御所<rt>ごしょ</rt></ruby>・<ruby>映画村<rt>えいがむら</rt></ruby>・ごちそう",
                 isoDate: "2026-03-29", lat: 35.0116, lon: 135.7681,
                 image: "./day3_4.png",
                 events: [
-                    { t: "10:00", i: "⚽", title: "京都御所 蹴鞠", desc: "実演日！平安の文化に触れる", map: "京都御所", crowd: "medium", move: "🚃 地下鉄+嵐電 約40分",
+                    { t: "10:00", i: "⚽", title: "<ruby>京都御所<rt>きょうとごしょ</rt></ruby> <ruby>蹴鞠<rt>けまり</rt></ruby>", desc: "<ruby>実演日<rt>じつえんび</rt></ruby>！<ruby>平安<rt>へいあん</rt></ruby>の<ruby>文化<rt>ぶんか</rt></ruby>にふれよう", map: "京都御所", crowd: "medium", move: "🚃 <ruby>地下鉄<rt>ちかてつ</rt></ruby>+<ruby>嵐電<rt>らんでん</rt></ruby> <ruby>約<rt>やく</rt></ruby>40<ruby>分<rt>ぷん</rt></ruby>",
                       wc: { level: "partial", note: "御苑は砂利道・御所内要確認", detail: "京都御苑は広大な砂利敷き。舗装遊歩道もあるが御所入口まで砂利道区間あり。御所内のバリアフリー詳細は宮内庁京都事務所 TEL: 075-211-1215 へ事前確認推奨。多目的トイレは御苑内にあり。" } },
-                    { t: "13:30", i: "🥷", title: "太秦映画村", desc: "忍者・ちゃんばら・立体迷路", map: "東映太秦映画村", crowd: "medium", move: "🚃 嵐電+JR 約40分 → 京都駅",
+                    { t: "13:30", i: "🥷", title: "<ruby>太秦映画村<rt>うずまさえいがむら</rt></ruby>", desc: "<ruby>忍者<rt>にんじゃ</rt></ruby>・ちゃんばら・<ruby>立体迷路<rt>りったいめいろ</rt></ruby>", map: "東映太秦映画村", crowd: "medium", move: "🚃 <ruby>嵐電<rt>らんでん</rt></ruby>+JR <ruby>約<rt>やく</rt></ruby>40<ruby>分<rt>ぷん</rt></ruby> → <ruby>京都駅<rt>きょうとえき</rt></ruby>",
                       wc: { level: "good", note: "車椅子貸出あり・概ね対応", detail: "車椅子レンタルあり。多目的トイレ完備。中村座（芝居小屋）にスロープ＆車椅子席あり。障害者割引（大人1,400円）。一部体験型アトラクション（忍者体験等）は利用不可。2026/3/28リニューアルオープン。" } },
                     {
                         t: "18:30", i: "🍢",
-                        title: "夕食：炭火串焼 こけこっこ",
-                        desc: "予約済：18:30〜20:30<br>場所：JR京都伊勢丹 10F<br>予約番号：SDA534993",
+                        title: "<ruby>夕食<rt>ゆうしょく</rt></ruby>：<ruby>炭火串焼<rt>すみびくしやき</rt></ruby> こけこっこ",
+                        desc: "<ruby>予約済<rt>よやくずみ</rt></ruby>：18:30〜20:30<br><ruby>場所<rt>ばしょ</rt></ruby>：JR<ruby>京都伊勢丹<rt>きょうといせたん</rt></ruby> 10F<br><ruby>予約番号<rt>よやくばんごう</rt></ruby>：SDA534993",
                         map: "炭火串焼 こけこっこ 京都", crowd: "low",
                         wc: { level: "good", note: "伊勢丹EV完備・BF対応", detail: "JR京都伊勢丹10F。京都駅から直結でエレベーター完備。Yahoo!マップ情報でバリアフリー対応表記あり。念のためTEL: 075-365-3390 で座席配置を事前確認推奨。" }
                     }
                 ]
             },
             {
-                date: "3/30 (月)", title: "金閣・嵐山・帰路",
+                date: "3/30 (<ruby>月<rt>げつ</rt></ruby>)", title: "<ruby>金閣<rt>きんかく</rt></ruby>・<ruby>嵐山<rt>あらしやま</rt></ruby>・<ruby>帰<rt>かえ</rt></ruby>り",
                 isoDate: "2026-03-30", lat: 35.0133, lon: 135.6778,
                 image: "./day5_hotel.png",
                 events: [
-                    { t: "08:30", i: "🚕", title: "龍安寺", desc: "朝イチの石庭は静かでおすすめ", map: "龍安寺", crowd: "low", move: "🚌 市バス 約15分",
+                    { t: "08:30", i: "🚕", title: "<ruby>龍安寺<rt>りょうあんじ</rt></ruby>", desc: "<ruby>朝<rt>あさ</rt></ruby>イチの<ruby>石庭<rt>せきてい</rt></ruby>は<ruby>静<rt>しず</rt></ruby>かでおすすめ！", map: "龍安寺", crowd: "low", move: "🚌 <ruby>市<rt>し</rt></ruby>バス <ruby>約<rt>やく</rt></ruby>15<ruby>分<rt>ふん</rt></ruby>",
                       wc: { level: "partial", note: "石庭鑑賞可・スロープあり", detail: "車椅子対応トイレ1箇所。車椅子専用通路で方丈の石庭を鑑賞可能。UDマップで傾斜角度が確認可。境内に坂道あり介助推奨。" } },
-                    { t: "10:00", i: "✨", title: "金閣寺", desc: "輝く舎利殿で家族写真", map: "金閣寺", crowd: "high", move: "🚕 タクシー 約20分",
+                    { t: "10:00", i: "✨", title: "<ruby>金閣寺<rt>きんかくじ</rt></ruby>", desc: "<ruby>輝<rt>かがや</rt></ruby>く<ruby>舎利殿<rt>しゃりでん</rt></ruby>で<ruby>家族写真<rt>かぞくしゃしん</rt></ruby>をとろう！", map: "金閣寺", crowd: "high", move: "🚕 タクシー <ruby>約<rt>やく</rt></ruby>20<ruby>分<rt>ぷん</rt></ruby>",
                       wc: { level: "partial", note: "舎利殿横まで可・裏山不可", detail: "受付で車椅子利用を伝えると案内あり。スロープ設置済。金閣舎利殿の真横まで段差なくアクセス可。砂利道だが踏みしめてあり走行可能。裏山ルートは階段のため不可（引き返し）。障害者用トイレは出口売店横。車椅子用駐車場あり。" } },
                     {
                         t: "11:30", i: "🍱",
-                        title: "昼食 & 温泉：花のいえ",
-                        desc: "予約済：11:30〜 (6名/Pあり)<br>個室会席「嵯峨野」＆子供懐石<br>15時まで滞在可・温泉入浴OK♨️",
+                        title: "<ruby>昼食<rt>ちゅうしょく</rt></ruby> & <ruby>温泉<rt>おんせん</rt></ruby>：<ruby>花<rt>はな</rt></ruby>のいえ",
+                        desc: "<ruby>予約済<rt>よやくずみ</rt></ruby>：11:30〜 (6<ruby>名<rt>めい</rt></ruby>/<ruby>駐車場<rt>ちゅうしゃじょう</rt></ruby>あり)<br><ruby>個室<rt>こしつ</rt></ruby><ruby>会席<rt>かいせき</rt></ruby>「<ruby>嵯峨野<rt>さがの</rt></ruby>」＆<ruby>子供懐石<rt>こどもかいせき</rt></ruby><br>15<ruby>時<rt>じ</rt></ruby>まで<ruby>滞在<rt>たいざい</rt></ruby>OK・<ruby>温泉<rt>おんせん</rt></ruby>に<ruby>入<rt>はい</rt></ruby>れるよ♨️",
                         map: "花のいえ", crowd: "low", move: "🚶 徒歩 約15分",
                         wc: { level: "good", note: "BF洋室あり・車椅子貸出", detail: "バリアフリー洋室（車椅子対応バス・トイレ付）1室あり。車椅子貸出：館内用2台・館外用1台。レストランも車椅子入店可＆車椅子対応トイレあり。予約時に要申告。椅子席の個室は限りあるため電話で確認を。" }
                     },
-                    { t: "15:00", i: "🎋", title: "嵐山散策", desc: "渡月橋・竹林の小径など。<br>お土産購入タイム。", map: "嵐山 渡月橋", crowd: "medium", move: "🚃 JR嵯峨野線 約15分 → 京都駅",
+                    { t: "15:00", i: "🎋", title: "<ruby>嵐山散策<rt>あらしやまさんさく</rt></ruby>", desc: "<ruby>渡月橋<rt>とげつきょう</rt></ruby>・<ruby>竹林<rt>ちくりん</rt></ruby>の<ruby>小径<rt>こみち</rt></ruby>をおさんぽ。<br>おみやげも<ruby>買<rt>か</rt></ruby>おう！", map: "嵐山 渡月橋", crowd: "medium", move: "🚃 JR<ruby>嵯峨野線<rt>さがのせん</rt></ruby> <ruby>約<rt>やく</rt></ruby>15<ruby>分<rt>ふん</rt></ruby> → <ruby>京都駅<rt>きょうとえき</rt></ruby>",
                       wc: { level: "partial", note: "竹林前半は平坦・後半坂あり", detail: "竹林の小径は約500m。前半は舗装路で比較的平坦。後半〜トロッコ嵐山駅方面は急坂あり注意。渡月橋は通行可。中之島公園は一部砂利。JR嵯峨嵐山駅はエレベーター完備。介助者同行推奨。" } },
-                    { t: "17:54", i: "🚅", title: "新幹線 京都発", desc: "京都→品川（約2時間）19:59着予定。お疲れ様でした！", map: "京都駅",
+                    { t: "17:54", i: "🚅", title: "<ruby>新幹線<rt>しんかんせん</rt></ruby> <ruby>京都発<rt>きょうとはつ</rt></ruby>", desc: "<ruby>京都<rt>きょうと</rt></ruby>→<ruby>品川<rt>しながわ</rt></ruby>（<ruby>約<rt>やく</rt></ruby>2<ruby>時間<rt>じかん</rt></ruby>）19:59<ruby>着予定<rt>ちゃくよてい</rt></ruby>。おつかれさまでした！", map: "京都駅",
                       wc: { level: "good", note: "京都駅はBF完備", detail: "京都駅は全面バリアフリー。エレベーター・車椅子対応エスカレーター・昇降機完備。JR駅員による乗降介助あり。新幹線の車椅子対応座席は事前予約推奨。" } }
                 ]
             }
@@ -523,8 +537,8 @@
                         <div id="weather-display" class="empty:hidden"></div>
                     </div>
                     <p class="text-xs text-pink-500 font-bold tracking-widest uppercase">${data.date}</p>
-                    <p class="text-[10px] text-gray-400 mt-1">🟢🟡🔴 混雑アイコンは過去傾向の目安です</p>
-                    ${index >= 2 ? '<p class="text-[10px] text-blue-500 mt-0.5">♿ 車椅子メンバー合流日 — 各カードに<b>車椅子情報</b>あり</p>' : ''}
+                    <p class="text-[10px] text-gray-400 mt-1">🟢🟡🔴 <ruby>混<rt>こ</rt></ruby>みぐあいの<ruby>目安<rt>めやす</rt></ruby>だよ</p>
+                    ${index >= 2 ? '<p class="text-[10px] text-blue-500 mt-0.5">♿ <ruby>車椅子<rt>くるまいす</rt></ruby>メンバー<ruby>合流日<rt>ごうりゅうび</rt></ruby> — カードに<b><ruby>車椅子情報<rt>くるまいすじょうほう</rt></ruby></b>あり</p>' : ''}
                 </div>
 
                 <div class="bg-white p-2 rounded-xl border border-gray-100 shadow-sm mb-6 fade-enter">
@@ -536,7 +550,7 @@
             `;
 
             data.events.forEach((e, idx) => {
-                const mapBtn = e.map ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(e.map)}" target="_blank" class="ml-auto bg-gray-100 text-[10px] text-gray-500 px-3 py-1.5 rounded-full font-bold hover:bg-pink-100 hover:text-pink-600 transition"><i class="fa-solid fa-map-location-dot mr-1"></i>マップ</a>` : '';
+                const mapBtn = e.map ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(e.map)}" target="_blank" class="ml-auto bg-gray-100 text-[10px] text-gray-500 px-3 py-1.5 rounded-full font-bold hover:bg-pink-100 hover:text-pink-600 transition"><i class="fa-solid fa-map-location-dot mr-1"></i><ruby>地図<rt>ちず</rt></ruby></a>` : '';
                 const crowdBadge = getCrowdBadge(e.crowd);
                 const wcBadge = getWcBadge(e.wc);
                 const wcDetail = getWcDetail(e.wc, idx);
@@ -632,9 +646,9 @@
         function getCrowdBadge(level) {
             if (!level) return '';
             const map = {
-                high:   { dot: '🔴', label: '混雑',     cls: 'crowd-high' },
-                medium: { dot: '🟡', label: 'やや混雑', cls: 'crowd-medium' },
-                low:    { dot: '🟢', label: '空いてる', cls: 'crowd-low' }
+                high:   { dot: '🔴', label: '<ruby>混<rt>こ</rt></ruby>んでる',     cls: 'crowd-high' },
+                medium: { dot: '🟡', label: 'すこし<ruby>混<rt>こ</rt></ruby>んでる', cls: 'crowd-medium' },
+                low:    { dot: '🟢', label: '<ruby>空<rt>す</rt></ruby>いてる', cls: 'crowd-low' }
             };
             const m = map[level];
             if (!m) return '';
@@ -645,10 +659,10 @@
         function getWcBadge(wc) {
             if (!wc) return '';
             const map = {
-                good:      { icon: '♿', label: '対応◎',  cls: 'wc-good' },
-                partial:   { icon: '♿', label: '一部対応', cls: 'wc-partial' },
-                difficult: { icon: '♿', label: '困難',    cls: 'wc-difficult' },
-                check:     { icon: '♿', label: '要確認',  cls: 'wc-check' }
+                good:      { icon: '♿', label: '<ruby>対応<rt>たいおう</rt></ruby>◎',  cls: 'wc-good' },
+                partial:   { icon: '♿', label: '<ruby>一部対応<rt>いちぶたいおう</rt></ruby>', cls: 'wc-partial' },
+                difficult: { icon: '♿', label: '<ruby>困難<rt>こんなん</rt></ruby>',    cls: 'wc-difficult' },
+                check:     { icon: '♿', label: '<ruby>要確認<rt>ようかくにん</rt></ruby>',  cls: 'wc-check' }
             };
             const m = map[wc.level];
             if (!m) return '';
@@ -661,7 +675,7 @@
             return `
                 <div class="mt-2">
                     <button onclick="toggleWcDetail('wc-${idx}')" class="text-[10px] text-blue-500 font-bold flex items-center gap-1 hover:text-blue-700 transition">
-                        <i class="fa-solid fa-wheelchair-move"></i> 車椅子情報を見る <i class="fa-solid fa-chevron-down text-[8px]" id="wc-arrow-${idx}"></i>
+                        <i class="fa-solid fa-wheelchair-move"></i> <ruby>車椅子情報<rt>くるまいすじょうほう</rt></ruby>を<ruby>見<rt>み</rt></ruby>る <i class="fa-solid fa-chevron-down text-[8px]" id="wc-arrow-${idx}"></i>
                     </button>
                     <div id="wc-${idx}" class="wc-detail">
                         <div class="mt-1.5 p-2.5 bg-blue-50 rounded-lg border border-blue-100">
@@ -729,12 +743,12 @@
 
             if (now < tripStart) {
                 const diff = Math.ceil((tripStart - now) / (1000 * 60 * 60 * 24));
-                display.innerHTML = `<div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 inline-block"><span class="text-2xl font-bold">${diff}</span><span class="text-xs font-bold ml-1">日後に出発!</span></div>`;
+                display.innerHTML = `<div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 inline-block"><span class="text-2xl font-bold">${diff}</span><span class="text-xs font-bold ml-1"><ruby>日後<rt>にちご</rt></ruby>に<ruby>出発<rt>しゅっぱつ</rt></ruby>!</span></div>`;
             } else if (now <= tripEnd) {
                 const dayNum = Math.floor((now - tripStart) / (1000 * 60 * 60 * 24)) + 1;
-                display.innerHTML = `<div class="bg-white/30 backdrop-blur-sm rounded-xl px-4 py-2 inline-block animate-pulse"><span class="text-xs font-bold">旅行</span><span class="text-2xl font-bold mx-1">${dayNum}</span><span class="text-xs font-bold">日目！楽しんで!</span></div>`;
+                display.innerHTML = `<div class="bg-white/30 backdrop-blur-sm rounded-xl px-4 py-2 inline-block animate-pulse"><span class="text-xs font-bold"><ruby>旅行<rt>りょこう</rt></ruby></span><span class="text-2xl font-bold mx-1">${dayNum}</span><span class="text-xs font-bold"><ruby>日目<rt>にちめ</rt></ruby>！<ruby>楽<rt>たの</rt></ruby>しんで!</span></div>`;
             } else {
-                display.innerHTML = `<div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 inline-block"><span class="text-xs font-bold">お疲れ様でした! 素敵な思い出に</span></div>`;
+                display.innerHTML = `<div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 inline-block"><span class="text-xs font-bold">おつかれさまでした！<ruby>素敵<rt>すてき</rt></ruby>な<ruby>思<rt>おも</rt></ruby>い<ruby>出<rt>で</rt></ruby>に</span></div>`;
             }
         }
 
