@@ -12,20 +12,17 @@
             font-family: 'Zen Maru Gothic', sans-serif;
             background-color: #f0f4f8;
             color: #334155;
-            padding-bottom: 48px;
+            padding-bottom: 88px;
         }
         .task-card { transition: all 0.2s ease; }
         .task-card:active { transform: scale(0.98); }
-        .task-done .task-label {
-            text-decoration: line-through;
-            color: #94a3b8;
-        }
+        .task-done .task-label { text-decoration: line-through; color: #94a3b8; }
         .task-done .task-icon { opacity: 0.4; }
+        .task-done .price-tag { opacity: 0.4; }
         .custom-checkbox {
             appearance: none;
             -webkit-appearance: none;
-            width: 26px;
-            height: 26px;
+            width: 26px; height: 26px;
             border: 2px solid #cbd5e1;
             border-radius: 50%;
             cursor: pointer;
@@ -33,67 +30,65 @@
             transition: all 0.2s ease;
             position: relative;
         }
-        .custom-checkbox:checked {
-            background-color: #22c55e;
-            border-color: #22c55e;
-        }
+        .custom-checkbox:checked { background-color: #22c55e; border-color: #22c55e; }
         .custom-checkbox:checked::after {
             content: '';
             position: absolute;
-            left: 6px;
-            top: 2px;
-            width: 6px;
-            height: 11px;
+            left: 6px; top: 2px;
+            width: 6px; height: 11px;
             border: 2.5px solid white;
-            border-top: none;
-            border-left: none;
+            border-top: none; border-left: none;
             transform: rotate(45deg);
         }
         .progress-bar { transition: width 0.4s ease; }
         .badge {
             display: inline-block;
-            font-size: 11px;
-            padding: 2px 8px;
-            border-radius: 999px;
-            font-weight: 700;
+            font-size: 11px; padding: 2px 8px;
+            border-radius: 999px; font-weight: 700;
         }
-        .link-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .link-btn {
+        .price-tag {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            font-size: 12px;
-            font-weight: 600;
+            gap: 6px;
+            margin-top: 8px;
             padding: 4px 10px;
+            background: #fefce8;
+            border: 1px solid #fde68a;
             border-radius: 8px;
-            text-decoration: none;
-            transition: opacity 0.15s;
+            font-size: 13px;
+            font-weight: 700;
+            color: #92400e;
+        }
+        .price-tag .jpy { color: #b45309; font-size: 12px; }
+        .link-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        .link-btn {
+            display: inline-flex; align-items: center; gap: 4px;
+            font-size: 12px; font-weight: 600;
+            padding: 4px 10px; border-radius: 8px;
+            text-decoration: none; transition: opacity 0.15s;
         }
         .link-btn:active { opacity: 0.7; }
         .link-btn-shop { background: #eff6ff; color: #2563eb; }
         .link-btn-map  { background: #f0fdf4; color: #16a34a; }
+        /* 合計バー */
+        #totalBar {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(135deg, #1e3a5f, #1e40af);
+            color: white;
+            padding: 12px 20px;
+            display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 -4px 16px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+            z-index: 50;
+        }
+        #totalBar.hidden-bar { transform: translateY(100%); }
         .fade-in { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to   { opacity: 1; transform: translateY(0); }
         }
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 12px;
-            padding-left: 4px;
-        }
-        .section-header h2 {
-            font-weight: 700;
-            color: #475569;
-            font-size: 15px;
-        }
+        .section-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; padding-left: 4px; }
+        .section-header h2 { font-weight: 700; color: #475569; font-size: 15px; }
     </style>
 </head>
 <body>
@@ -123,12 +118,8 @@
 
     <!-- ======= 行くべきスポット ======= -->
     <section class="fade-in">
-        <div class="section-header">
-            <span class="text-xl">📍</span>
-            <h2>行くべきスポット</h2>
-        </div>
+        <div class="section-header"><span class="text-xl">📍</span><h2>行くべきスポット</h2></div>
 
-        <!-- グリニッジ天文台 -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-0">
             <label class="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-0')">
@@ -148,7 +139,6 @@
             </label>
         </div>
 
-        <!-- グリニッジマーケット -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-1">
             <label class="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-1')">
@@ -168,7 +158,6 @@
             </label>
         </div>
 
-        <!-- ジョン・ルイス（老舗デパート） -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-2">
             <label class="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-2')">
@@ -191,12 +180,8 @@
 
     <!-- ======= サエカエへ ======= -->
     <section class="fade-in">
-        <div class="section-header">
-            <span class="text-xl">👜</span>
-            <h2>サエカエへ</h2>
-        </div>
+        <div class="section-header"><span class="text-xl">👜</span><h2>サエカエへ</h2></div>
 
-        <!-- ヴィヴィアン バッグチャーム -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-3">
             <label class="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-3')">
@@ -206,6 +191,10 @@
                         <span class="task-label font-bold text-slate-800">ヴィヴィアン テディベア バッグチャーム</span>
                     </div>
                     <p class="task-label text-slate-500 text-sm mt-1">Vivienne Westwood Teddy Bear Handbag Charm・Multi</p>
+                    <div class="price-tag">
+                        <span>£170.00</span>
+                        <span class="jpy">≈ ¥32,300</span>
+                    </div>
                     <div class="link-row">
                         <a href="https://www.johnlewis.com/vivienne-westwood-teddy-bear-handbag-charm-multi/p114158120" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
@@ -218,7 +207,6 @@
             </label>
         </div>
 
-        <!-- 腕時計 -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-4">
             <label class="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-4')">
@@ -241,10 +229,7 @@
 
     <!-- ======= ぴぴへ ======= -->
     <section class="fade-in">
-        <div class="section-header">
-            <span class="text-xl">👗</span>
-            <h2>ぴぴへ</h2>
-        </div>
+        <div class="section-header"><span class="text-xl">👗</span><h2>ぴぴへ</h2></div>
 
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-5">
             <label class="flex items-start gap-3 cursor-pointer">
@@ -255,6 +240,11 @@
                         <span class="task-label font-bold text-slate-800">ウェーブストライプ ニットワンピース</span>
                     </div>
                     <p class="task-label text-slate-500 text-sm mt-1">John Lewis Kids Wavy Stripe Knit Dress・Multi<br>ぴぴに似合いそう！</p>
+                    <div class="price-tag">
+                        <span>£18〜20</span>
+                        <span class="jpy">≈ ¥3,420〜3,800</span>
+                        <span style="font-size:10px;color:#b45309;font-weight:500">サイズにより変動</span>
+                    </div>
                     <div class="link-row">
                         <a href="https://www.johnlewis.com/john-lewis-kids-wavy-stripe-knit-dress-multi/p114464209" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
@@ -270,10 +260,7 @@
 
     <!-- ======= 紗英へ ======= -->
     <section class="fade-in">
-        <div class="section-header">
-            <span class="text-xl">👕</span>
-            <h2>紗英へ</h2>
-        </div>
+        <div class="section-header"><span class="text-xl">👕</span><h2>紗英へ</h2></div>
 
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-6">
             <label class="flex items-start gap-3 cursor-pointer">
@@ -284,6 +271,10 @@
                         <span class="task-label font-bold text-slate-800">タイサイドTシャツ（アクア）</span>
                     </div>
                     <p class="task-label text-slate-500 text-sm mt-1">Mango Kids Textured Short Sleeve Tie Side T-Shirt・Aqua<br>紗英がギリ着てくれそうな女の子っぽいTシャツ</p>
+                    <div class="price-tag">
+                        <span>£19.99</span>
+                        <span class="jpy">≈ ¥3,798</span>
+                    </div>
                     <div class="link-row">
                         <a href="https://www.johnlewis.com/mango-kids-textured-short-sleeve-tie-side-t-shirt-aqua/p115117304" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
@@ -299,10 +290,7 @@
 
     <!-- ======= ついでにチェック ======= -->
     <section class="fade-in">
-        <div class="section-header">
-            <span class="text-xl">💍</span>
-            <h2>ついでにチェック</h2>
-        </div>
+        <div class="section-header"><span class="text-xl">💍</span><h2>ついでにチェック</h2></div>
 
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-7">
             <label class="flex items-start gap-3 cursor-pointer">
@@ -333,8 +321,28 @@
 
 </div>
 
+<!-- 合計バー -->
+<div id="totalBar" class="hidden-bar">
+    <div>
+        <p class="text-xs text-blue-200 mb-0.5">お買い物合計 <span class="text-blue-300">（£1 ≈ ¥190）</span></p>
+        <p class="font-bold text-lg" id="totalGBP">£0.00</p>
+    </div>
+    <div class="text-right">
+        <p class="text-xs text-blue-200 mb-0.5">日本円換算</p>
+        <p class="font-bold text-lg" id="totalJPY">¥0</p>
+    </div>
+</div>
+
 <script>
     const TOTAL = 8;
+    const RATE = 190;
+
+    // card-id → GBP価格（価格なしはnull）
+    const PRICES = {
+        'card-3': 170.00,   // VW バッグチャーム
+        'card-5': 19.00,    // ニットワンピース（中央値）
+        'card-6': 19.99,    // タイサイドTシャツ
+    };
 
     function updateProgress() {
         const checked = document.querySelectorAll('.custom-checkbox:checked').length;
@@ -343,6 +351,23 @@
         document.getElementById('progressText').textContent = checked + ' / ' + TOTAL + ' 完了';
         document.getElementById('progressPercent').textContent = pct + '%';
         document.getElementById('allDoneMsg').classList.toggle('hidden', checked < TOTAL);
+    }
+
+    function updateTotal() {
+        let totalGBP = 0;
+        document.querySelectorAll('.custom-checkbox:checked').forEach((cb, i) => {
+            const cardId = cb.closest('[id^="card-"]').id;
+            if (PRICES[cardId]) totalGBP += PRICES[cardId];
+        });
+
+        const bar = document.getElementById('totalBar');
+        if (totalGBP > 0) {
+            document.getElementById('totalGBP').textContent = '£' + totalGBP.toFixed(2);
+            document.getElementById('totalJPY').textContent = '¥' + Math.round(totalGBP * RATE).toLocaleString();
+            bar.classList.remove('hidden-bar');
+        } else {
+            bar.classList.add('hidden-bar');
+        }
     }
 
     function toggleTask(checkbox, cardId) {
@@ -355,14 +380,13 @@
             card.style.opacity = '1';
         }
         updateProgress();
+        updateTotal();
         saveState();
     }
 
     function saveState() {
         const states = {};
-        document.querySelectorAll('.custom-checkbox').forEach((cb, i) => {
-            states[i] = cb.checked;
-        });
+        document.querySelectorAll('.custom-checkbox').forEach((cb, i) => { states[i] = cb.checked; });
         try { localStorage.setItem('london_tasks', JSON.stringify(states)); } catch(e) {}
     }
 
@@ -378,6 +402,7 @@
             });
         } catch(e) {}
         updateProgress();
+        updateTotal();
     }
 
     loadState();
