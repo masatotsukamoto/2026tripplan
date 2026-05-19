@@ -3,870 +3,358 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>2026はる 京都・大阪 かぞくりょこう</title>
+    <title>ロンドン出張 家族タスク</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
         body {
             font-family: 'Zen Maru Gothic', sans-serif;
-            background-color: #f8fafc;
+            background-color: #f0f4f8;
             color: #334155;
-            padding-bottom: 80px; /* Bottom Navの分だけ空ける */
+            padding-bottom: 40px;
         }
-        /* スクロールバー非表示 */
-        .hide-scroll::-webkit-scrollbar {
-            display: none;
+        .task-card {
+            transition: all 0.2s ease;
         }
-        .hide-scroll {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        .task-card:active {
+            transform: scale(0.98);
         }
-        /* アニメーション */
-        .fade-enter {
-            animation: fadeEnter 0.3s ease-out forwards;
+        .task-done .task-label {
+            text-decoration: line-through;
+            color: #94a3b8;
         }
-        @keyframes fadeEnter {
+        .task-done .task-icon {
+            opacity: 0.4;
+        }
+        .custom-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border: 2px solid #cbd5e1;
+            border-radius: 50%;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        .custom-checkbox:checked {
+            background-color: #22c55e;
+            border-color: #22c55e;
+        }
+        .custom-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            width: 6px;
+            height: 10px;
+            border: 2px solid white;
+            border-top: none;
+            border-left: none;
+            transform: rotate(45deg);
+        }
+        .progress-bar {
+            transition: width 0.4s ease;
+        }
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-weight: 700;
+        }
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .active-tab {
-            color: #ec4899; /* pink-500 */
-        }
-        .nav-item.active .icon-box {
-            background-color: #fdf2f8; /* pink-50 */
-            color: #db2777; /* pink-600 */
-        }
-        /* 天気バッジのスタイル */
-        .weather-badge {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; /* 数字を見やすく */
-        }
-        /* 混雑バッジのスタイル */
-        .crowd-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 2px;
-            font-size: 10px;
-            padding: 2px 7px;
-            border-radius: 9999px;
-            font-weight: 700;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            white-space: nowrap;
-        }
-        .crowd-high   { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
-        .crowd-medium { background: #fefce8; color: #ca8a04; border: 1px solid #fde68a; }
-        .crowd-low    { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
-        /* 車椅子バッジのスタイル */
-        .wc-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 3px;
-            font-size: 10px;
-            padding: 2px 7px;
-            border-radius: 9999px;
-            font-weight: 700;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            white-space: nowrap;
-        }
-        .wc-good     { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
-        .wc-partial  { background: #fefce8; color: #ca8a04; border: 1px solid #fde68a; }
-        .wc-difficult { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
-        .wc-check    { background: #f5f3ff; color: #7c3aed; border: 1px solid #ddd6fe; }
-        .wc-detail {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-        .wc-detail.open {
-            max-height: 200px;
-        }
-        /* スワイプヒント */
-        .swipe-hint {
-            animation: swipeHint 2s ease-in-out 1s 1;
-            opacity: 0;
-        }
-        @keyframes swipeHint {
-            0% { opacity: 0; transform: translateX(0); }
-            20% { opacity: 1; }
-            50% { opacity: 1; transform: translateX(-15px); }
-            80% { opacity: 1; transform: translateX(0); }
-            100% { opacity: 0; }
-        }
-        /* ふりがな（ルビ）のスタイル */
-        ruby {
-            ruby-position: over;
-        }
-        rt {
-            font-size: 0.6em;
-            color: #9ca3af;
-            font-weight: normal;
-            line-height: 1;
-        }
-        /* 小学生向け：少し大きめのベースフォント */
-        body {
-            font-size: 15px;
-        }
     </style>
 </head>
-<body class="min-h-screen">
+<body>
 
-    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-40 border-b border-pink-100 shadow-sm">
-        <div class="max-w-md mx-auto px-4 py-3 flex justify-between items-center">
+<!-- ヘッダー -->
+<div class="bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white px-4 pt-10 pb-8">
+    <div class="max-w-lg mx-auto">
+        <div class="flex items-center gap-3 mb-1">
+            <span class="text-4xl">🇬🇧</span>
             <div>
-                <h1 class="text-lg font-bold text-gray-800">🌸 2026<ruby>春<rt>はる</rt></ruby> <ruby>家族旅行<rt>かぞくりょこう</rt></ruby></h1>
-                <p class="text-[10px] text-pink-500 font-bold tracking-widest">OSAKA & KYOTO / 3.26-30</p>
-            </div>
-            <div id="weather-icon" class="text-gray-400 text-sm">
-                <i class="fa-solid fa-plane-departure text-pink-300"></i>
+                <p class="text-blue-200 text-sm font-medium tracking-widest uppercase">London Business Trip</p>
+                <h1 class="text-2xl font-bold">家族タスクリスト</h1>
             </div>
         </div>
-    </header>
+        <p class="text-blue-300 text-sm mt-3 ml-1">家族からのお願いをまとめたよ。全部やってきてね！</p>
 
-    <main class="max-w-md mx-auto px-4 py-4 relative">
-        
-        <div id="view-home" class="view-section fade-enter">
-            <div class="bg-gradient-to-br from-pink-500 to-orange-400 rounded-2xl p-6 text-white shadow-lg mb-6 relative overflow-hidden">
-                <div class="relative z-10">
-                    <p class="text-xs font-bold opacity-80 mb-1">TRIP THEME</p>
-                    <h2 class="text-2xl font-bold leading-tight mb-2">USJ<ruby>全力<rt>ぜんりょく</rt></ruby><ruby>遊<rt>あそ</rt></ruby>び &<br><ruby>京都<rt>きょうと</rt></ruby>の<ruby>歴史<rt>れきし</rt></ruby><ruby>満喫<rt>まんきつ</rt></ruby></h2>
-                    <div class="mt-4 flex gap-2 flex-wrap">
-                        <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm">👨‍👩‍👧‍👦 <ruby>家族<rt>かぞく</rt></ruby>4<ruby>人<rt>にん</rt></ruby></span>
-                        <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm">🚄 4<ruby>泊<rt>はく</rt></ruby>5<ruby>日<rt>にち</rt></ruby></span>
-                    </div>
-                    <div id="countdown-display" class="mt-3"></div>
-                </div>
-                <i class="fa-solid fa-torii-gate absolute -bottom-4 -right-4 text-9xl text-white opacity-10 rotate-12"></i>
-            </div>
+        <!-- 進捗バー -->
+        <div class="mt-5 bg-blue-950/50 rounded-full h-3 overflow-hidden">
+            <div id="progressBar" class="progress-bar bg-gradient-to-r from-green-400 to-emerald-500 h-3 rounded-full" style="width: 0%"></div>
+        </div>
+        <div class="flex justify-between mt-1">
+            <p class="text-blue-300 text-xs" id="progressText">0 / 0 完了</p>
+            <p class="text-blue-300 text-xs" id="progressPercent">0%</p>
+        </div>
+    </div>
+</div>
 
-            <div class="mb-6">
-                <h3 class="text-sm font-bold text-gray-400 mb-2 px-1">🗺️ <ruby>全体<rt>ぜんたい</rt></ruby>マップ</h3>
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-2">
-                    <img src="./summary.png" alt="Map" class="w-full rounded-lg" onerror="this.src='https://placehold.co/600x400/pink/white?text=Map+Image'">
-                </div>
-            </div>
+<div class="max-w-lg mx-auto px-4 mt-6 space-y-5">
 
-            <h3 class="text-sm font-bold text-gray-400 mb-2 px-1">🚅 <ruby>新幹線<rt>しんかんせん</rt></ruby></h3>
-            <div class="grid grid-cols-1 gap-3 mb-6">
-                <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100">
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center text-pink-500"><i class="fa-solid fa-train"></i></div>
-                        <div class="text-xs font-bold"><ruby>行<rt>い</rt></ruby>き：3/26（<ruby>木<rt>もく</rt></ruby>）</div>
-                    </div>
-                    <div class="text-xs text-gray-500 ml-11"><ruby>品川<rt>しながわ</rt></ruby> <span class="font-bold text-gray-700">07:07</span> → <ruby>新大阪<rt>しんおおさか</rt></ruby> <span class="font-bold text-gray-700">09:27</span></div>
-                </div>
-                <div class="bg-white p-3 rounded-xl shadow-sm border border-gray-100">
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-500"><i class="fa-solid fa-train"></i></div>
-                        <div class="text-xs font-bold"><ruby>帰<rt>かえ</rt></ruby>り：3/30（<ruby>月<rt>げつ</rt></ruby>）</div>
-                    </div>
-                    <div class="text-xs text-gray-500 ml-11"><ruby>京都<rt>きょうと</rt></ruby> <span class="font-bold text-gray-700">17:54</span> → <ruby>品川<rt>しながわ</rt></ruby> <span class="font-bold text-gray-700">19:59</span></div>
-                </div>
-            </div>
-
-            <h3 class="text-sm font-bold text-gray-400 mb-2 px-1">📱 <ruby>予約<rt>よやく</rt></ruby>・<ruby>移動<rt>いどう</rt></ruby></h3>
-            <div class="grid grid-cols-2 gap-3 mb-6">
-                <a href="https://www.usj.co.jp/web/ja/jp" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-3 active:scale-95 transition">
-                    <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-500"><i class="fa-solid fa-ticket"></i></div>
-                    <div class="text-xs font-bold">USJ<ruby>公式<rt>こうしき</rt></ruby><br><span class="text-[10px] text-gray-400 font-normal"><ruby>待<rt>ま</rt></ruby>ち<ruby>時間<rt>じかん</rt></ruby></span></div>
-                </a>
-                <a href="https://go.goinc.jp/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-3 active:scale-95 transition">
-                    <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-500"><i class="fa-solid fa-taxi"></i></div>
-                    <div class="text-xs font-bold">GOアプリ<br><span class="text-[10px] text-gray-400 font-normal">タクシー<ruby>呼出<rt>よびだし</rt></ruby></span></div>
-                </a>
-                 <a href="https://www.mmjp.or.jp/Capt-Line/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-3 active:scale-95 transition">
-                    <div class="w-8 h-8 rounded-full bg-cyan-100 flex items-center justify-center text-cyan-500"><i class="fa-solid fa-ship"></i></div>
-                    <div class="text-xs font-bold">キャプテンライン<br><span class="text-[10px] text-gray-400 font-normal"><ruby>時刻表<rt>じこくひょう</rt></ruby></span></div>
-                </a>
-                 <a href="https://crosta.jp/osaka/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-3 active:scale-95 transition">
-                    <div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-orange-500"><i class="fa-solid fa-suitcase-rolling"></i></div>
-                    <div class="text-xs font-bold">Crosta<ruby>大阪<rt>おおさか</rt></ruby><br><span class="text-[10px] text-gray-400 font-normal"><ruby>荷物<rt>にもつ</rt></ruby><ruby>配送<rt>はいそう</rt></ruby></span></div>
-                </a>
-            </div>
-
-            <h3 class="text-sm font-bold text-gray-400 mb-2 px-1">📍 <ruby>訪問<rt>ほうもん</rt></ruby>スポット<ruby>公式<rt>こうしき</rt></ruby></h3>
-            <div class="grid grid-cols-2 gap-3 mb-20">
-                <a href="https://www.osakacastle.net/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
-                    <i class="fa-brands fa-fort-awesome text-orange-400 w-5 text-center"></i>
-                    <span class="text-xs font-bold"><ruby>大阪城<rt>おおさかじょう</rt></ruby></span>
-                </a>
-                <a href="https://www.sakai-tcb.or.jp/spot/detail/126" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
-                    <i class="fa-solid fa-mountain text-green-600 w-5 text-center"></i>
-                    <span class="text-xs font-bold"><ruby>大仙古墳<rt>だいせんこふん</rt></ruby></span>
-                </a>
-                <a href="https://www.kaiyukan.com/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
-                    <i class="fa-solid fa-fish-fins text-blue-400 w-5 text-center"></i>
-                    <span class="text-xs font-bold"><ruby>海遊館<rt>かいゆうかん</rt></ruby></span>
-                </a>
-                <a href="https://www.byodoin.or.jp/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
-                    <i class="fa-solid fa-building-columns text-red-400 w-5 text-center"></i>
-                    <span class="text-xs font-bold"><ruby>平等院<rt>びょうどういん</rt></ruby></span>
-                </a>
-                <a href="http://inari.jp/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
-                    <i class="fa-solid fa-torii-gate text-red-600 w-5 text-center"></i>
-                    <span class="text-xs font-bold"><ruby>伏見稲荷<rt>ふしみいなり</rt></ruby></span>
-                </a>
-                <a href="https://www.kiyomizudera.or.jp/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
-                    <i class="fa-solid fa-gopuram text-purple-400 w-5 text-center"></i>
-                    <span class="text-xs font-bold"><ruby>清水寺<rt>きよみずでら</rt></ruby></span>
-                </a>
-                 <a href="https://kyoto-gosho.kunaicho.go.jp/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
-                    <i class="fa-solid fa-crown text-yellow-500 w-5 text-center"></i>
-                    <span class="text-xs font-bold"><ruby>京都御所<rt>きょうとごしょ</rt></ruby></span>
-                </a>
-                <a href="https://www.toei-eigamura.com/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
-                    <i class="fa-solid fa-mask text-gray-600 w-5 text-center"></i>
-                    <span class="text-xs font-bold"><ruby>映画村<rt>えいがむら</rt></ruby></span>
-                </a>
-                <a href="http://www.ryoanji.com/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
-                    <i class="fa-solid fa-seedling text-green-700 w-5 text-center"></i>
-                    <span class="text-xs font-bold"><ruby>龍安寺<rt>りょうあんじ</rt></ruby></span>
-                </a>
-                <a href="https://www.shokoku-ji.jp/kinkakuji/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
-                    <i class="fa-solid fa-place-of-worship text-yellow-400 w-5 text-center"></i>
-                    <span class="text-xs font-bold"><ruby>金閣寺<rt>きんかくじ</rt></ruby></span>
-                </a>
-                 <a href="https://www.arayama-hoshokai.com/" target="_blank" class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 active:scale-95 transition">
-                    <i class="fa-solid fa-tree text-green-500 w-5 text-center"></i>
-                    <span class="text-xs font-bold"><ruby>嵐山<rt>あらしやま</rt></ruby></span>
-                </a>
-            </div>
+    <!-- 行くべきスポット -->
+    <section class="fade-in">
+        <div class="flex items-center gap-2 mb-3">
+            <span class="text-lg">📍</span>
+            <h2 class="font-bold text-slate-700 text-base">行くべきスポット</h2>
         </div>
 
-        <div id="view-schedule" class="view-section hidden fade-enter">
-            <div class="flex overflow-x-auto hide-scroll gap-2 mb-6 pb-2 sticky top-0 bg-[#f8fafc] pt-2 z-30">
-                <button onclick="renderDay(0)" id="tab-0" class="day-tab flex-shrink-0 px-4 py-2 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-500 shadow-sm transition-all whitespace-nowrap">3/26 <ruby>大阪<rt>おおさか</rt></ruby></button>
-                <button onclick="renderDay(1)" id="tab-1" class="day-tab flex-shrink-0 px-4 py-2 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-500 shadow-sm transition-all whitespace-nowrap">3/27 USJ</button>
-                <button onclick="renderDay(2)" id="tab-2" class="day-tab flex-shrink-0 px-4 py-2 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-500 shadow-sm transition-all whitespace-nowrap">3/28 <ruby>宇治<rt>うじ</rt></ruby></button>
-                <button onclick="renderDay(3)" id="tab-3" class="day-tab flex-shrink-0 px-4 py-2 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-500 shadow-sm transition-all whitespace-nowrap">3/29 <ruby>御所<rt>ごしょ</rt></ruby></button>
-                <button onclick="renderDay(4)" id="tab-4" class="day-tab flex-shrink-0 px-4 py-2 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-500 shadow-sm transition-all whitespace-nowrap">3/30 <ruby>嵐山<rt>あらしやま</rt></ruby></button>
-            </div>
-
-            <div id="day-content" class="pb-20">
+        <!-- グリニッジ天文台 -->
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-0">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this, 'card-0')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🔭</span>
+                        <span class="task-label font-bold text-slate-800">グリニッジ天文台</span>
+                        <span class="badge bg-amber-100 text-amber-700">観光</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">Blackheath Ave, London SE10 8XJ</p>
+                    <a href="https://maps.app.goo.gl/r8gDTJZxHvZNcRR98" target="_blank"
+                       class="inline-flex items-center gap-1 mt-2 text-blue-600 text-xs font-medium hover:underline"
+                       onclick="event.stopPropagation()">
+                        <i class="fa-solid fa-map-location-dot"></i> Google Maps で開く
+                    </a>
                 </div>
-            <div id="day-nav-buttons" class="flex justify-between items-center px-2 pb-6 -mt-14">
-                <button id="prev-day-btn" onclick="if(currentDayIndex>0) renderDay(currentDayIndex-1)" class="bg-white shadow-md border border-gray-200 text-gray-500 w-10 h-10 rounded-full flex items-center justify-center text-sm active:scale-90 transition hover:bg-pink-50 hover:text-pink-500 disabled:opacity-30">
-                    <i class="fa-solid fa-chevron-left"></i>
-                </button>
-                <span class="swipe-hint text-[10px] text-gray-300"><i class="fa-solid fa-hand-point-up mr-1"></i>スワイプで<ruby>日程<rt>にってい</rt></ruby><ruby>切替<rt>きりかえ</rt></ruby></span>
-                <button id="next-day-btn" onclick="if(currentDayIndex<4) renderDay(currentDayIndex+1)" class="bg-white shadow-md border border-gray-200 text-gray-500 w-10 h-10 rounded-full flex items-center justify-center text-sm active:scale-90 transition hover:bg-pink-50 hover:text-pink-500 disabled:opacity-30">
-                    <i class="fa-solid fa-chevron-right"></i>
-                </button>
-            </div>
+            </label>
         </div>
 
-        <div id="view-info" class="view-section hidden fade-enter">
-            <h3 class="text-sm font-bold text-gray-400 mb-3 uppercase tracking-widest">Accommodation</h3>
-            
-            <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-4">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="bg-blue-100 text-blue-600 text-[10px] font-bold px-2 py-1 rounded">1-2<ruby>泊目<rt>はくめ</rt></ruby> (<ruby>大阪<rt>おおさか</rt></ruby>)</span>
-                </div>
-                <h4 class="font-bold text-lg text-gray-800 mb-1">ホテル<ruby>京阪<rt>けいはん</rt></ruby><br>ユニバーサル・タワー</h4>
-                <p class="text-xs text-gray-500 mb-4"><i class="fa-solid fa-location-dot mr-1"></i>ユニバーサルシティ<ruby>駅<rt>えき</rt></ruby> <ruby>直結<rt>ちょっけつ</rt></ruby></p>
-                <div class="flex gap-2">
-                    <a href="https://goo.gl/maps/example" target="_blank" class="flex-1 bg-gray-50 py-2 rounded-lg text-center text-xs font-bold text-gray-600 hover:bg-gray-100 border border-gray-200">📍 マップ</a>
-                    <a href="https://www.hotelkeihan.co.jp/tower/" target="_blank" class="flex-1 bg-blue-50 py-2 rounded-lg text-center text-xs font-bold text-blue-600 hover:bg-blue-100 border border-blue-200"><ruby>公式<rt>こうしき</rt></ruby>サイト</a>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-8">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="bg-green-100 text-green-600 text-[10px] font-bold px-2 py-1 rounded">3-4<ruby>泊目<rt>はくめ</rt></ruby> (<ruby>京都<rt>きょうと</rt></ruby>)</span>
-                    <span class="bg-orange-100 text-orange-600 text-[10px] font-bold px-2 py-1 rounded ml-2"><ruby>朝食付<rt>ちょうしょくつき</rt></ruby></span>
-                </div>
-                <h4 class="font-bold text-lg text-gray-800 mb-1">アパホテル〈<ruby>京都駅北<rt>きょうとえききた</rt></ruby>〉</h4>
-                <p class="text-xs text-gray-500 mb-1"><i class="fa-solid fa-location-dot mr-1"></i><ruby>京都駅<rt>きょうとえき</rt></ruby> <ruby>徒歩<rt>とほ</rt></ruby>3-5<ruby>分<rt>ふん</rt></ruby></p>
-                <p class="text-xs text-gray-400 mb-4">コネクティングルームプラン</p>
-                <div class="flex gap-2">
-                    <a href="https://goo.gl/maps/qA6a9d7H3mZ2" target="_blank" class="flex-1 bg-gray-50 py-2 rounded-lg text-center text-xs font-bold text-gray-600 hover:bg-gray-100 border border-gray-200">📍 マップ</a>
-                    <a href="https://www.apahotel.com/hotel/kansai/kyoto/kyoto-ekikita/" target="_blank" class="flex-1 bg-green-50 py-2 rounded-lg text-center text-xs font-bold text-green-600 hover:bg-green-100 border border-green-200"><ruby>公式<rt>こうしき</rt></ruby>サイト</a>
-                </div>
-            </div>
-
-            <h3 class="text-sm font-bold text-gray-400 mb-3 uppercase tracking-widest">Check List</h3>
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-8">
-                <label class="flex items-center p-4 border-b border-gray-50 cursor-pointer hover:bg-pink-50 transition">
-                    <input type="checkbox" class="w-5 h-5 accent-pink-500 rounded border-gray-300">
-                    <span class="ml-3 text-sm font-bold text-gray-700">USJ エクスプレス・パス (<ruby>印刷<rt>いんさつ</rt></ruby>/スクショ)</span>
-                </label>
-                <label class="flex items-center p-4 border-b border-gray-50 cursor-pointer hover:bg-pink-50 transition">
-                    <input type="checkbox" class="w-5 h-5 accent-pink-500 rounded border-gray-300">
-                    <span class="ml-3 text-sm font-bold text-gray-700"><ruby>海遊館<rt>かいゆうかん</rt></ruby>・<ruby>映画村<rt>えいがむら</rt></ruby> WEBチケット</span>
-                </label>
-                <label class="flex items-center p-4 border-b border-gray-50 cursor-pointer hover:bg-pink-50 transition">
-                    <input type="checkbox" class="w-5 h-5 accent-pink-500 rounded border-gray-300">
-                    <span class="ml-3 text-sm font-bold text-gray-700"><ruby>歩<rt>ある</rt></ruby>きやすい<ruby>靴<rt>くつ</rt></ruby> & <ruby>上着<rt>うわぎ</rt></ruby></span>
-                </label>
-                <label class="flex items-center p-4 cursor-pointer hover:bg-pink-50 transition">
-                    <input type="checkbox" class="w-5 h-5 accent-pink-500 rounded border-gray-300">
-                    <span class="ml-3 text-sm font-bold text-gray-700">スマホ<ruby>充電器<rt>じゅうでんき</rt></ruby> & モバイルバッテリー</span>
-                </label>
-            </div>
-
-            <h3 class="text-sm font-bold text-gray-400 mb-3 uppercase tracking-widest">Wheelchair Access (3日目〜)</h3>
-
-            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-sm border border-blue-100 overflow-hidden mb-4 p-4">
-                <div class="flex items-center gap-2 mb-3">
-                    <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm"><i class="fa-solid fa-wheelchair-move"></i></div>
-                    <div>
-                        <span class="text-sm font-bold text-gray-800"><ruby>車椅子<rt>くるまいす</rt></ruby>メンバー<ruby>合流<rt>ごうりゅう</rt></ruby> (Day3〜)</span>
-                        <p class="text-[10px] text-gray-500"><ruby>各<rt>かく</rt></ruby>スポットのバリアフリー<ruby>状況<rt>じょうきょう</rt></ruby></p>
+        <!-- グリニッジマーケット -->
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-1">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this, 'card-1')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🛒</span>
+                        <span class="task-label font-bold text-slate-800">グリニッジマーケット</span>
+                        <span class="badge bg-green-100 text-green-700">マーケット</span>
                     </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">地元民おすすめ！絶対行くべし</p>
+                    <a href="https://maps.app.goo.gl/sjfnMD7MsdWWvdyD9" target="_blank"
+                       class="inline-flex items-center gap-1 mt-2 text-blue-600 text-xs font-medium hover:underline"
+                       onclick="event.stopPropagation()">
+                        <i class="fa-solid fa-map-location-dot"></i> Google Maps で開く
+                    </a>
                 </div>
-
-                <div class="space-y-2 text-xs">
-                    <div class="flex items-center gap-2"><span class="wc-badge wc-good">♿ <ruby>対応<rt>たいおう</rt></ruby>◎</span><span class="text-gray-600">だいたい<ruby>車椅子<rt>くるまいす</rt></ruby>で<ruby>問題<rt>もんだい</rt></ruby>なく<ruby>利用<rt>りよう</rt></ruby>できるよ</span></div>
-                    <div class="flex items-center gap-2"><span class="wc-badge wc-partial">♿ <ruby>一部対応<rt>いちぶたいおう</rt></ruby></span><span class="text-gray-600">すこし<ruby>制限<rt>せいげん</rt></ruby>あり・<ruby>手伝<rt>てつだ</rt></ruby>いがあると<ruby>安心<rt>あんしん</rt></ruby></span></div>
-                    <div class="flex items-center gap-2"><span class="wc-badge wc-check">♿ <ruby>要確認<rt>ようかくにん</rt></ruby></span><span class="text-gray-600"><ruby>先<rt>さき</rt></ruby>に<ruby>電話<rt>でんわ</rt></ruby>で<ruby>確認<rt>かくにん</rt></ruby>してね</span></div>
-                </div>
-
-                <div class="mt-4 p-3 bg-white rounded-xl border border-blue-100">
-                    <p class="text-[11px] font-bold text-gray-700 mb-2"><i class="fa-solid fa-circle-info text-blue-500 mr-1"></i><ruby>各日<rt>かくにち</rt></ruby>の<ruby>日程表<rt>にっていひょう</rt></ruby>で <span class="text-blue-500">「<ruby>車椅子情報<rt>くるまいすじょうほう</rt></ruby>を<ruby>見<rt>み</rt></ruby>る」</span> をタップすると<ruby>詳<rt>くわ</rt></ruby>しい<ruby>情報<rt>じょうほう</rt></ruby>が<ruby>出<rt>で</rt></ruby>るよ</p>
-                    <div class="space-y-1.5 text-[11px] text-gray-600">
-                        <p><i class="fa-solid fa-taxi text-green-500 mr-1"></i> <ruby>京都<rt>きょうと</rt></ruby>のタクシーは<ruby>介護研修済<rt>かいごけんしゅうずみ</rt></ruby>の<ruby>運転手<rt>うんてんしゅ</rt></ruby>がたくさんいるよ</p>
-                        <p><i class="fa-solid fa-map mr-1 text-purple-500"></i> <a href="https://kyoto-universal.jp/" target="_blank" class="text-blue-500 underline">京都ユニバーサル観光ナビ</a> でBFコース確認</p>
-                        <p><i class="fa-solid fa-phone mr-1 text-red-500"></i> <ruby>京都市<rt>きょうとし</rt></ruby><ruby>車椅子<rt>くるまいす</rt></ruby><ruby>無料<rt>むりょう</rt></ruby><ruby>貸出<rt>かしだし</rt></ruby>: <a href="tel:075-343-0548" class="text-blue-500 underline">075-343-0548</a> (<ruby>京<rt>きょう</rt></ruby>なび)</p>
-                    </div>
-                </div>
-            </div>
-
-            <h3 class="text-sm font-bold text-gray-400 mb-3 uppercase tracking-widest">Useful Info</h3>
-
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-4">
-                <div class="p-4 border-b border-gray-50">
-                    <div class="flex items-center gap-2 mb-2">
-                        <div class="w-7 h-7 rounded-full bg-red-100 flex items-center justify-center text-red-500 text-xs"><i class="fa-solid fa-phone"></i></div>
-                        <span class="text-sm font-bold text-gray-800"><ruby>緊急連絡先<rt>きんきゅうれんらくさき</rt></ruby></span>
-                    </div>
-                    <div class="space-y-1.5 text-xs text-gray-600 ml-9">
-                        <p><span class="font-bold"><ruby>警察<rt>けいさつ</rt></ruby>:</span> <a href="tel:110" class="text-blue-500 underline">110</a></p>
-                        <p><span class="font-bold"><ruby>救急<rt>きゅうきゅう</rt></ruby>・<ruby>消防<rt>しょうぼう</rt></ruby>:</span> <a href="tel:119" class="text-blue-500 underline">119</a></p>
-                        <p><span class="font-bold"><ruby>災害伝言<rt>さいがいでんごん</rt></ruby>ダイヤル:</span> <a href="tel:171" class="text-blue-500 underline">171</a></p>
-                    </div>
-                </div>
-                <div class="p-4 border-b border-gray-50">
-                    <div class="flex items-center gap-2 mb-2">
-                        <div class="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center text-blue-500 text-xs"><i class="fa-solid fa-train"></i></div>
-                        <span class="text-sm font-bold text-gray-800"><ruby>交通<rt>こうつう</rt></ruby>ICカード</span>
-                    </div>
-                    <p class="text-xs text-gray-600 ml-9">ICOCA / Suica / PASMO <ruby>利用<rt>りよう</rt></ruby>OK！<br>バス・<ruby>地下鉄<rt>ちかてつ</rt></ruby>・JR <ruby>全<rt>ぜん</rt></ruby>てタッチでOK。<br>チャージは<ruby>各駅<rt>かくえき</rt></ruby>の<ruby>券売機<rt>けんばいき</rt></ruby>で。</p>
-                </div>
-                <div class="p-4">
-                    <div class="flex items-center gap-2 mb-2">
-                        <div class="w-7 h-7 rounded-full bg-purple-100 flex items-center justify-center text-purple-500 text-xs"><i class="fa-solid fa-kit-medical"></i></div>
-                        <span class="text-sm font-bold text-gray-800"><ruby>体調管理<rt>たいちょうかんり</rt></ruby>メモ</span>
-                    </div>
-                    <p class="text-xs text-gray-600 ml-9">3<ruby>月<rt>がつ</rt></ruby><ruby>下旬<rt>げじゅん</rt></ruby>の<ruby>大阪<rt>おおさか</rt></ruby>・<ruby>京都<rt>きょうと</rt></ruby>は<ruby>昼<rt>ひる</rt></ruby>15-18℃、<br><ruby>朝晩<rt>あさばん</rt></ruby>は10℃くらい。<ruby>薄<rt>うす</rt></ruby>い<ruby>上着<rt>うわぎ</rt></ruby>をわすれずに！<br><ruby>花粉<rt>かふん</rt></ruby>シーズン — マスク・<ruby>目薬<rt>めぐすり</rt></ruby>があると<ruby>安心<rt>あんしん</rt></ruby>。</p>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-20">
-                <div class="p-4 border-b border-gray-50">
-                    <div class="flex items-center gap-2 mb-3">
-                        <div class="w-7 h-7 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600 text-xs"><i class="fa-solid fa-lightbulb"></i></div>
-                        <span class="text-sm font-bold text-gray-800"><ruby>旅<rt>たび</rt></ruby>のコツ</span>
-                    </div>
-                    <div class="space-y-2 text-xs text-gray-600 ml-9">
-                        <p><i class="fa-solid fa-shoe-prints text-pink-400 mr-1"></i> 1<ruby>日<rt>にち</rt></ruby>1<ruby>万歩以上<rt>まんぽいじょう</rt></ruby><ruby>歩<rt>ある</rt></ruby>くので<ruby>靴選<rt>くつえら</rt></ruby>びがだいじ！</p>
-                        <p><i class="fa-solid fa-clock text-pink-400 mr-1"></i> <ruby>人気<rt>にんき</rt></ruby>スポットは<ruby>朝<rt>あさ</rt></ruby>イチか<ruby>夕方以降<rt>ゆうがたいこう</rt></ruby>がねらいめ</p>
-                        <p><i class="fa-solid fa-coins text-pink-400 mr-1"></i> お<ruby>寺<rt>てら</rt></ruby>や<ruby>神社<rt>じんじゃ</rt></ruby>は<ruby>現金<rt>げんきん</rt></ruby>しか<ruby>使<rt>つか</rt></ruby>えない<ruby>場所<rt>ばしょ</rt></ruby>が<ruby>多<rt>おお</rt></ruby>いよ</p>
-                        <p><i class="fa-solid fa-bottle-water text-pink-400 mr-1"></i> こまめに<ruby>水<rt>みず</rt></ruby>を<ruby>飲<rt>の</rt></ruby>んで<ruby>休憩<rt>きゅうけい</rt></ruby>しよう！</p>
-                    </div>
-                </div>
-            </div>
+            </label>
         </div>
 
-    </main>
-
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 pb-safe pt-2 px-6 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-50 flex justify-between max-w-md mx-auto">
-        <button onclick="switchView('home')" class="nav-item active flex flex-col items-center w-16 p-1 rounded-xl transition-all" id="nav-home">
-            <div class="icon-box w-10 h-10 rounded-full flex items-center justify-center text-gray-400 mb-1 transition-colors">
-                <i class="fa-solid fa-house"></i>
-            </div>
-            <span class="text-[11px] font-bold text-gray-500">ホーム</span>
-        </button>
-        <button onclick="switchView('schedule')" class="nav-item flex flex-col items-center w-16 p-1 rounded-xl transition-all" id="nav-schedule">
-            <div class="icon-box w-10 h-10 rounded-full flex items-center justify-center text-gray-400 mb-1 transition-colors">
-                <i class="fa-regular fa-calendar-check"></i>
-            </div>
-            <span class="text-[11px] font-bold text-gray-500"><ruby>日程表<rt>にっていひょう</rt></ruby></span>
-        </button>
-        <button onclick="switchView('info')" class="nav-item flex flex-col items-center w-16 p-1 rounded-xl transition-all" id="nav-info">
-            <div class="icon-box w-10 h-10 rounded-full flex items-center justify-center text-gray-400 mb-1 transition-colors">
-                <i class="fa-solid fa-suitcase"></i>
-            </div>
-            <span class="text-[11px] font-bold text-gray-500"><ruby>宿<rt>やど</rt></ruby>・<ruby>準備<rt>じゅんび</rt></ruby></span>
-        </button>
-    </nav>
-
-    <script>
-        // --- データ定義 ---
-        // isoDate, lat, lon を追加
-        const scheduleData = [
-            {
-                date: "3/26 (<ruby>木<rt>もく</rt></ruby>)", title: "<ruby>大阪城<rt>おおさかじょう</rt></ruby>・<ruby>古墳<rt>こふん</rt></ruby>・<ruby>海遊館<rt>かいゆうかん</rt></ruby>",
-                isoDate: "2026-03-26", lat: 34.6937, lon: 135.5023,
-                image: "./day1_2.png",
-                events: [
-                    { t: "07:07", i: "🚅", title: "<ruby>新幹線<rt>しんかんせん</rt></ruby> <ruby>品川<rt>しながわ</rt></ruby><ruby>発<rt>はつ</rt></ruby>", desc: "<ruby>品川<rt>しながわ</rt></ruby>→<ruby>新大阪<rt>しんおおさか</rt></ruby>（<ruby>約<rt>やく</rt></ruby>2<ruby>時間<rt>じかん</rt></ruby>20<ruby>分<rt>ぷん</rt></ruby>）", map: "品川駅", move: "🚄 <ruby>新幹線<rt>しんかんせん</rt></ruby> <ruby>約<rt>やく</rt></ruby>2<ruby>時間<rt>じかん</rt></ruby>20<ruby>分<rt>ぷん</rt></ruby>" },
-                    { t: "09:27", i: "🚄", title: "<ruby>新大阪着<rt>しんおおさかちゃく</rt></ruby> & <ruby>荷物配送<rt>にもつはいそう</rt></ruby>", desc: "<ruby>新大阪駅<rt>しんおおさかえき</rt></ruby>「Crosta」でホテルへ<ruby>荷物<rt>にもつ</rt></ruby>おくるよ。<ruby>手<rt>て</rt></ruby>ぶらで<ruby>出発<rt>しゅっぱつ</rt></ruby>！", map: "新大阪駅 キャリーサービス", move: "🚃 JR<ruby>大阪環状線<rt>おおさかかんじょうせん</rt></ruby> <ruby>約<rt>やく</rt></ruby>20<ruby>分<rt>ぷん</rt></ruby>" },
-                    { t: "10:00", i: "🏯", title: "<ruby>大阪城<rt>おおさかじょう</rt></ruby>", desc: "<ruby>公園<rt>こうえん</rt></ruby>をおさんぽ＆<ruby>天守閣<rt>てんしゅかく</rt></ruby><ruby>見学<rt>けんがく</rt></ruby>。<ruby>春<rt>はる</rt></ruby>の<ruby>風<rt>かぜ</rt></ruby>をかんじよう！", map: "大阪城天守閣", crowd: "high", move: "🚶 <ruby>徒歩<rt>とほ</rt></ruby>すぐ (<ruby>公園内<rt>こうえんない</rt></ruby>)" },
-                    { t: "11:00", i: "🍽️", title: "<ruby>早<rt>はや</rt></ruby>めのランチ", desc: "JO-TERRACE OSAKAでごはん。<ruby>混<rt>こ</rt></ruby>むまえに<ruby>食<rt>た</rt></ruby>べよう！", map: "JO-TERRACE OSAKA", crowd: "medium", move: "🚃 JR<ruby>阪和線<rt>はんわせん</rt></ruby> <ruby>約<rt>やく</rt></ruby>40<ruby>分<rt>ぷん</rt></ruby>" },
-                    { t: "13:00", i: "🔑", title: "<ruby>大仙古墳<rt>だいせんこふん</rt></ruby> (<ruby>仁徳天皇陵<rt>にんとくてんのうりょう</rt></ruby>)", desc: "<ruby>世界最大級<rt>せかいさいだいきゅう</rt></ruby>の<ruby>古墳<rt>こふん</rt></ruby>。<ruby>百舌鳥駅<rt>もずえき</rt></ruby>すぐ。", map: "仁徳天皇陵 拝所", crowd: "low", move: "🚃 JR+<ruby>地下鉄<rt>ちかてつ</rt></ruby> <ruby>約<rt>やく</rt></ruby>50<ruby>分<rt>ぷん</rt></ruby>" },
-                    { t: "15:30", i: "🐠", title: "<ruby>海遊館<rt>かいゆうかん</rt></ruby>", desc: "<ruby>夕方<rt>ゆうがた</rt></ruby>〜<ruby>夜<rt>よる</rt></ruby>の<ruby>海遊館<rt>かいゆうかん</rt></ruby>。ジンベエザメを<ruby>見<rt>み</rt></ruby>よう！", map: "海遊館", crowd: "medium", move: "🚢 キャプテンライン <ruby>約<rt>やく</rt></ruby>10<ruby>分<rt>ぷん</rt></ruby>" },
-                    { t: "18:00", i: "🚢", title: "キャプテンライン", desc: "<ruby>海遊館<rt>かいゆうかん</rt></ruby>のうらからシャトル<ruby>船<rt>ぶね</rt></ruby>でUSJエリアへ！", map: "キャプテンライン 海遊館西はとば", crowd: "low", move: "🚶 <ruby>徒歩<rt>とほ</rt></ruby> <ruby>約<rt>やく</rt></ruby>5<ruby>分<rt>ふん</rt></ruby>" },
-                    { t: "18:30", i: "🏨", title: "ホテル チェックイン", desc: "ホテル<ruby>京阪<rt>けいはん</rt></ruby>で<ruby>荷物<rt>にもつ</rt></ruby>をうけとろう。<ruby>夕食<rt>ゆうしょく</rt></ruby>はシティウォークで！", map: "ホテル京阪ユニバーサル・タワー" }
-                ]
-            },
-            {
-                date: "3/27 (<ruby>金<rt>きん</rt></ruby>)", title: "USJ <ruby>全力投球<rt>ぜんりょくとうきゅう</rt></ruby>！",
-                isoDate: "2026-03-27", lat: 34.6654, lon: 135.4323,
-                image: "./day1_2.png",
-                events: [
-                    { t: "06:30", i: "🏃", title: "ホテル<ruby>出発<rt>しゅっぱつ</rt></ruby>", desc: "ゲート<ruby>前<rt>まえ</rt></ruby>で<ruby>待<rt>ま</rt></ruby>とう。<ruby>開園<rt>かいえん</rt></ruby>ダッシュ！", map: "ユニバーサル・スタジオ・ジャパン", move: "🚶 <ruby>徒歩<rt>とほ</rt></ruby> <ruby>約<rt>やく</rt></ruby>5<ruby>分<rt>ふん</rt></ruby>" },
-                    { t: "<ruby>午前<rt>ごぜん</rt></ruby>", i: "🍄", title: "マリオエリア", desc: "<ruby>整理券<rt>せいりけん</rt></ruby>/<ruby>確約券<rt>かくやくけん</rt></ruby>で<ruby>入場<rt>にゅうじょう</rt></ruby>。<ruby>全力<rt>ぜんりょく</rt></ruby>であそぼう！", map: "", crowd: "high" },
-                    { t: "19:00", i: "🍖", title: "<ruby>夕食<rt>ゆうしょく</rt></ruby>", desc: "パーク<ruby>内<rt>ない</rt></ruby> <ruby>三本<rt>さんぼん</rt></ruby>の<ruby>箒<rt>ほうき</rt></ruby>など", map: "", crowd: "high", move: "🚶 パーク<ruby>内移動<rt>ないいどう</rt></ruby>" },
-                    { t: "21:00", i: "♨️", title: "<ruby>展望温泉<rt>てんぼうおんせん</rt></ruby>", desc: "ホテル31<ruby>階<rt>かい</rt></ruby>で<ruby>疲<rt>つか</rt></ruby>れをいやそう", map: "", crowd: "low" }
-                ]
-            },
-            {
-                date: "3/28 (<ruby>土<rt>ど</rt></ruby>)", title: "<ruby>宇治<rt>うじ</rt></ruby>・<ruby>伏見<rt>ふしみ</rt></ruby>・<ruby>清水<rt>きよみず</rt></ruby>",
-                isoDate: "2026-03-28", lat: 35.0116, lon: 135.7681,
-                image: "./day3_4.png",
-                events: [
-                    { t: "10:00", i: "👜", title: "<ruby>荷物預<rt>にもつあず</rt></ruby>け", desc: "<ruby>京都駅<rt>きょうとえき</rt></ruby> アパホテルへ", map: "アパホテル 京都駅北", move: "🚃 JR<ruby>奈良線<rt>ならせん</rt></ruby> <ruby>約<rt>やく</rt></ruby>20<ruby>分<rt>ぷん</rt></ruby>",
-                      wc: { level: "check", note: "要事前確認", detail: "バリアフリールームの有無は要電話確認。京都駅からは徒歩3-5分、歩道は平坦。" } },
-                    { t: "11:30", i: "🍵", title: "<ruby>宇治<rt>うじ</rt></ruby> <ruby>平等院<rt>びょうどういん</rt></ruby>", desc: "<ruby>中村藤吉<rt>なかむらとうきち</rt></ruby>は<ruby>整理券<rt>せいりけん</rt></ruby>がいるよ！", map: "平等院", crowd: "high", move: "🚃 JR<ruby>奈良線<rt>ならせん</rt></ruby>+<ruby>京阪<rt>けいはん</rt></ruby> <ruby>約<rt>やく</rt></ruby>40<ruby>分<rt>ぷん</rt></ruby>",
-                      wc: { level: "partial", note: "砂利道あり・介助推奨", detail: "表門から入場推奨。庭園は砂利敷きで介助必要。鳳翔館（ミュージアム）はバリアフリー。鳳凰堂内部は階段あり不可。車椅子貸出あり（南門受付）。事前電話で表門前駐車場の開放可。TEL: 0774-21-2861" } },
-                    { t: "14:00", i: "⛩️", title: "<ruby>伏見稲荷<rt>ふしみいなり</rt></ruby>", desc: "<ruby>千本鳥居<rt>せんぼんとりい</rt></ruby>。スニーカーがおすすめ！", map: "伏見稲荷大社", crowd: "high", move: "🚃 JR<ruby>奈良線<rt>ならせん</rt></ruby> <ruby>約<rt>やく</rt></ruby>10<ruby>分<rt>ぷん</rt></ruby> → <ruby>京都駅<rt>きょうとえき</rt></ruby>",
-                      wc: { level: "partial", note: "奥社まで可・EV 9-15時", detail: "2020年にエレベーター設置済。本殿〜千本鳥居〜奥社まで車椅子参拝可能。エレベーター利用は9:00〜15:00限定。奥社より先（稲荷山）は階段のため不可。砂利道にネット敷設あり。JR稲荷駅から徒歩1分。" } },
-                    {
-                        t: "17:00", i: "🥢",
-                        title: "<ruby>夕食<rt>ゆうしょく</rt></ruby>：<ruby>京野菜料理<rt>きょうやさいりょうり</rt></ruby> <ruby>接方来<rt>せっぽうらい</rt></ruby>",
-                        desc: "<ruby>予約済<rt>よやくずみ</rt></ruby>：17:00〜19:00 (6<ruby>名<rt>めい</rt></ruby>)<br><ruby>場所<rt>ばしょ</rt></ruby>：<ruby>京都駅<rt>きょうとえき</rt></ruby>ビル<ruby>店<rt>てん</rt></ruby>",
-                        map: "接方来 京都駅ビル店", crowd: "low", move: "🚕 タクシー 約15分",
-                        wc: { level: "check", note: "店内段差あり・要確認", detail: "京都駅ビル東ゾーン2F。駅ビルにはエレベーターあり。口コミで店内に段差ありとの情報。事前にTEL: 075-353-9565 で車椅子利用の可否を要確認。" }
-                    },
-                    { t: "19:00", i: "✨", title: "<ruby>清水寺<rt>きよみずでら</rt></ruby> <ruby>夜間拝観<rt>やかんはいかん</rt></ruby>", desc: "タクシーで<ruby>移動<rt>いどう</rt></ruby>しよう。きれいな<ruby>夜桜<rt>よざくら</rt></ruby>が<ruby>見<rt>み</rt></ruby>られるよ！", map: "清水寺", crowd: "high",
-                      wc: { level: "partial", note: "専用ルートあり・夜間注意", detail: "車椅子専用の境内一周ルートあり（公式マップ配布）。仁王門北側からスロープで入場。多目的トイレ2箇所。障害者手帳提示で本人＋付添1名無料。夜間は暗いため介助者必須。タクシーで裏手からのアクセスが段差少なくおすすめ。" } }
-                ]
-            },
-            {
-                date: "3/29 (<ruby>日<rt>にち</rt></ruby>)", title: "<ruby>御所<rt>ごしょ</rt></ruby>・<ruby>映画村<rt>えいがむら</rt></ruby>・ごちそう",
-                isoDate: "2026-03-29", lat: 35.0116, lon: 135.7681,
-                image: "./day3_4.png",
-                events: [
-                    { t: "10:00", i: "⚽", title: "<ruby>京都御所<rt>きょうとごしょ</rt></ruby> <ruby>蹴鞠<rt>けまり</rt></ruby>", desc: "<ruby>実演日<rt>じつえんび</rt></ruby>！<ruby>平安<rt>へいあん</rt></ruby>の<ruby>文化<rt>ぶんか</rt></ruby>にふれよう", map: "京都御所", crowd: "medium", move: "🚃 <ruby>地下鉄<rt>ちかてつ</rt></ruby>+<ruby>嵐電<rt>らんでん</rt></ruby> <ruby>約<rt>やく</rt></ruby>40<ruby>分<rt>ぷん</rt></ruby>",
-                      wc: { level: "partial", note: "御苑は砂利道・御所内要確認", detail: "京都御苑は広大な砂利敷き。舗装遊歩道もあるが御所入口まで砂利道区間あり。御所内のバリアフリー詳細は宮内庁京都事務所 TEL: 075-211-1215 へ事前確認推奨。多目的トイレは御苑内にあり。" } },
-                    { t: "13:30", i: "🥷", title: "<ruby>太秦映画村<rt>うずまさえいがむら</rt></ruby>", desc: "<ruby>忍者<rt>にんじゃ</rt></ruby>・ちゃんばら・<ruby>立体迷路<rt>りったいめいろ</rt></ruby>", map: "東映太秦映画村", crowd: "medium", move: "🚃 <ruby>嵐電<rt>らんでん</rt></ruby>+JR <ruby>約<rt>やく</rt></ruby>40<ruby>分<rt>ぷん</rt></ruby> → <ruby>京都駅<rt>きょうとえき</rt></ruby>",
-                      wc: { level: "good", note: "車椅子貸出あり・概ね対応", detail: "車椅子レンタルあり。多目的トイレ完備。中村座（芝居小屋）にスロープ＆車椅子席あり。障害者割引（大人1,400円）。一部体験型アトラクション（忍者体験等）は利用不可。2026/3/28リニューアルオープン。" } },
-                    {
-                        t: "18:30", i: "🍢",
-                        title: "<ruby>夕食<rt>ゆうしょく</rt></ruby>：<ruby>炭火串焼<rt>すみびくしやき</rt></ruby> こけこっこ",
-                        desc: "<ruby>予約済<rt>よやくずみ</rt></ruby>：18:30〜20:30<br><ruby>場所<rt>ばしょ</rt></ruby>：JR<ruby>京都伊勢丹<rt>きょうといせたん</rt></ruby> 10F<br><ruby>予約番号<rt>よやくばんごう</rt></ruby>：SDA534993",
-                        map: "炭火串焼 こけこっこ 京都", crowd: "low",
-                        wc: { level: "good", note: "伊勢丹EV完備・BF対応", detail: "JR京都伊勢丹10F。京都駅から直結でエレベーター完備。Yahoo!マップ情報でバリアフリー対応表記あり。念のためTEL: 075-365-3390 で座席配置を事前確認推奨。" }
-                    }
-                ]
-            },
-            {
-                date: "3/30 (<ruby>月<rt>げつ</rt></ruby>)", title: "<ruby>金閣<rt>きんかく</rt></ruby>・<ruby>嵐山<rt>あらしやま</rt></ruby>・<ruby>帰<rt>かえ</rt></ruby>り",
-                isoDate: "2026-03-30", lat: 35.0133, lon: 135.6778,
-                image: "./day5_hotel.png",
-                events: [
-                    { t: "08:30", i: "🚕", title: "<ruby>龍安寺<rt>りょうあんじ</rt></ruby>", desc: "<ruby>朝<rt>あさ</rt></ruby>イチの<ruby>石庭<rt>せきてい</rt></ruby>は<ruby>静<rt>しず</rt></ruby>かでおすすめ！", map: "龍安寺", crowd: "low", move: "🚌 <ruby>市<rt>し</rt></ruby>バス <ruby>約<rt>やく</rt></ruby>15<ruby>分<rt>ふん</rt></ruby>",
-                      wc: { level: "partial", note: "石庭鑑賞可・スロープあり", detail: "車椅子対応トイレ1箇所。車椅子専用通路で方丈の石庭を鑑賞可能。UDマップで傾斜角度が確認可。境内に坂道あり介助推奨。" } },
-                    { t: "10:00", i: "✨", title: "<ruby>金閣寺<rt>きんかくじ</rt></ruby>", desc: "<ruby>輝<rt>かがや</rt></ruby>く<ruby>舎利殿<rt>しゃりでん</rt></ruby>で<ruby>家族写真<rt>かぞくしゃしん</rt></ruby>をとろう！", map: "金閣寺", crowd: "high", move: "🚕 タクシー <ruby>約<rt>やく</rt></ruby>20<ruby>分<rt>ぷん</rt></ruby>",
-                      wc: { level: "partial", note: "舎利殿横まで可・裏山不可", detail: "受付で車椅子利用を伝えると案内あり。スロープ設置済。金閣舎利殿の真横まで段差なくアクセス可。砂利道だが踏みしめてあり走行可能。裏山ルートは階段のため不可（引き返し）。障害者用トイレは出口売店横。車椅子用駐車場あり。" } },
-                    {
-                        t: "11:30", i: "🍱",
-                        title: "<ruby>昼食<rt>ちゅうしょく</rt></ruby> & <ruby>温泉<rt>おんせん</rt></ruby>：<ruby>花<rt>はな</rt></ruby>のいえ",
-                        desc: "<ruby>予約済<rt>よやくずみ</rt></ruby>：11:30〜 (6<ruby>名<rt>めい</rt></ruby>/<ruby>駐車場<rt>ちゅうしゃじょう</rt></ruby>あり)<br><ruby>個室<rt>こしつ</rt></ruby><ruby>会席<rt>かいせき</rt></ruby>「<ruby>嵯峨野<rt>さがの</rt></ruby>」＆<ruby>子供懐石<rt>こどもかいせき</rt></ruby><br>15<ruby>時<rt>じ</rt></ruby>まで<ruby>滞在<rt>たいざい</rt></ruby>OK・<ruby>温泉<rt>おんせん</rt></ruby>に<ruby>入<rt>はい</rt></ruby>れるよ♨️",
-                        map: "花のいえ", crowd: "low", move: "🚶 徒歩 約15分",
-                        wc: { level: "good", note: "BF洋室あり・車椅子貸出", detail: "バリアフリー洋室（車椅子対応バス・トイレ付）1室あり。車椅子貸出：館内用2台・館外用1台。レストランも車椅子入店可＆車椅子対応トイレあり。予約時に要申告。椅子席の個室は限りあるため電話で確認を。" }
-                    },
-                    { t: "15:00", i: "🎋", title: "<ruby>嵐山散策<rt>あらしやまさんさく</rt></ruby>", desc: "<ruby>渡月橋<rt>とげつきょう</rt></ruby>・<ruby>竹林<rt>ちくりん</rt></ruby>の<ruby>小径<rt>こみち</rt></ruby>をおさんぽ。<br>おみやげも<ruby>買<rt>か</rt></ruby>おう！", map: "嵐山 渡月橋", crowd: "medium", move: "🚃 JR<ruby>嵯峨野線<rt>さがのせん</rt></ruby> <ruby>約<rt>やく</rt></ruby>15<ruby>分<rt>ふん</rt></ruby> → <ruby>京都駅<rt>きょうとえき</rt></ruby>",
-                      wc: { level: "partial", note: "竹林前半は平坦・後半坂あり", detail: "竹林の小径は約500m。前半は舗装路で比較的平坦。後半〜トロッコ嵐山駅方面は急坂あり注意。渡月橋は通行可。中之島公園は一部砂利。JR嵯峨嵐山駅はエレベーター完備。介助者同行推奨。" } },
-                    { t: "17:54", i: "🚅", title: "<ruby>新幹線<rt>しんかんせん</rt></ruby> <ruby>京都発<rt>きょうとはつ</rt></ruby>", desc: "<ruby>京都<rt>きょうと</rt></ruby>→<ruby>品川<rt>しながわ</rt></ruby>（<ruby>約<rt>やく</rt></ruby>2<ruby>時間<rt>じかん</rt></ruby>）19:59<ruby>着予定<rt>ちゃくよてい</rt></ruby>。おつかれさまでした！", map: "京都駅",
-                      wc: { level: "good", note: "京都駅はBF完備", detail: "京都駅は全面バリアフリー。エレベーター・車椅子対応エスカレーター・昇降機完備。JR駅員による乗降介助あり。新幹線の車椅子対応座席は事前予約推奨。" } }
-                ]
-            }
-        ];
-
-        // --- ロジック ---
-
-        // タブ切り替え
-        function switchView(viewName) {
-            // 全セクション非表示
-            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
-            document.getElementById('view-' + viewName).classList.remove('hidden');
-
-            // ナビボタンのアクティブ切り替え
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            document.getElementById('nav-' + viewName).classList.add('active');
-
-            // 日程タブを開いた時の初期動作
-            if(viewName === 'schedule') {
-                autoSelectDay();
-            }
-            window.scrollTo(0,0);
-        }
-
-        // 日程レンダリング
-        function renderDay(index) {
-            const data = scheduleData[index];
-            const container = document.getElementById('day-content');
-            
-            // タブのスタイル更新
-            document.querySelectorAll('.day-tab').forEach((el, i) => {
-                if (i === index) {
-                    el.classList.add('bg-pink-500', 'text-white', 'border-pink-600', 'shadow-md');
-                    el.classList.remove('bg-white', 'text-gray-500');
-                } else {
-                    el.classList.remove('bg-pink-500', 'text-white', 'border-pink-600', 'shadow-md');
-                    el.classList.add('bg-white', 'text-gray-500');
-                }
-            });
-
-            // HTML生成: タイトルと天気を横並び(Flex)に
-            let html = `
-                <div class="mt-4 mb-6 text-center fade-enter">
-                    <div class="flex flex-wrap justify-center items-center gap-x-2 gap-y-1 mb-1">
-                        <h2 class="text-xl font-bold text-gray-800">${data.title}</h2>
-                        <div id="weather-display" class="empty:hidden"></div>
+        <!-- 老舗デパート -->
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-2">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this, 'card-2')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🏬</span>
+                        <span class="task-label font-bold text-slate-800">ホテル近くの老舗デパート</span>
+                        <span class="badge bg-purple-100 text-purple-700">ショッピング</span>
                     </div>
-                    <p class="text-xs text-pink-500 font-bold tracking-widest uppercase">${data.date}</p>
-                    <p class="text-[10px] text-gray-400 mt-1">🟢🟡🔴 <ruby>混<rt>こ</rt></ruby>みぐあいの<ruby>目安<rt>めやす</rt></ruby>だよ</p>
-                    ${index >= 2 ? '<p class="text-[10px] text-blue-500 mt-0.5">♿ <ruby>車椅子<rt>くるまいす</rt></ruby>メンバー<ruby>合流日<rt>ごうりゅうび</rt></ruby> — カードに<b><ruby>車椅子情報<rt>くるまいすじょうほう</rt></ruby></b>あり</p>' : ''}
+                    <p class="task-label text-slate-500 text-sm mt-1">ジョン・ルイス。下のお買い物リストもここで揃うよ</p>
+                    <a href="https://maps.app.goo.gl/mRBF28pzXVCH7fhX9" target="_blank"
+                       class="inline-flex items-center gap-1 mt-2 text-blue-600 text-xs font-medium hover:underline"
+                       onclick="event.stopPropagation()">
+                        <i class="fa-solid fa-map-location-dot"></i> Google Maps で開く
+                    </a>
                 </div>
+            </label>
+        </div>
+    </section>
 
-                <div class="bg-white p-2 rounded-xl border border-gray-100 shadow-sm mb-6 fade-enter">
-                    <img src="${data.image}" class="w-full rounded-lg" onerror="this.style.display='none'">
-                </div>
+    <!-- サエカエへ -->
+    <section class="fade-in">
+        <div class="flex items-center gap-2 mb-3">
+            <span class="text-lg">👜</span>
+            <h2 class="font-bold text-slate-700 text-base">サエカエへ</h2>
+        </div>
 
-                <div class="relative pl-4 space-y-8 fade-enter">
-                    <div class="absolute left-[27px] top-2 bottom-2 w-0.5 bg-pink-100"></div>
-            `;
-
-            data.events.forEach((e, idx) => {
-                const mapBtn = e.map ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(e.map)}" target="_blank" class="ml-auto bg-gray-100 text-[10px] text-gray-500 px-3 py-1.5 rounded-full font-bold hover:bg-pink-100 hover:text-pink-600 transition"><i class="fa-solid fa-map-location-dot mr-1"></i><ruby>地図<rt>ちず</rt></ruby></a>` : '';
-                const crowdBadge = getCrowdBadge(e.crowd);
-                const wcBadge = getWcBadge(e.wc);
-                const wcDetail = getWcDetail(e.wc, idx);
-
-                html += `
-                    <div class="event-card relative flex gap-4 items-start">
-                        <div class="z-10 w-6 h-6 rounded-full bg-white border-2 border-pink-400 flex items-center justify-center text-[10px] shrink-0 mt-1 shadow-sm">
-                            ${e.i}
-                        </div>
-                        <div class="flex-grow bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-                            <div class="flex justify-between items-start mb-1">
-                                <div class="flex items-center gap-2 flex-wrap">
-                                    <span class="text-pink-400 text-xs font-bold">${e.t}</span>
-                                    ${crowdBadge}
-                                    ${wcBadge}
-                                </div>
-                                ${mapBtn}
-                            </div>
-                            <h3 class="font-bold text-gray-800">${e.title}</h3>
-                            <p class="text-xs text-gray-500 mt-1 leading-relaxed">${e.desc}</p>
-                            ${wcDetail}
-                        </div>
+        <!-- ヴィヴィアン バッグチャーム -->
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-3">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this, 'card-3')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🐻</span>
+                        <span class="task-label font-bold text-slate-800">ヴィヴィアン テディベア バッグチャーム</span>
+                        <span class="badge bg-pink-100 text-pink-700">John Lewis</span>
                     </div>
-                `;
-
-                // 移動手段の表示（次のイベントがある場合のみ）
-                if (e.move && idx < data.events.length - 1) {
-                    html += `
-                        <div class="relative flex gap-4 items-center ml-[11px] -my-3">
-                            <div class="z-10 w-auto pl-6 flex items-center">
-                                <span class="text-[10px] text-gray-400 bg-gray-50 px-2 py-0.5 rounded-full border border-gray-100 whitespace-nowrap"><i class="fa-solid fa-route mr-1 text-pink-300"></i>${e.move}</span>
-                            </div>
-                        </div>
-                    `;
-                }
-            });
-
-            html += `</div>`; // end timeline
-            
-            // フッター余白（最終日のみメッセージ）
-            if(index === 4) {
-                html += `<div class="mt-10 text-center text-xs text-gray-300 font-bold">HAVE A NICE TRIP! 🌸</div>`;
-            }
-
-            container.innerHTML = html;
-            
-            // 天気取得呼び出し
-            if(data.isoDate && data.lat) {
-                fetchWeather(data.lat, data.lon, data.isoDate);
-            }
-        }
-
-        // 天気取得 (Open-Meteo API)
-        async function fetchWeather(lat, lon, date) {
-            const display = document.getElementById('weather-display');
-            if (!lat || !date || !display) return;
-
-            // スッキリさせるため、ローディング中は何も出さない(または最小限)
-            // display.innerHTML = `<i class="fa-solid fa-spinner fa-spin text-gray-300 text-xs"></i>`;
-
-            try {
-                // API URL (過去データではなく予報データを取得)
-                // daily=weathercode,temperature_2m_max,temperature_2m_min
-                const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&start_date=${date}&end_date=${date}`;
-                
-                const response = await fetch(url);
-                const data = await response.json();
-
-                if (data.daily && data.daily.weathercode && data.daily.weathercode.length > 0) {
-                    const code = data.daily.weathercode[0];
-                    const max = Math.round(data.daily.temperature_2m_max[0]);
-                    const min = Math.round(data.daily.temperature_2m_min[0]);
-                    const weatherIcon = getWeatherIcon(code);
-                    
-                    // スッキリしたPillデザイン
-                    display.innerHTML = `
-                        <div class="weather-badge inline-flex items-center gap-1.5 bg-blue-50 px-2.5 py-1 rounded-full text-blue-600 border border-blue-100 shadow-sm animate-[fadeEnter_0.5s]">
-                            <span class="text-sm">${weatherIcon}</span> 
-                            <span class="text-xs font-bold tracking-tight">${max}<span class="text-[9px] opacity-70">℃</span> / ${min}<span class="text-[9px] opacity-70">℃</span></span>
-                        </div>
-                    `;
-                } else {
-                    // データがまだない場合 (16日以上先) -> 何も表示しない (スッキリ維持)
-                    display.innerHTML = "";
-                }
-            } catch (e) {
-                console.error("Weather fetch failed", e);
-                display.innerHTML = ""; // エラー時も非表示で見た目を守る
-            }
-        }
-
-        // 混雑バッジ生成
-        function getCrowdBadge(level) {
-            if (!level) return '';
-            const map = {
-                high:   { dot: '🔴', label: '<ruby>混<rt>こ</rt></ruby>んでる',     cls: 'crowd-high' },
-                medium: { dot: '🟡', label: 'すこし<ruby>混<rt>こ</rt></ruby>んでる', cls: 'crowd-medium' },
-                low:    { dot: '🟢', label: '<ruby>空<rt>す</rt></ruby>いてる', cls: 'crowd-low' }
-            };
-            const m = map[level];
-            if (!m) return '';
-            return `<span class="crowd-badge ${m.cls}">${m.dot} ${m.label}</span>`;
-        }
-
-        // 車椅子バッジ生成
-        function getWcBadge(wc) {
-            if (!wc) return '';
-            const map = {
-                good:      { icon: '♿', label: '<ruby>対応<rt>たいおう</rt></ruby>◎',  cls: 'wc-good' },
-                partial:   { icon: '♿', label: '<ruby>一部対応<rt>いちぶたいおう</rt></ruby>', cls: 'wc-partial' },
-                difficult: { icon: '♿', label: '<ruby>困難<rt>こんなん</rt></ruby>',    cls: 'wc-difficult' },
-                check:     { icon: '♿', label: '<ruby>要確認<rt>ようかくにん</rt></ruby>',  cls: 'wc-check' }
-            };
-            const m = map[wc.level];
-            if (!m) return '';
-            return `<span class="wc-badge ${m.cls}">${m.icon} ${m.label}</span>`;
-        }
-
-        // 車椅子詳細展開
-        function getWcDetail(wc, idx) {
-            if (!wc || !wc.detail) return '';
-            return `
-                <div class="mt-2">
-                    <button onclick="toggleWcDetail('wc-${idx}')" class="text-[10px] text-blue-500 font-bold flex items-center gap-1 hover:text-blue-700 transition">
-                        <i class="fa-solid fa-wheelchair-move"></i> <ruby>車椅子情報<rt>くるまいすじょうほう</rt></ruby>を<ruby>見<rt>み</rt></ruby>る <i class="fa-solid fa-chevron-down text-[8px]" id="wc-arrow-${idx}"></i>
-                    </button>
-                    <div id="wc-${idx}" class="wc-detail">
-                        <div class="mt-1.5 p-2.5 bg-blue-50 rounded-lg border border-blue-100">
-                            <p class="text-[11px] text-blue-800 leading-relaxed">${wc.detail}</p>
-                        </div>
-                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">Vivienne Westwood Teddy Bear Handbag Charm・Multi</p>
+                    <a href="https://www.johnlewis.com/vivienne-westwood-teddy-bear-handbag-charm-multi/p114158120" target="_blank"
+                       class="inline-flex items-center gap-1 mt-2 text-blue-600 text-xs font-medium hover:underline"
+                       onclick="event.stopPropagation()">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページを見る
+                    </a>
                 </div>
-            `;
+            </label>
+        </div>
+
+        <!-- 腕時計 -->
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-4">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this, 'card-4')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">⌚</span>
+                        <span class="task-label font-bold text-slate-800">腕時計（予算が許せば）</span>
+                        <span class="badge bg-slate-100 text-slate-600">任意</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">サエカエへ。バッグチャームとあわせて検討して！</p>
+                </div>
+            </label>
+        </div>
+    </section>
+
+    <!-- ぴぴへ -->
+    <section class="fade-in">
+        <div class="flex items-center gap-2 mb-3">
+            <span class="text-lg">👗</span>
+            <h2 class="font-bold text-slate-700 text-base">ぴぴへ</h2>
+        </div>
+
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-5">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this, 'card-5')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🌊</span>
+                        <span class="task-label font-bold text-slate-800">ウェーブストライプ ニットワンピース</span>
+                        <span class="badge bg-pink-100 text-pink-700">John Lewis</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">John Lewis Kids Wavy Stripe Knit Dress・Multi<br>ぴぴに似合いそう！</p>
+                    <a href="https://www.johnlewis.com/john-lewis-kids-wavy-stripe-knit-dress-multi/p114464209" target="_blank"
+                       class="inline-flex items-center gap-1 mt-2 text-blue-600 text-xs font-medium hover:underline"
+                       onclick="event.stopPropagation()">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページを見る
+                    </a>
+                </div>
+            </label>
+        </div>
+    </section>
+
+    <!-- 紗英へ -->
+    <section class="fade-in">
+        <div class="flex items-center gap-2 mb-3">
+            <span class="text-lg">👕</span>
+            <h2 class="font-bold text-slate-700 text-base">紗英へ</h2>
+        </div>
+
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-6">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this, 'card-6')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🩵</span>
+                        <span class="task-label font-bold text-slate-800">タイサイドTシャツ（アクア）</span>
+                        <span class="badge bg-cyan-100 text-cyan-700">Mango Kids</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">Mango Kids Textured Short Sleeve Tie Side T-Shirt・Aqua<br>紗英がギリ着てくれそうな女の子っぽいTシャツ</p>
+                    <a href="https://www.johnlewis.com/mango-kids-textured-short-sleeve-tie-side-t-shirt-aqua/p115117304" target="_blank"
+                       class="inline-flex items-center gap-1 mt-2 text-blue-600 text-xs font-medium hover:underline"
+                       onclick="event.stopPropagation()">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページを見る
+                    </a>
+                </div>
+            </label>
+        </div>
+    </section>
+
+    <!-- 自分用メモ -->
+    <section class="fade-in">
+        <div class="flex items-center gap-2 mb-3">
+            <span class="text-lg">💍</span>
+            <h2 class="font-bold text-slate-700 text-base">ついでにチェック</h2>
+        </div>
+
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-7">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this, 'card-7')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🪙</span>
+                        <span class="task-label font-bold text-slate-800">シルバーリング</span>
+                        <span class="badge bg-slate-100 text-slate-600">Autumn &amp; May</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">Fiorelli Layered Two Tone Octagon Sterling Silver Ring<br>ちょいちょいかわいいなぁと思ってるやつ</p>
+                    <a href="https://www.autumnandmay.co.uk/product/fiorelli-layered-two-tone-octagon-sterling-silver-ring/" target="_blank"
+                       class="inline-flex items-center gap-1 mt-2 text-blue-600 text-xs font-medium hover:underline"
+                       onclick="event.stopPropagation()">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページを見る
+                    </a>
+                </div>
+            </label>
+        </div>
+    </section>
+
+    <!-- 全完了メッセージ -->
+    <div id="allDoneMsg" class="hidden text-center py-8">
+        <div class="text-5xl mb-3">🎉</div>
+        <p class="font-bold text-slate-700 text-lg">全部クリア！</p>
+        <p class="text-slate-500 text-sm mt-1">お疲れさまでした。家族が喜ぶといいね！</p>
+    </div>
+
+</div>
+
+<script>
+    const TOTAL = 8;
+
+    function updateProgress() {
+        const checked = document.querySelectorAll('.custom-checkbox:checked').length;
+        const pct = Math.round((checked / TOTAL) * 100);
+        document.getElementById('progressBar').style.width = pct + '%';
+        document.getElementById('progressText').textContent = checked + ' / ' + TOTAL + ' 完了';
+        document.getElementById('progressPercent').textContent = pct + '%';
+        document.getElementById('allDoneMsg').classList.toggle('hidden', checked < TOTAL);
+    }
+
+    function toggleTask(checkbox, cardId) {
+        const card = document.getElementById(cardId);
+        if (checkbox.checked) {
+            card.classList.add('task-done');
+            card.style.opacity = '0.65';
+        } else {
+            card.classList.remove('task-done');
+            card.style.opacity = '1';
         }
+        updateProgress();
+        saveState();
+    }
 
-        function toggleWcDetail(id) {
-            const el = document.getElementById(id);
-            const arrow = document.getElementById(id.replace('wc-', 'wc-arrow-'));
-            if (el) {
-                el.classList.toggle('open');
-                if (arrow) arrow.style.transform = el.classList.contains('open') ? 'rotate(180deg)' : '';
-            }
-        }
-
-        // 天気コード変換
-        function getWeatherIcon(code) {
-            // WMO Weather interpretation codes (WW)
-            if (code === 0) return "☀️"; // 快晴
-            if (code === 1 || code === 2 || code === 3) return "⛅"; // 晴れ・薄曇り
-            if (code >= 45 && code <= 48) return "🌫️"; // 霧
-            if (code >= 51 && code <= 67) return "☂️"; // 雨
-            if (code >= 71 && code <= 77) return "☃️"; // 雪
-            if (code >= 80 && code <= 82) return "☔"; // にわか雨
-            if (code >= 95) return "⚡"; // 雷雨
-            return "☁️";
-        }
-
-        // 日付自動判定
-        function autoSelectDay() {
-            const today = new Date();
-            const month = today.getMonth() + 1;
-            const date = today.getDate();
-            
-            // 旅行期間判定 (2026年想定だが、日付だけで簡易判定)
-            if (month === 3) {
-                if (date === 26) renderDay(0);
-                else if (date === 27) renderDay(1);
-                else if (date === 28) renderDay(2);
-                else if (date === 29) renderDay(3);
-                else if (date === 30) renderDay(4);
-                else renderDay(0); // 期間外は初日
-            } else {
-                renderDay(0);
-            }
-            
-            // スムーズスクロールで該当タブを表示
-            const activeTab = document.querySelector('.bg-pink-500');
-            if(activeTab) {
-                activeTab.scrollIntoView({behavior: "smooth", inline: "center"});
-            }
-        }
-
-        // --- カウントダウン ---
-        function updateCountdown() {
-            const display = document.getElementById('countdown-display');
-            if (!display) return;
-            const now = new Date();
-            const tripStart = new Date('2026-03-26T00:00:00+09:00');
-            const tripEnd   = new Date('2026-03-30T23:59:59+09:00');
-
-            if (now < tripStart) {
-                const diff = Math.ceil((tripStart - now) / (1000 * 60 * 60 * 24));
-                display.innerHTML = `<div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 inline-block"><span class="text-2xl font-bold">${diff}</span><span class="text-xs font-bold ml-1"><ruby>日後<rt>にちご</rt></ruby>に<ruby>出発<rt>しゅっぱつ</rt></ruby>!</span></div>`;
-            } else if (now <= tripEnd) {
-                const dayNum = Math.floor((now - tripStart) / (1000 * 60 * 60 * 24)) + 1;
-                display.innerHTML = `<div class="bg-white/30 backdrop-blur-sm rounded-xl px-4 py-2 inline-block animate-pulse"><span class="text-xs font-bold"><ruby>旅行<rt>りょこう</rt></ruby></span><span class="text-2xl font-bold mx-1">${dayNum}</span><span class="text-xs font-bold"><ruby>日目<rt>にちめ</rt></ruby>！<ruby>楽<rt>たの</rt></ruby>しんで!</span></div>`;
-            } else {
-                display.innerHTML = `<div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 inline-block"><span class="text-xs font-bold">おつかれさまでした！<ruby>素敵<rt>すてき</rt></ruby>な<ruby>思<rt>おも</rt></ruby>い<ruby>出<rt>で</rt></ruby>に</span></div>`;
-            }
-        }
-
-        // --- チェックリスト localStorage 永続化 ---
-        function initChecklist() {
-            const checkboxes = document.querySelectorAll('#view-info input[type="checkbox"]');
-            const saved = JSON.parse(localStorage.getItem('tripChecklist') || '[]');
-            checkboxes.forEach((cb, i) => {
-                if (saved[i]) cb.checked = true;
-                cb.addEventListener('change', () => {
-                    const states = [];
-                    checkboxes.forEach(c => states.push(c.checked));
-                    localStorage.setItem('tripChecklist', JSON.stringify(states));
-                });
-            });
-        }
-
-        // --- 現在のアクティビティ判定 ---
-        function getCurrentEventIndex(events, isoDate) {
-            const now = new Date();
-            const eventDate = new Date(isoDate + 'T00:00:00+09:00');
-            // 旅行日でなければハイライトなし
-            if (now.toDateString() !== eventDate.toDateString()) return { current: -1, next: -1 };
-
-            const currentHour = now.getHours();
-            const currentMin = now.getMinutes();
-            const nowMinutes = currentHour * 60 + currentMin;
-
-            let current = -1;
-            let next = -1;
-
-            for (let i = 0; i < events.length; i++) {
-                const t = events[i].t;
-                const match = t.match(/(\d{1,2}):(\d{2})/);
-                if (!match) continue;
-                const evtMinutes = parseInt(match[1]) * 60 + parseInt(match[2]);
-                if (nowMinutes >= evtMinutes) {
-                    current = i;
-                    next = i + 1 < events.length ? i + 1 : -1;
-                }
-            }
-            return { current, next };
-        }
-
-        // --- スワイプナビゲーション ---
-        let touchStartX = 0;
-        let touchEndX = 0;
-        let currentDayIndex = 0;
-
-        function initSwipe() {
-            const container = document.getElementById('day-content');
-            container.addEventListener('touchstart', e => {
-                touchStartX = e.changedTouches[0].screenX;
-            }, { passive: true });
-            container.addEventListener('touchend', e => {
-                touchEndX = e.changedTouches[0].screenX;
-                handleSwipe();
-            }, { passive: true });
-        }
-
-        function handleSwipe() {
-            const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) < 60) return; // 閾値未満は無視
-            if (diff > 0 && currentDayIndex < 4) {
-                renderDay(currentDayIndex + 1);
-            } else if (diff < 0 && currentDayIndex > 0) {
-                renderDay(currentDayIndex - 1);
-            }
-        }
-
-        // renderDay を拡張: currentDayIndex を記録 & 現在地ハイライト対応
-        const _origRenderDay = renderDay;
-        renderDay = function(index) {
-            currentDayIndex = index;
-            _origRenderDay(index);
-
-            // 現在のアクティビティをハイライト
-            const data = scheduleData[index];
-            const { current, next } = getCurrentEventIndex(data.events, data.isoDate);
-            const cards = document.querySelectorAll('#day-content .event-card');
-            cards.forEach((card, i) => {
-                const inner = card.querySelector('.bg-white.p-4');
-                if (!inner) return;
-                if (i === current) {
-                    inner.classList.remove('bg-white', 'border-gray-100');
-                    inner.classList.add('bg-pink-50', 'border-pink-300', 'ring-2', 'ring-pink-200');
-                    // 「いまココ」バッジ
-                    const badge = document.createElement('span');
-                    badge.className = 'absolute -top-2 -left-1 bg-pink-500 text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow z-20';
-                    badge.textContent = 'いまココ';
-                    card.style.position = 'relative';
-                    card.appendChild(badge);
-                } else if (i === next) {
-                    inner.classList.remove('border-gray-100');
-                    inner.classList.add('border-blue-200');
-                    const badge = document.createElement('span');
-                    badge.className = 'absolute -top-2 -left-1 bg-blue-500 text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow z-20';
-                    badge.textContent = 'つぎ';
-                    card.style.position = 'relative';
-                    card.appendChild(badge);
-                }
-            });
-
-            // アクティブタブをスクロール
-            const activeTab = document.getElementById('tab-' + index);
-            if (activeTab) {
-                activeTab.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-            }
-        };
-
-        // 初期化
-        document.addEventListener('DOMContentLoaded', () => {
-            updateCountdown();
-            initChecklist();
-            initSwipe();
-            switchView('home');
+    function saveState() {
+        const states = {};
+        document.querySelectorAll('.custom-checkbox').forEach((cb, i) => {
+            states[i] = cb.checked;
         });
+        try { localStorage.setItem('london_tasks', JSON.stringify(states)); } catch(e) {}
+    }
 
-    </script>
+    function loadState() {
+        try {
+            const states = JSON.parse(localStorage.getItem('london_tasks') || '{}');
+            document.querySelectorAll('.custom-checkbox').forEach((cb, i) => {
+                if (states[i]) {
+                    cb.checked = true;
+                    const cardId = 'card-' + i;
+                    const card = document.getElementById(cardId);
+                    if (card) {
+                        card.classList.add('task-done');
+                        card.style.opacity = '0.65';
+                    }
+                }
+            });
+        } catch(e) {}
+        updateProgress();
+    }
+
+    loadState();
+</script>
+
 </body>
 </html>
