@@ -12,21 +12,12 @@
             font-family: 'Zen Maru Gothic', sans-serif;
             background-color: #f0f4f8;
             color: #334155;
-            padding-bottom: 40px;
+            padding-bottom: 120px;
         }
-        .task-card {
-            transition: all 0.2s ease;
-        }
-        .task-card:active {
-            transform: scale(0.98);
-        }
-        .task-done .task-label {
-            text-decoration: line-through;
-            color: #94a3b8;
-        }
-        .task-done .task-icon {
-            opacity: 0.4;
-        }
+        .task-card { transition: all 0.2s ease; }
+        .task-card:active { transform: scale(0.98); }
+        .task-done .task-label { text-decoration: line-through; color: #94a3b8; }
+        .task-done .task-icon { opacity: 0.4; }
         .custom-checkbox {
             appearance: none;
             -webkit-appearance: none;
@@ -39,10 +30,7 @@
             transition: all 0.2s ease;
             position: relative;
         }
-        .custom-checkbox:checked {
-            background-color: #22c55e;
-            border-color: #22c55e;
-        }
+        .custom-checkbox:checked { background-color: #22c55e; border-color: #22c55e; }
         .custom-checkbox:checked::after {
             content: '';
             position: absolute;
@@ -55,9 +43,7 @@
             border-left: none;
             transform: rotate(45deg);
         }
-        .progress-bar {
-            transition: width 0.4s ease;
-        }
+        .progress-bar { transition: width 0.4s ease; }
         .badge {
             display: inline-block;
             font-size: 11px;
@@ -65,12 +51,49 @@
             border-radius: 999px;
             font-weight: 700;
         }
-        .fade-in {
-            animation: fadeIn 0.4s ease-out forwards;
+        .price-tag {
+            display: inline-flex;
+            align-items: center;
+            background-color: #fefce8;
+            border: 1px solid #fde68a;
+            border-radius: 8px;
+            padding: 2px 8px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #92400e;
         }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        #totalBar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #1e3a5f 0%, #1e40af 100%);
+            color: white;
+            padding: 14px 20px;
+            z-index: 100;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        #totalBar.visible { transform: translateY(0); }
+        .warning-box {
+            background-color: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 12px;
+            color: #9a3412;
+            margin-top: 8px;
+        }
+        .sub-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #64748b;
+            margin: 4px 0 8px 4px;
         }
     </style>
 </head>
@@ -87,13 +110,11 @@
             </div>
         </div>
         <p class="text-blue-300 text-sm mt-3 ml-1">家族からのお願いをまとめたよ。全部やってきてね！</p>
-
-        <!-- 進捗バー -->
         <div class="mt-5 bg-blue-950/50 rounded-full h-3 overflow-hidden">
             <div id="progressBar" class="progress-bar bg-gradient-to-r from-green-400 to-emerald-500 h-3 rounded-full" style="width: 0%"></div>
         </div>
         <div class="flex justify-between mt-1">
-            <p class="text-blue-300 text-xs" id="progressText">0 / 0 完了</p>
+            <p class="text-blue-300 text-xs" id="progressText">0 / 19 完了</p>
             <p class="text-blue-300 text-xs" id="progressPercent">0%</p>
         </div>
     </div>
@@ -108,98 +129,229 @@
             <h2 class="font-bold text-slate-700 text-base">行くべきスポット</h2>
         </div>
 
-        <!-- グリニッジ天文台 -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-0">
             <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this, 'card-0')">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-0')">
                 <div class="flex-1">
                     <div class="flex items-center gap-2 flex-wrap">
                         <span class="task-icon text-xl">🔭</span>
                         <span class="task-label font-bold text-slate-800">グリニッジ天文台</span>
                         <span class="badge bg-amber-100 text-amber-700">観光</span>
                     </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">Blackheath Ave, London SE10 8XJ</p>
-                    <a href="https://maps.app.goo.gl/r8gDTJZxHvZNcRR98" target="_blank"
-                       class="inline-flex items-center gap-1 mt-2 text-blue-600 text-xs font-medium hover:underline"
-                       onclick="event.stopPropagation()">
-                        <i class="fa-solid fa-map-location-dot"></i> Google Maps で開く
-                    </a>
+                    <p class="task-label text-slate-500 text-sm mt-1">Royal Observatory Greenwich・RMGショップもここ！</p>
+                    <div class="mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Royal+Observatory+Greenwich+London" target="_blank"
+                           class="inline-flex items-center gap-1 text-blue-600 text-xs font-medium hover:underline"
+                           onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-map-location-dot"></i> Google Maps で開く
+                        </a>
+                    </div>
                 </div>
             </label>
         </div>
 
-        <!-- グリニッジマーケット -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-1">
             <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this, 'card-1')">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-1')">
                 <div class="flex-1">
                     <div class="flex items-center gap-2 flex-wrap">
                         <span class="task-icon text-xl">🛒</span>
                         <span class="task-label font-bold text-slate-800">グリニッジマーケット</span>
                         <span class="badge bg-green-100 text-green-700">マーケット</span>
                     </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">地元民おすすめ！絶対行くべし</p>
-                    <a href="https://maps.app.goo.gl/sjfnMD7MsdWWvdyD9" target="_blank"
-                       class="inline-flex items-center gap-1 mt-2 text-blue-600 text-xs font-medium hover:underline"
-                       onclick="event.stopPropagation()">
-                        <i class="fa-solid fa-map-location-dot"></i> Google Maps で開く
-                    </a>
+                    <p class="task-label text-slate-500 text-sm mt-1">地元民おすすめ！フィッシュ&チップスにぴったりなお皿もここで</p>
+                    <div class="mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Greenwich+Market+London" target="_blank"
+                           class="inline-flex items-center gap-1 text-blue-600 text-xs font-medium hover:underline"
+                           onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-map-location-dot"></i> Google Maps で開く
+                        </a>
+                    </div>
                 </div>
             </label>
         </div>
 
-        <!-- 老舗デパート -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-2">
             <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this, 'card-2')">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-2')">
                 <div class="flex-1">
                     <div class="flex items-center gap-2 flex-wrap">
                         <span class="task-icon text-xl">🏬</span>
-                        <span class="task-label font-bold text-slate-800">ホテル近くの老舗デパート</span>
-                        <span class="badge bg-purple-100 text-purple-700">ショッピング</span>
+                        <span class="task-label font-bold text-slate-800">John Lewis（カナリーワーフ）</span>
+                        <span class="badge bg-purple-100 text-purple-700">デパート</span>
                     </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">ジョン・ルイス。下のお買い物リストもここで揃うよ</p>
-                    <a href="https://maps.app.goo.gl/mRBF28pzXVCH7fhX9" target="_blank"
-                       class="inline-flex items-center gap-1 mt-2 text-blue-600 text-xs font-medium hover:underline"
-                       onclick="event.stopPropagation()">
-                        <i class="fa-solid fa-map-location-dot"></i> Google Maps で開く
-                    </a>
+                    <p class="task-label text-slate-500 text-sm mt-1">老舗デパート。ホテル近く！下のJLリストはここで揃う</p>
+                    <div class="mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=John+Lewis+Canary+Wharf+London" target="_blank"
+                           class="inline-flex items-center gap-1 text-blue-600 text-xs font-medium hover:underline"
+                           onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-map-location-dot"></i> Google Maps で開く
+                        </a>
+                    </div>
+                </div>
+            </label>
+        </div>
+
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-3">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-3')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🫖</span>
+                        <span class="task-label font-bold text-slate-800">Fortnum &amp; Mason（カナリーワーフ）</span>
+                        <span class="badge bg-emerald-100 text-emerald-700">紅茶・食品</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">高級紅茶の名門。ティーポットもここで</p>
+                    <div class="mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Fortnum+Mason+Canary+Wharf+London" target="_blank"
+                           class="inline-flex items-center gap-1 text-blue-600 text-xs font-medium hover:underline"
+                           onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-map-location-dot"></i> Google Maps で開く
+                        </a>
+                    </div>
                 </div>
             </label>
         </div>
     </section>
 
-    <!-- サエカエへ -->
+    <!-- ドラッグストアで -->
     <section class="fade-in">
         <div class="flex items-center gap-2 mb-3">
-            <span class="text-lg">👜</span>
-            <h2 class="font-bold text-slate-700 text-base">サエカエへ</h2>
+            <span class="text-lg">💊</span>
+            <h2 class="font-bold text-slate-700 text-base">ドラッグストアで</h2>
         </div>
 
-        <!-- ヴィヴィアン バッグチャーム -->
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-3">
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-4">
             <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this, 'card-3')">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-4')">
                 <div class="flex-1">
                     <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🐻</span>
-                        <span class="task-label font-bold text-slate-800">ヴィヴィアン テディベア バッグチャーム</span>
-                        <span class="badge bg-pink-100 text-pink-700">John Lewis</span>
+                        <span class="task-icon text-xl">🧴</span>
+                        <span class="task-label font-bold text-slate-800">パースピレックス 5本</span>
+                        <span class="badge bg-teal-100 text-teal-700">Boots 等</span>
                     </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">Vivienne Westwood Teddy Bear Handbag Charm・Multi</p>
-                    <a href="https://www.johnlewis.com/vivienne-westwood-teddy-bear-handbag-charm-multi/p114158120" target="_blank"
-                       class="inline-flex items-center gap-1 mt-2 text-blue-600 text-xs font-medium hover:underline"
-                       onclick="event.stopPropagation()">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページを見る
-                    </a>
+                    <p class="task-label text-slate-500 text-sm mt-1">Perspirex（強力制汗剤）・日本より断然安い！Bootsで探して</p>
+                    <div class="mt-2">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Boots+pharmacy+Canary+Wharf+London" target="_blank"
+                           class="inline-flex items-center gap-1 text-blue-600 text-xs font-medium hover:underline"
+                           onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-map-location-dot"></i> 近くの Boots を探す
+                        </a>
+                    </div>
+                </div>
+            </label>
+        </div>
+    </section>
+
+    <!-- RMG Shop -->
+    <section class="fade-in">
+        <div class="flex items-center gap-2 mb-3">
+            <span class="text-lg">🏛️</span>
+            <h2 class="font-bold text-slate-700 text-base">RMG ショップ（天文台内）</h2>
+        </div>
+
+        <p class="sub-label">— かえでへ</p>
+
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-5">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-5')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🌍</span>
+                        <span class="task-label font-bold text-slate-800">地球儀（木製台座付き）</span>
+                        <span class="badge bg-indigo-100 text-indigo-700">RMG</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">Globe on Wooden Base・かえでへのお土産</p>
+                    <div class="mt-2">
+                        <a href="https://shop.rmg.co.uk/collections/homeware/products/globe-on-wooden-base" target="_blank"
+                           class="inline-flex items-center gap-1 text-blue-600 text-xs font-medium hover:underline"
+                           onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
+                        </a>
+                    </div>
                 </div>
             </label>
         </div>
 
-        <!-- 腕時計 -->
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-4">
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-6">
             <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this, 'card-4')">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-6')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🔑</span>
+                        <span class="task-label font-bold text-slate-800">真鍮製 望遠鏡キーリング</span>
+                        <span class="badge bg-indigo-100 text-indigo-700">RMG</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">Brass Telescope Keyring・かえでへのお土産</p>
+                    <div class="mt-2">
+                        <a href="https://shop.rmg.co.uk/collections/homeware/products/brass-telescope-keyring" target="_blank"
+                           class="inline-flex items-center gap-1 text-blue-600 text-xs font-medium hover:underline"
+                           onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
+                        </a>
+                    </div>
+                </div>
+            </label>
+        </div>
+
+        <p class="sub-label">— 紗英へ</p>
+
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-7">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-7')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🌡️</span>
+                        <span class="task-label font-bold text-slate-800">ストームグラス 気象計</span>
+                        <span class="badge bg-indigo-100 text-indigo-700">RMG</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">Storm Glass Barometer・紗英へのお土産</p>
+                    <div class="mt-2">
+                        <a href="https://shop.rmg.co.uk/collections/homeware/products/storm-glass-barometer" target="_blank"
+                           class="inline-flex items-center gap-1 text-blue-600 text-xs font-medium hover:underline"
+                           onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
+                        </a>
+                    </div>
+                </div>
+            </label>
+        </div>
+    </section>
+
+    <!-- John Lewis -->
+    <section class="fade-in">
+        <div class="flex items-center gap-2 mb-3">
+            <span class="text-lg">🏪</span>
+            <h2 class="font-bold text-slate-700 text-base">John Lewis（カナリーワーフ）</h2>
+        </div>
+
+        <p class="sub-label">— サエカエへ</p>
+
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-8">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-8')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🐻</span>
+                        <span class="task-label font-bold text-slate-800">VW テディベア バッグチャーム</span>
+                        <span class="badge bg-pink-100 text-pink-700">John Lewis</span>
+                        <span class="price-tag">£170 / ¥32,300</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">Vivienne Westwood Teddy Bear Handbag Charm・Multi</p>
+                    <div class="mt-2">
+                        <a href="https://www.johnlewis.com/vivienne-westwood-teddy-bear-handbag-charm-multi/p114158120" target="_blank"
+                           class="inline-flex items-center gap-1 text-blue-600 text-xs font-medium hover:underline"
+                           onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
+                        </a>
+                    </div>
+                </div>
+            </label>
+        </div>
+
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-9">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-9')">
                 <div class="flex-1">
                     <div class="flex items-center gap-2 flex-wrap">
                         <span class="task-icon text-xl">⌚</span>
@@ -210,84 +362,243 @@
                 </div>
             </label>
         </div>
-    </section>
 
-    <!-- ぴぴへ -->
-    <section class="fade-in">
-        <div class="flex items-center gap-2 mb-3">
-            <span class="text-lg">👗</span>
-            <h2 class="font-bold text-slate-700 text-base">ぴぴへ</h2>
-        </div>
+        <p class="sub-label">— ぴぴへ</p>
 
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-5">
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-10">
             <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this, 'card-5')">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-10')">
                 <div class="flex-1">
                     <div class="flex items-center gap-2 flex-wrap">
                         <span class="task-icon text-xl">🌊</span>
                         <span class="task-label font-bold text-slate-800">ウェーブストライプ ニットワンピース</span>
                         <span class="badge bg-pink-100 text-pink-700">John Lewis</span>
+                        <span class="price-tag">£19 / ¥3,610</span>
                     </div>
                     <p class="task-label text-slate-500 text-sm mt-1">John Lewis Kids Wavy Stripe Knit Dress・Multi<br>ぴぴに似合いそう！</p>
-                    <a href="https://www.johnlewis.com/john-lewis-kids-wavy-stripe-knit-dress-multi/p114464209" target="_blank"
-                       class="inline-flex items-center gap-1 mt-2 text-blue-600 text-xs font-medium hover:underline"
-                       onclick="event.stopPropagation()">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページを見る
-                    </a>
+                    <div class="mt-2">
+                        <a href="https://www.johnlewis.com/john-lewis-kids-wavy-stripe-knit-dress-multi/p114464209" target="_blank"
+                           class="inline-flex items-center gap-1 text-blue-600 text-xs font-medium hover:underline"
+                           onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
+                        </a>
+                    </div>
                 </div>
             </label>
         </div>
-    </section>
 
-    <!-- 紗英へ -->
-    <section class="fade-in">
-        <div class="flex items-center gap-2 mb-3">
-            <span class="text-lg">👕</span>
-            <h2 class="font-bold text-slate-700 text-base">紗英へ</h2>
-        </div>
+        <p class="sub-label">— 紗英へ</p>
 
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-6">
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-11">
             <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this, 'card-6')">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-11')">
                 <div class="flex-1">
                     <div class="flex items-center gap-2 flex-wrap">
                         <span class="task-icon text-xl">🩵</span>
                         <span class="task-label font-bold text-slate-800">タイサイドTシャツ（アクア）</span>
                         <span class="badge bg-cyan-100 text-cyan-700">Mango Kids</span>
+                        <span class="price-tag">£19.99 / ¥3,798</span>
                     </div>
                     <p class="task-label text-slate-500 text-sm mt-1">Mango Kids Textured Short Sleeve Tie Side T-Shirt・Aqua<br>紗英がギリ着てくれそうな女の子っぽいTシャツ</p>
-                    <a href="https://www.johnlewis.com/mango-kids-textured-short-sleeve-tie-side-t-shirt-aqua/p115117304" target="_blank"
-                       class="inline-flex items-center gap-1 mt-2 text-blue-600 text-xs font-medium hover:underline"
-                       onclick="event.stopPropagation()">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページを見る
-                    </a>
+                    <div class="mt-2">
+                        <a href="https://www.johnlewis.com/mango-kids-textured-short-sleeve-tie-side-t-shirt-aqua/p115117304" target="_blank"
+                           class="inline-flex items-center gap-1 text-blue-600 text-xs font-medium hover:underline"
+                           onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
+                        </a>
+                    </div>
+                </div>
+            </label>
+        </div>
+
+        <p class="sub-label">— 食器</p>
+
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-12">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-12')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🫖</span>
+                        <span class="task-label font-bold text-slate-800">エマ・ブリッジウォーター ティーポット</span>
+                        <span class="badge bg-rose-100 text-rose-700">John Lewis</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">Emma Bridgewater・どちらかひとつ選んで↓</p>
+                    <div class="mt-2 flex flex-wrap gap-3">
+                        <a href="https://www.johnlewis.com/search?search-term=emma+bridgewater+poppies+teapot" target="_blank"
+                           class="inline-flex items-center gap-1 text-blue-600 text-xs font-medium hover:underline"
+                           onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Poppies Pinks
+                        </a>
+                        <a href="https://www.johnlewis.com/search?search-term=emma+bridgewater+black+toast+teapot" target="_blank"
+                           class="inline-flex items-center gap-1 text-blue-600 text-xs font-medium hover:underline"
+                           onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Black Toast
+                        </a>
+                    </div>
+                </div>
+            </label>
+        </div>
+
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-13">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-13')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🥛</span>
+                        <span class="task-label font-bold text-slate-800">エマ・ブリッジウォーター ミルクジャグ</span>
+                        <span class="badge bg-rose-100 text-rose-700">John Lewis</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">Emma Bridgewater Milk Jug・ティーポットとセットで</p>
+                    <div class="mt-2">
+                        <a href="https://www.johnlewis.com/brands/emma-bridgewater" target="_blank"
+                           class="inline-flex items-center gap-1 text-blue-600 text-xs font-medium hover:underline"
+                           onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Emma Bridgewater @ JL
+                        </a>
+                    </div>
                 </div>
             </label>
         </div>
     </section>
 
-    <!-- 自分用メモ -->
+    <!-- Fortnum & Mason -->
     <section class="fade-in">
         <div class="flex items-center gap-2 mb-3">
-            <span class="text-lg">💍</span>
+            <span class="text-lg">🍵</span>
+            <h2 class="font-bold text-slate-700 text-base">Fortnum &amp; Mason（カナリーワーフ）</h2>
+        </div>
+
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-14">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-14')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🎁</span>
+                        <span class="task-label font-bold text-slate-800">紅茶ギフト</span>
+                        <span class="badge bg-emerald-100 text-emerald-700">F&amp;M</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">フォートナム&メイソンのおしゃれな紅茶セット</p>
+                    <div class="mt-2">
+                        <a href="https://www.fortnumandmason.com/" target="_blank"
+                           class="inline-flex items-center gap-1 text-blue-600 text-xs font-medium hover:underline"
+                           onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> F&amp;M サイト
+                        </a>
+                    </div>
+                </div>
+            </label>
+        </div>
+
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-15">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-15')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🫖</span>
+                        <span class="task-label font-bold text-slate-800">ピカデリー ティーポット</span>
+                        <span class="badge bg-emerald-100 text-emerald-700">F&amp;M</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">Fortnum &amp; Mason Piccadilly Teapot</p>
+                    <div class="warning-box">
+                        <i class="fa-solid fa-triangle-exclamation mr-1"></i>
+                        <strong>注意：</strong>金彩デザインのものは食洗機非対応の場合あり。購入前に確認を！
+                    </div>
+                    <div class="mt-2">
+                        <a href="https://www.fortnumandmason.com/" target="_blank"
+                           class="inline-flex items-center gap-1 text-blue-600 text-xs font-medium hover:underline"
+                           onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> F&amp;M サイト
+                        </a>
+                    </div>
+                </div>
+            </label>
+        </div>
+    </section>
+
+    <!-- グリニッジ周辺 -->
+    <section class="fade-in">
+        <div class="flex items-center gap-2 mb-3">
+            <span class="text-lg">🐟</span>
+            <h2 class="font-bold text-slate-700 text-base">グリニッジ周辺</h2>
+        </div>
+
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-16">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-16')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🍽️</span>
+                        <span class="task-label font-bold text-slate-800">フィッシュ&チップス用のお皿</span>
+                        <span class="badge bg-orange-100 text-orange-700">All Things Greenwich</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">フィッシュ&チップスが似合いそうなやつ！</p>
+                    <div class="mt-2 flex flex-wrap gap-3">
+                        <a href="https://www.allthingsgreenwich.co.uk/business/overview.php?BusinessID=1676" target="_blank"
+                           class="inline-flex items-center gap-1 text-blue-600 text-xs font-medium hover:underline"
+                           onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> お店のページ
+                        </a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=All+Things+Greenwich+London" target="_blank"
+                           class="inline-flex items-center gap-1 text-blue-600 text-xs font-medium hover:underline"
+                           onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-map-location-dot"></i> Google Maps
+                        </a>
+                    </div>
+                </div>
+            </label>
+        </div>
+    </section>
+
+    <!-- ついでにチェック -->
+    <section class="fade-in">
+        <div class="flex items-center gap-2 mb-3">
+            <span class="text-lg">✨</span>
             <h2 class="font-bold text-slate-700 text-base">ついでにチェック</h2>
         </div>
 
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-7">
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-17">
             <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this, 'card-7')">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-17')">
                 <div class="flex-1">
                     <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🪙</span>
+                        <span class="task-icon text-xl">💍</span>
                         <span class="task-label font-bold text-slate-800">シルバーリング</span>
                         <span class="badge bg-slate-100 text-slate-600">Autumn &amp; May</span>
                     </div>
                     <p class="task-label text-slate-500 text-sm mt-1">Fiorelli Layered Two Tone Octagon Sterling Silver Ring<br>ちょいちょいかわいいなぁと思ってるやつ</p>
-                    <a href="https://www.autumnandmay.co.uk/product/fiorelli-layered-two-tone-octagon-sterling-silver-ring/" target="_blank"
-                       class="inline-flex items-center gap-1 mt-2 text-blue-600 text-xs font-medium hover:underline"
-                       onclick="event.stopPropagation()">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページを見る
-                    </a>
+                    <div class="mt-2">
+                        <a href="https://www.autumnandmay.co.uk/product/fiorelli-layered-two-tone-octagon-sterling-silver-ring/" target="_blank"
+                           class="inline-flex items-center gap-1 text-blue-600 text-xs font-medium hover:underline"
+                           onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
+                        </a>
+                    </div>
+                </div>
+            </label>
+        </div>
+
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-18">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-18')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🎨</span>
+                        <span class="task-label font-bold text-slate-800">ティーポット（バックアップ）</span>
+                        <span class="badge bg-violet-100 text-violet-700">Contemporary Ceramics</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">Contemporary Ceramics Centre・アーティストの手作り品</p>
+                    <div class="mt-2 flex flex-wrap gap-3">
+                        <a href="https://www.contemporaryceramics.uk/" target="_blank"
+                           class="inline-flex items-center gap-1 text-blue-600 text-xs font-medium hover:underline"
+                           onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> お店のページ
+                        </a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Contemporary+Ceramics+Centre+London" target="_blank"
+                           class="inline-flex items-center gap-1 text-blue-600 text-xs font-medium hover:underline"
+                           onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-map-location-dot"></i> Google Maps
+                        </a>
+                    </div>
                 </div>
             </label>
         </div>
@@ -302,8 +613,28 @@
 
 </div>
 
+<!-- 合計バー -->
+<div id="totalBar">
+    <div class="max-w-lg mx-auto flex items-center justify-between">
+        <div>
+            <p class="text-xs text-blue-200 font-medium">ショッピング合計（チェック済み）</p>
+            <p class="text-lg font-bold mt-0.5">
+                <span id="totalGBP">£0.00</span>
+                <span class="text-blue-300 text-sm ml-2">≈ <span id="totalJPY">¥0</span></span>
+            </p>
+        </div>
+        <div class="text-3xl">🛍️</div>
+    </div>
+</div>
+
 <script>
-    const TOTAL = 8;
+    const TOTAL = 19;
+    const RATE  = 190;
+    const PRICES = {
+        'card-8':  170.00,
+        'card-10': 19.00,
+        'card-11': 19.99,
+    };
 
     function updateProgress() {
         const checked = document.querySelectorAll('.custom-checkbox:checked').length;
@@ -312,6 +643,26 @@
         document.getElementById('progressText').textContent = checked + ' / ' + TOTAL + ' 完了';
         document.getElementById('progressPercent').textContent = pct + '%';
         document.getElementById('allDoneMsg').classList.toggle('hidden', checked < TOTAL);
+        updateTotal();
+    }
+
+    function updateTotal() {
+        let total = 0;
+        Object.entries(PRICES).forEach(([cardId, price]) => {
+            const card = document.getElementById(cardId);
+            if (card) {
+                const cb = card.querySelector('.custom-checkbox');
+                if (cb && cb.checked) total += price;
+            }
+        });
+        const bar = document.getElementById('totalBar');
+        if (total > 0) {
+            bar.classList.add('visible');
+            document.getElementById('totalGBP').textContent = '£' + total.toFixed(2);
+            document.getElementById('totalJPY').textContent = '¥' + Math.round(total * RATE).toLocaleString();
+        } else {
+            bar.classList.remove('visible');
+        }
     }
 
     function toggleTask(checkbox, cardId) {
@@ -329,24 +680,22 @@
 
     function saveState() {
         const states = {};
-        document.querySelectorAll('.custom-checkbox').forEach((cb, i) => {
-            states[i] = cb.checked;
+        document.querySelectorAll('[id^="card-"]').forEach(card => {
+            const cb = card.querySelector('.custom-checkbox');
+            if (cb) states[card.id] = cb.checked;
         });
-        try { localStorage.setItem('london_tasks', JSON.stringify(states)); } catch(e) {}
+        try { localStorage.setItem('london_tasks_v2', JSON.stringify(states)); } catch(e) {}
     }
 
     function loadState() {
         try {
-            const states = JSON.parse(localStorage.getItem('london_tasks') || '{}');
-            document.querySelectorAll('.custom-checkbox').forEach((cb, i) => {
-                if (states[i]) {
+            const states = JSON.parse(localStorage.getItem('london_tasks_v2') || '{}');
+            document.querySelectorAll('[id^="card-"]').forEach(card => {
+                const cb = card.querySelector('.custom-checkbox');
+                if (cb && states[card.id]) {
                     cb.checked = true;
-                    const cardId = 'card-' + i;
-                    const card = document.getElementById(cardId);
-                    if (card) {
-                        card.classList.add('task-done');
-                        card.style.opacity = '0.65';
-                    }
+                    card.classList.add('task-done');
+                    card.style.opacity = '0.65';
                 }
             });
         } catch(e) {}
