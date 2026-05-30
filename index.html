@@ -46,8 +46,6 @@
         .link-btn:active { opacity:0.7; }
         .link-btn-shop { background:#eff6ff; color:#2563eb; }
         .link-btn-map  { background:#f0fdf4; color:#16a34a; }
-        .link-btn-warn { background:#fff7ed; color:#c2410c; }
-        .alt-note { font-size:11px; color:#94a3b8; margin-top:6px; padding-left:2px; }
         #totalBar {
             position:fixed; bottom:0; left:0; right:0;
             background:linear-gradient(135deg,#1e3a5f,#1e40af);
@@ -94,7 +92,6 @@
     <section class="fade-in">
         <div class="sec-head"><span class="text-xl">📍</span><h2>行くべきスポット</h2></div>
 
-        <!-- グリニッジ天文台 -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-0">
             <label class="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-0')">
@@ -106,7 +103,7 @@
                     </div>
                     <p class="task-label text-slate-500 text-sm mt-1">Blackheath Ave, London SE10 8XJ<br>天文台内のショップでかえでのお土産も忘れずに！</p>
                     <div class="link-row">
-                        <a href="https://maps.app.goo.gl/r8gDTJZxHvZNcRR98" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Royal+Observatory+Greenwich+SE10+8XJ" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-map-location-dot"></i> Google Maps
                         </a>
                     </div>
@@ -114,7 +111,6 @@
             </label>
         </div>
 
-        <!-- ジョン・ルイス -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-1">
             <label class="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-1')">
@@ -126,7 +122,7 @@
                     </div>
                     <p class="task-label text-slate-500 text-sm mt-1">ホテル近く。服・ティーポット・食器など盛りだくさん</p>
                     <div class="link-row">
-                        <a href="https://maps.app.goo.gl/mRBF28pzXVCH7fhX9" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                        <a href="https://www.google.com/maps/search/?api=1&query=John+Lewis+Partners+Oxford+Street+London" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-map-location-dot"></i> Google Maps
                         </a>
                     </div>
@@ -134,7 +130,6 @@
             </label>
         </div>
 
-        <!-- グリニッジマーケット -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-2">
             <label class="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-2')">
@@ -146,30 +141,26 @@
                     </div>
                     <p class="task-label text-slate-500 text-sm mt-1">地元民おすすめ！絶対行くべし</p>
                     <div class="link-row">
-                        <a href="https://maps.app.goo.gl/A5EY5CppnwUnnHaz6" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-map-location-dot"></i> 入口
-                        </a>
-                        <a href="https://maps.app.goo.gl/sjfnMD7MsdWWvdyD9" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-map-location-dot"></i> エリア
+                        <a href="https://www.google.com/maps/search/?api=1&query=Greenwich+Market+London+SE10" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-map-location-dot"></i> Google Maps
                         </a>
                     </div>
                 </div>
             </label>
         </div>
 
-        <!-- フォートナム&メイソン -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-3">
             <label class="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-3')">
                 <div class="flex-1">
                     <div class="flex items-center gap-2 flex-wrap">
                         <span class="task-icon text-xl">🍵</span>
-                        <span class="task-label font-bold text-slate-800">フォートナム&メイソン</span>
+                        <span class="task-label font-bold text-slate-800">フォートナム&amp;メイソン</span>
                         <span class="badge bg-rose-100 text-rose-700">紅茶の老舗</span>
                     </div>
                     <p class="task-label text-slate-500 text-sm mt-1">後輩への紅茶はここで！ティーポットの代替候補でもある</p>
                     <div class="link-row">
-                        <a href="https://maps.app.goo.gl/YiQbJaxrGNJA3xAVA" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Fortnum+%26+Mason+Piccadilly+London" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-map-location-dot"></i> Google Maps
                         </a>
                     </div>
@@ -181,7 +172,6 @@
     <!-- ===== ドラッグストアで ===== -->
     <section class="fade-in">
         <div class="sec-head"><span class="text-xl">💊</span><h2>ドラッグストアで</h2></div>
-
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-4">
             <label class="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-4')">
@@ -205,8 +195,6 @@
     <!-- ===== グリニッジ天文台ショップで ===== -->
     <section class="fade-in">
         <div class="sec-head"><span class="text-xl">🔭</span><h2>グリニッジ天文台ショップで</h2></div>
-
-        <!-- かえで：グローブ -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-5">
             <label class="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-5')">
@@ -221,7 +209,7 @@
                         <a href="https://shop.rmg.co.uk/collections/homeware/products/globe-on-wooden-base" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
                         </a>
-                        <a href="https://maps.app.goo.gl/r8gDTJZxHvZNcRR98" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Royal+Observatory+Greenwich+SE10+8XJ" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-map-location-dot"></i> 天文台
                         </a>
                     </div>
@@ -234,7 +222,6 @@
     <section class="fade-in">
         <div class="sec-head"><span class="text-xl">🏬</span><h2>ジョン・ルイスで買うもの</h2></div>
 
-        <!-- サエカエ -->
         <p class="sub-label">👜 サエカエへ</p>
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-6">
             <label class="flex items-start gap-3 cursor-pointer">
@@ -250,7 +237,7 @@
                         <a href="https://www.johnlewis.com/vivienne-westwood-teddy-bear-handbag-charm-multi/p114158120" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
                         </a>
-                        <a href="https://maps.app.goo.gl/mRBF28pzXVCH7fhX9" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                        <a href="https://www.google.com/maps/search/?api=1&query=John+Lewis+Partners+Oxford+Street+London" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-map-location-dot"></i> ジョン・ルイス
                         </a>
                     </div>
@@ -269,7 +256,7 @@
                     </div>
                     <p class="task-label text-slate-500 text-sm mt-1">バッグチャームとあわせて検討して！</p>
                     <div class="link-row">
-                        <a href="https://maps.app.goo.gl/mRBF28pzXVCH7fhX9" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                        <a href="https://www.google.com/maps/search/?api=1&query=John+Lewis+Partners+Oxford+Street+London" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-map-location-dot"></i> ジョン・ルイス
                         </a>
                     </div>
@@ -278,8 +265,6 @@
         </div>
 
         <div class="divider"></div>
-
-        <!-- ぴぴ -->
         <p class="sub-label">👗 ぴぴへ</p>
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-8">
             <label class="flex items-start gap-3 cursor-pointer">
@@ -298,7 +283,7 @@
                         <a href="https://www.johnlewis.com/john-lewis-kids-wavy-stripe-knit-dress-multi/p114464209" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
                         </a>
-                        <a href="https://maps.app.goo.gl/mRBF28pzXVCH7fhX9" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                        <a href="https://www.google.com/maps/search/?api=1&query=John+Lewis+Partners+Oxford+Street+London" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-map-location-dot"></i> ジョン・ルイス
                         </a>
                     </div>
@@ -307,8 +292,6 @@
         </div>
 
         <div class="divider"></div>
-
-        <!-- 紗英 -->
         <p class="sub-label">👕 紗英へ</p>
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-9">
             <label class="flex items-start gap-3 cursor-pointer">
@@ -324,7 +307,7 @@
                         <a href="https://www.johnlewis.com/mango-kids-textured-short-sleeve-tie-side-t-shirt-aqua/p115117304" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
                         </a>
-                        <a href="https://maps.app.goo.gl/mRBF28pzXVCH7fhX9" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                        <a href="https://www.google.com/maps/search/?api=1&query=John+Lewis+Partners+Oxford+Street+London" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-map-location-dot"></i> ジョン・ルイス
                         </a>
                     </div>
@@ -333,8 +316,6 @@
         </div>
 
         <div class="divider"></div>
-
-        <!-- ティーポット -->
         <p class="sub-label">🫖 食器・ティーポット（Ground Level / Cooking &amp; Dining）</p>
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-10">
             <label class="flex items-start gap-3 cursor-pointer">
@@ -353,7 +334,7 @@
                         <a href="https://www.emmabridgewater.co.uk/products/black-toast-4-mug-teapot?variant=12975167471688" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-arrow-up-right-from-square"></i> 候補B: Black Toast
                         </a>
-                        <a href="https://maps.app.goo.gl/mRBF28pzXVCH7fhX9" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                        <a href="https://www.google.com/maps/search/?api=1&query=John+Lewis+Partners+Oxford+Street+London" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-map-location-dot"></i> ジョン・ルイス
                         </a>
                     </div>
@@ -361,7 +342,6 @@
             </label>
         </div>
 
-        <!-- ミルクジャグ -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-11">
             <label class="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-11')">
@@ -376,7 +356,7 @@
                         <a href="https://www.emmabridgewater.co.uk/collections/jugs/products/black-toast-jersey-cream-1-2-pint-jug?variant=55146918281603" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
                         </a>
-                        <a href="https://maps.app.goo.gl/mRBF28pzXVCH7fhX9" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                        <a href="https://www.google.com/maps/search/?api=1&query=John+Lewis+Partners+Oxford+Street+London" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-map-location-dot"></i> ジョン・ルイス
                         </a>
                     </div>
@@ -389,7 +369,6 @@
     <section class="fade-in">
         <div class="sec-head"><span class="text-xl">🍵</span><h2>フォートナム&amp;メイソンで買うもの</h2></div>
 
-        <!-- 後輩への紅茶 -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-12">
             <label class="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-12')">
@@ -401,7 +380,7 @@
                     </div>
                     <p class="task-label text-slate-500 text-sm mt-1">フォートナム&amp;メイソンのブランド紅茶。喜ばれること間違いなし！</p>
                     <div class="link-row">
-                        <a href="https://maps.app.goo.gl/YiQbJaxrGNJA3xAVA" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Fortnum+%26+Mason+Piccadilly+London" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-map-location-dot"></i> フォートナム&amp;メイソン
                         </a>
                     </div>
@@ -409,7 +388,6 @@
             </label>
         </div>
 
-        <!-- ティーポット代替（F&M） -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-13">
             <label class="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-13')">
@@ -427,7 +405,7 @@
                         <a href="https://www.fortnumandmason.com/piccadilly-teapot-white" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
                         </a>
-                        <a href="https://maps.app.goo.gl/YiQbJaxrGNJA3xAVA" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Fortnum+%26+Mason+Piccadilly+London" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-map-location-dot"></i> フォートナム&amp;メイソン
                         </a>
                     </div>
@@ -440,7 +418,6 @@
     <section class="fade-in">
         <div class="sec-head"><span class="text-xl">🛒</span><h2>グリニッジマーケット周辺で買うもの</h2></div>
 
-        <!-- お皿 -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-14">
             <label class="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-14')">
@@ -455,7 +432,7 @@
                         <a href="https://www.allthingsgreenwich.co.uk/business/overview.php?BusinessID=1676" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-arrow-up-right-from-square"></i> お店のページ
                         </a>
-                        <a href="https://maps.app.goo.gl/sjfnMD7MsdWWvdyD9" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Greenwich+Market+London+SE10" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-map-location-dot"></i> マーケットエリア
                         </a>
                     </div>
@@ -468,7 +445,6 @@
     <section class="fade-in">
         <div class="sec-head"><span class="text-xl">💍</span><h2>ついでにチェック</h2></div>
 
-        <!-- シルバーリング -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-15">
             <label class="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-15')">
@@ -488,7 +464,6 @@
             </label>
         </div>
 
-        <!-- Contemporary Ceramics（ティーポット代替） -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-16">
             <label class="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-16')">
@@ -509,7 +484,6 @@
         </div>
     </section>
 
-    <!-- 全完了メッセージ -->
     <div id="allDoneMsg" class="hidden text-center py-8">
         <div class="text-5xl mb-3">🎉</div>
         <p class="font-bold text-slate-700 text-lg">全部クリア！</p>
@@ -533,11 +507,10 @@
 <script>
     const TOTAL = 17;
     const RATE  = 190;
-
     const PRICES = {
-        'card-6': 170.00,  // VW バッグチャーム
-        'card-8': 19.00,   // ニットワンピース（中央値）
-        'card-9': 19.99,   // タイサイドTシャツ
+        'card-6': 170.00,
+        'card-8': 19.00,
+        'card-9': 19.99,
     };
 
     function updateProgress() {
