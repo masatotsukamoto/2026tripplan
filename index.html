@@ -8,86 +8,61 @@
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: 'Zen Maru Gothic', sans-serif;
-            background-color: #f0f4f8;
-            color: #334155;
-            padding-bottom: 88px;
-        }
-        .task-card { transition: all 0.2s ease; }
-        .task-card:active { transform: scale(0.98); }
-        .task-done .task-label { text-decoration: line-through; color: #94a3b8; }
-        .task-done .task-icon { opacity: 0.4; }
-        .task-done .price-tag { opacity: 0.4; }
+        body { font-family:'Zen Maru Gothic',sans-serif; background:#f0f4f8; color:#334155; padding-bottom:88px; }
+        .task-card { transition:all 0.2s ease; }
+        .task-card:active { transform:scale(0.98); }
+        .task-done .task-label { text-decoration:line-through; color:#94a3b8; }
+        .task-done .task-icon { opacity:0.4; }
+        .task-done .price-tag { opacity:0.4; }
         .custom-checkbox {
-            appearance: none;
-            -webkit-appearance: none;
-            width: 26px; height: 26px;
-            border: 2px solid #cbd5e1;
-            border-radius: 50%;
-            cursor: pointer;
-            flex-shrink: 0;
-            transition: all 0.2s ease;
-            position: relative;
+            appearance:none; -webkit-appearance:none;
+            width:26px; height:26px;
+            border:2px solid #cbd5e1; border-radius:50%;
+            cursor:pointer; flex-shrink:0;
+            transition:all 0.2s ease; position:relative;
         }
-        .custom-checkbox:checked { background-color: #22c55e; border-color: #22c55e; }
+        .custom-checkbox:checked { background-color:#22c55e; border-color:#22c55e; }
         .custom-checkbox:checked::after {
-            content: '';
-            position: absolute;
-            left: 6px; top: 2px;
-            width: 6px; height: 11px;
-            border: 2.5px solid white;
-            border-top: none; border-left: none;
-            transform: rotate(45deg);
+            content:''; position:absolute;
+            left:6px; top:2px; width:6px; height:11px;
+            border:2.5px solid white; border-top:none; border-left:none;
+            transform:rotate(45deg);
         }
-        .progress-bar { transition: width 0.4s ease; }
-        .badge {
-            display: inline-block;
-            font-size: 11px; padding: 2px 8px;
-            border-radius: 999px; font-weight: 700;
-        }
+        .progress-bar { transition:width 0.4s ease; }
+        .badge { display:inline-block; font-size:11px; padding:2px 8px; border-radius:999px; font-weight:700; }
         .price-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 8px;
-            padding: 4px 10px;
-            background: #fefce8;
-            border: 1px solid #fde68a;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 700;
-            color: #92400e;
+            display:inline-flex; align-items:center; gap:6px;
+            margin-top:8px; padding:4px 10px;
+            background:#fefce8; border:1px solid #fde68a;
+            border-radius:8px; font-size:13px; font-weight:700; color:#92400e;
         }
-        .price-tag .jpy { color: #b45309; font-size: 12px; }
-        .link-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        .price-tag .jpy { color:#b45309; font-size:12px; }
+        .link-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
         .link-btn {
-            display: inline-flex; align-items: center; gap: 4px;
-            font-size: 12px; font-weight: 600;
-            padding: 4px 10px; border-radius: 8px;
-            text-decoration: none; transition: opacity 0.15s;
+            display:inline-flex; align-items:center; gap:4px;
+            font-size:12px; font-weight:600; padding:4px 10px;
+            border-radius:8px; text-decoration:none; transition:opacity 0.15s;
         }
-        .link-btn:active { opacity: 0.7; }
-        .link-btn-shop { background: #eff6ff; color: #2563eb; }
-        .link-btn-map  { background: #f0fdf4; color: #16a34a; }
+        .link-btn:active { opacity:0.7; }
+        .link-btn-shop { background:#eff6ff; color:#2563eb; }
+        .link-btn-map  { background:#f0fdf4; color:#16a34a; }
+        .link-btn-warn { background:#fff7ed; color:#c2410c; }
+        .alt-note { font-size:11px; color:#94a3b8; margin-top:6px; padding-left:2px; }
         #totalBar {
-            position: fixed; bottom: 0; left: 0; right: 0;
-            background: linear-gradient(135deg, #1e3a5f, #1e40af);
-            color: white;
-            padding: 12px 20px;
-            display: flex; align-items: center; justify-content: space-between;
-            box-shadow: 0 -4px 16px rgba(0,0,0,0.15);
-            transition: transform 0.3s ease;
-            z-index: 50;
+            position:fixed; bottom:0; left:0; right:0;
+            background:linear-gradient(135deg,#1e3a5f,#1e40af);
+            color:white; padding:12px 20px;
+            display:flex; align-items:center; justify-content:space-between;
+            box-shadow:0 -4px 16px rgba(0,0,0,0.15);
+            transition:transform 0.3s ease; z-index:50;
         }
-        #totalBar.hidden-bar { transform: translateY(100%); }
-        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-        .section-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; padding-left: 4px; }
-        .section-header h2 { font-weight: 700; color: #475569; font-size: 15px; }
+        #totalBar.hidden-bar { transform:translateY(100%); }
+        .fade-in { animation:fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+        .sec-head { display:flex; align-items:center; gap:8px; margin-bottom:12px; padding-left:4px; }
+        .sec-head h2 { font-weight:700; color:#475569; font-size:15px; }
+        .divider { border-top:1px dashed #e2e8f0; margin:4px 0 12px 0; }
+        .sub-label { font-size:11px; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px; padding-left:2px; }
     </style>
 </head>
 <body>
@@ -104,10 +79,10 @@
         </div>
         <p class="text-blue-300 text-sm mt-2 ml-1">家族からのお願いをまとめたよ。全部やってきてね！</p>
         <div class="mt-5 bg-blue-950/50 rounded-full h-3 overflow-hidden">
-            <div id="progressBar" class="progress-bar bg-gradient-to-r from-green-400 to-emerald-500 h-3 rounded-full" style="width: 0%"></div>
+            <div id="progressBar" class="progress-bar bg-gradient-to-r from-green-400 to-emerald-500 h-3 rounded-full" style="width:0%"></div>
         </div>
         <div class="flex justify-between mt-1">
-            <p class="text-blue-300 text-xs" id="progressText">0 / 10 完了</p>
+            <p class="text-blue-300 text-xs" id="progressText">0 / 17 完了</p>
             <p class="text-blue-300 text-xs" id="progressPercent">0%</p>
         </div>
     </div>
@@ -115,10 +90,11 @@
 
 <div class="max-w-lg mx-auto px-4 mt-6 space-y-6">
 
-    <!-- ======= 行くべきスポット ======= -->
+    <!-- ===== 行くべきスポット ===== -->
     <section class="fade-in">
-        <div class="section-header"><span class="text-xl">📍</span><h2>行くべきスポット</h2></div>
+        <div class="sec-head"><span class="text-xl">📍</span><h2>行くべきスポット</h2></div>
 
+        <!-- グリニッジ天文台 -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-0">
             <label class="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-0')">
@@ -128,7 +104,7 @@
                         <span class="task-label font-bold text-slate-800">グリニッジ天文台</span>
                         <span class="badge bg-amber-100 text-amber-700">観光</span>
                     </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">Blackheath Ave, London SE10 8XJ</p>
+                    <p class="task-label text-slate-500 text-sm mt-1">Blackheath Ave, London SE10 8XJ<br>天文台内のショップでかえでのお土産も忘れずに！</p>
                     <div class="link-row">
                         <a href="https://maps.app.goo.gl/r8gDTJZxHvZNcRR98" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-map-location-dot"></i> Google Maps
@@ -138,35 +114,17 @@
             </label>
         </div>
 
+        <!-- ジョン・ルイス -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-1">
             <label class="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-1')">
                 <div class="flex-1">
                     <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🛒</span>
-                        <span class="task-label font-bold text-slate-800">グリニッジマーケット</span>
-                        <span class="badge bg-green-100 text-green-700">マーケット</span>
-                    </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">地元民おすすめ！絶対行くべし</p>
-                    <div class="link-row">
-                        <a href="https://maps.app.goo.gl/sjfnMD7MsdWWvdyD9" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-map-location-dot"></i> Google Maps
-                        </a>
-                    </div>
-                </div>
-            </label>
-        </div>
-
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-2">
-            <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-2')">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 flex-wrap">
                         <span class="task-icon text-xl">🏬</span>
-                        <span class="task-label font-bold text-slate-800">ジョン・ルイス（老舗デパート）</span>
-                        <span class="badge bg-purple-100 text-purple-700">ショッピング</span>
+                        <span class="task-label font-bold text-slate-800">ジョン・ルイス</span>
+                        <span class="badge bg-purple-100 text-purple-700">老舗デパート</span>
                     </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">ホテル近く。下の買い物リストのほとんどがここで揃う</p>
+                    <p class="task-label text-slate-500 text-sm mt-1">ホテル近く。服・ティーポット・食器など盛りだくさん</p>
                     <div class="link-row">
                         <a href="https://maps.app.goo.gl/mRBF28pzXVCH7fhX9" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-map-location-dot"></i> Google Maps
@@ -175,25 +133,119 @@
                 </div>
             </label>
         </div>
-    </section>
 
-    <!-- ======= サエカエへ ======= -->
-    <section class="fade-in">
-        <div class="section-header"><span class="text-xl">👜</span><h2>サエカエへ</h2></div>
+        <!-- グリニッジマーケット -->
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-2">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-2')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🛒</span>
+                        <span class="task-label font-bold text-slate-800">グリニッジマーケット</span>
+                        <span class="badge bg-green-100 text-green-700">マーケット</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">地元民おすすめ！絶対行くべし</p>
+                    <div class="link-row">
+                        <a href="https://maps.app.goo.gl/A5EY5CppnwUnnHaz6" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-map-location-dot"></i> 入口
+                        </a>
+                        <a href="https://maps.app.goo.gl/sjfnMD7MsdWWvdyD9" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-map-location-dot"></i> エリア
+                        </a>
+                    </div>
+                </div>
+            </label>
+        </div>
 
+        <!-- フォートナム&メイソン -->
         <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-3">
             <label class="flex items-start gap-3 cursor-pointer">
                 <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-3')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🍵</span>
+                        <span class="task-label font-bold text-slate-800">フォートナム&メイソン</span>
+                        <span class="badge bg-rose-100 text-rose-700">紅茶の老舗</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">後輩への紅茶はここで！ティーポットの代替候補でもある</p>
+                    <div class="link-row">
+                        <a href="https://maps.app.goo.gl/YiQbJaxrGNJA3xAVA" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-map-location-dot"></i> Google Maps
+                        </a>
+                    </div>
+                </div>
+            </label>
+        </div>
+    </section>
+
+    <!-- ===== ドラッグストアで ===== -->
+    <section class="fade-in">
+        <div class="sec-head"><span class="text-xl">💊</span><h2>ドラッグストアで</h2></div>
+
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-4">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-4')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🟢</span>
+                        <span class="task-label font-bold text-slate-800">パースピレックス コンフォート 20ml</span>
+                        <span class="badge bg-emerald-100 text-emerald-700">複数個</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">敏感肌用・緑のやつ。5〜10個とか幾つでもOK！<br>日本より断然安いので買えるだけ買ってきて</p>
+                    <div class="link-row">
+                        <a href="https://item.rakuten.co.jp/greenbasket/uk-perspirexcom20ml/" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 楽天で確認（参考）
+                        </a>
+                    </div>
+                </div>
+            </label>
+        </div>
+    </section>
+
+    <!-- ===== グリニッジ天文台ショップで ===== -->
+    <section class="fade-in">
+        <div class="sec-head"><span class="text-xl">🔭</span><h2>グリニッジ天文台ショップで</h2></div>
+
+        <!-- かえで：グローブ -->
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-5">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-5')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🌍</span>
+                        <span class="task-label font-bold text-slate-800">木台つきグローブ</span>
+                        <span class="badge bg-sky-100 text-sky-700">かえでへ</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">Royal Museums Greenwich の公式ショップで購入</p>
+                    <div class="link-row">
+                        <a href="https://shop.rmg.co.uk/collections/homeware/products/globe-on-wooden-base" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
+                        </a>
+                        <a href="https://maps.app.goo.gl/r8gDTJZxHvZNcRR98" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-map-location-dot"></i> 天文台
+                        </a>
+                    </div>
+                </div>
+            </label>
+        </div>
+    </section>
+
+    <!-- ===== ジョン・ルイスで ===== -->
+    <section class="fade-in">
+        <div class="sec-head"><span class="text-xl">🏬</span><h2>ジョン・ルイスで買うもの</h2></div>
+
+        <!-- サエカエ -->
+        <p class="sub-label">👜 サエカエへ</p>
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-6">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-6')">
                 <div class="flex-1">
                     <div class="flex items-center gap-2 flex-wrap">
                         <span class="task-icon text-xl">🐻</span>
                         <span class="task-label font-bold text-slate-800">ヴィヴィアン テディベア バッグチャーム</span>
                     </div>
                     <p class="task-label text-slate-500 text-sm mt-1">Vivienne Westwood Teddy Bear Handbag Charm・Multi</p>
-                    <div class="price-tag">
-                        <span>£170.00</span>
-                        <span class="jpy">≈ ¥32,300</span>
-                    </div>
+                    <div class="price-tag"><span>£170.00</span><span class="jpy">≈ ¥32,300</span></div>
                     <div class="link-row">
                         <a href="https://www.johnlewis.com/vivienne-westwood-teddy-bear-handbag-charm-multi/p114158120" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
@@ -206,9 +258,9 @@
             </label>
         </div>
 
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-4">
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-7">
             <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-4')">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-7')">
                 <div class="flex-1">
                     <div class="flex items-center gap-2 flex-wrap">
                         <span class="task-icon text-xl">⌚</span>
@@ -224,15 +276,14 @@
                 </div>
             </label>
         </div>
-    </section>
 
-    <!-- ======= ぴぴへ ======= -->
-    <section class="fade-in">
-        <div class="section-header"><span class="text-xl">👗</span><h2>ぴぴへ</h2></div>
+        <div class="divider"></div>
 
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-5">
+        <!-- ぴぴ -->
+        <p class="sub-label">👗 ぴぴへ</p>
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-8">
             <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-5')">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-8')">
                 <div class="flex-1">
                     <div class="flex items-center gap-2 flex-wrap">
                         <span class="task-icon text-xl">🌊</span>
@@ -240,8 +291,7 @@
                     </div>
                     <p class="task-label text-slate-500 text-sm mt-1">John Lewis Kids Wavy Stripe Knit Dress・Multi<br>ぴぴに似合いそう！</p>
                     <div class="price-tag">
-                        <span>£18〜20</span>
-                        <span class="jpy">≈ ¥3,420〜3,800</span>
+                        <span>£18〜20</span><span class="jpy">≈ ¥3,420〜3,800</span>
                         <span style="font-size:10px;color:#b45309;font-weight:500">サイズにより変動</span>
                     </div>
                     <div class="link-row">
@@ -255,25 +305,21 @@
                 </div>
             </label>
         </div>
-    </section>
 
-    <!-- ======= 紗英へ ======= -->
-    <section class="fade-in">
-        <div class="section-header"><span class="text-xl">👕</span><h2>紗英へ</h2></div>
+        <div class="divider"></div>
 
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-6">
+        <!-- 紗英 -->
+        <p class="sub-label">👕 紗英へ</p>
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-9">
             <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-6')">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-9')">
                 <div class="flex-1">
                     <div class="flex items-center gap-2 flex-wrap">
                         <span class="task-icon text-xl">🩵</span>
                         <span class="task-label font-bold text-slate-800">タイサイドTシャツ（アクア）</span>
                     </div>
                     <p class="task-label text-slate-500 text-sm mt-1">Mango Kids Textured Short Sleeve Tie Side T-Shirt・Aqua<br>紗英がギリ着てくれそうな女の子っぽいTシャツ</p>
-                    <div class="price-tag">
-                        <span>£19.99</span>
-                        <span class="jpy">≈ ¥3,798</span>
-                    </div>
+                    <div class="price-tag"><span>£19.99</span><span class="jpy">≈ ¥3,798</span></div>
                     <div class="link-row">
                         <a href="https://www.johnlewis.com/mango-kids-textured-short-sleeve-tie-side-t-shirt-aqua/p115117304" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
@@ -285,46 +331,132 @@
                 </div>
             </label>
         </div>
+
+        <div class="divider"></div>
+
+        <!-- ティーポット -->
+        <p class="sub-label">🫖 食器・ティーポット（Ground Level / Cooking &amp; Dining）</p>
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-10">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-10')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🫖</span>
+                        <span class="task-label font-bold text-slate-800">Emma Bridgewater ティーポット</span>
+                        <span class="badge bg-orange-100 text-orange-700">2候補あり</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">どちらかを選んで購入してね！</p>
+                    <div class="link-row">
+                        <a href="https://www.emmabridgewater.co.uk/collections/teapots-cups-saucers/products/poppies-pinks-3-mug-teapot?variant=56134598328707" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 候補A: Poppies Pinks
+                        </a>
+                        <a href="https://www.emmabridgewater.co.uk/products/black-toast-4-mug-teapot?variant=12975167471688" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 候補B: Black Toast
+                        </a>
+                        <a href="https://maps.app.goo.gl/mRBF28pzXVCH7fhX9" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-map-location-dot"></i> ジョン・ルイス
+                        </a>
+                    </div>
+                </div>
+            </label>
+        </div>
+
+        <!-- ミルクジャグ -->
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-11">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-11')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🥛</span>
+                        <span class="task-label font-bold text-slate-800">Emma Bridgewater ミルクジャグ</span>
+                        <span class="badge bg-orange-100 text-orange-700">候補Bとお揃い</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">Black Toast を選んだ場合はこちらも！Jersey Cream 1/2 Pint Jug</p>
+                    <div class="link-row">
+                        <a href="https://www.emmabridgewater.co.uk/collections/jugs/products/black-toast-jersey-cream-1-2-pint-jug?variant=55146918281603" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
+                        </a>
+                        <a href="https://maps.app.goo.gl/mRBF28pzXVCH7fhX9" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-map-location-dot"></i> ジョン・ルイス
+                        </a>
+                    </div>
+                </div>
+            </label>
+        </div>
     </section>
 
-    <!-- ======= 現地の専門店で買うもの ======= -->
+    <!-- ===== フォートナム&メイソンで ===== -->
     <section class="fade-in">
-        <div class="section-header"><span class="text-xl">🏪</span><h2>現地の専門店で買うもの</h2></div>
+        <div class="sec-head"><span class="text-xl">🍵</span><h2>フォートナム&amp;メイソンで買うもの</h2></div>
+
+        <!-- 後輩への紅茶 -->
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-12">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-12')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🫖</span>
+                        <span class="task-label font-bold text-slate-800">後輩へのお土産：紅茶</span>
+                        <span class="badge bg-rose-100 text-rose-700">F&amp;M</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">フォートナム&amp;メイソンのブランド紅茶。喜ばれること間違いなし！</p>
+                    <div class="link-row">
+                        <a href="https://maps.app.goo.gl/YiQbJaxrGNJA3xAVA" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-map-location-dot"></i> フォートナム&amp;メイソン
+                        </a>
+                    </div>
+                </div>
+            </label>
+        </div>
+
+        <!-- ティーポット代替（F&M） -->
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-13">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-13')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🫖</span>
+                        <span class="task-label font-bold text-slate-800">ティーポット代替：Piccadilly（白）</span>
+                        <span class="badge bg-slate-200 text-slate-600">JLになければ</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">Fortnum &amp; Mason Piccadilly Teapot White</p>
+                    <div class="bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mt-2">
+                        <p class="text-amber-700 text-xs font-bold">⚠️ 食洗機対応か不明 → 店員さんに確認してね！</p>
+                    </div>
+                    <div class="link-row">
+                        <a href="https://www.fortnumandmason.com/piccadilly-teapot-white" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
+                        </a>
+                        <a href="https://maps.app.goo.gl/YiQbJaxrGNJA3xAVA" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-map-location-dot"></i> フォートナム&amp;メイソン
+                        </a>
+                    </div>
+                </div>
+            </label>
+        </div>
+    </section>
+
+    <!-- ===== グリニッジマーケット周辺で ===== -->
+    <section class="fade-in">
+        <div class="sec-head"><span class="text-xl">🛒</span><h2>グリニッジマーケット周辺で買うもの</h2></div>
 
         <!-- お皿 -->
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-7">
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-14">
             <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-7')">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-14')">
                 <div class="flex-1">
                     <div class="flex items-center gap-2 flex-wrap">
                         <span class="task-icon text-xl">🍽️</span>
                         <span class="task-label font-bold text-slate-800">お皿</span>
-                        <span class="badge bg-orange-100 text-orange-700">グリニッジ</span>
+                        <span class="badge bg-orange-100 text-orange-700">All Things Greenwich</span>
                     </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">フィッシュ&チップスが似合いそうなやつ</p>
+                    <p class="task-label text-slate-500 text-sm mt-1">フィッシュ&amp;チップスが似合いそうなやつ</p>
                     <div class="link-row">
                         <a href="https://www.allthingsgreenwich.co.uk/business/overview.php?BusinessID=1676" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-arrow-up-right-from-square"></i> お店のページ
                         </a>
-                    </div>
-                </div>
-            </label>
-        </div>
-
-        <!-- ティーポット -->
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-8">
-            <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-8')">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🫖</span>
-                        <span class="task-label font-bold text-slate-800">ティーポット</span>
-                        <span class="badge bg-rose-100 text-rose-700">陶器ギャラリー</span>
-                    </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">Contemporary Ceramics で選んできて</p>
-                    <div class="link-row">
-                        <a href="https://www.contemporaryceramics.uk/" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> お店のページ
+                        <a href="https://maps.app.goo.gl/sjfnMD7MsdWWvdyD9" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-map-location-dot"></i> マーケットエリア
                         </a>
                     </div>
                 </div>
@@ -332,23 +464,44 @@
         </div>
     </section>
 
-    <!-- ======= ついでにチェック ======= -->
+    <!-- ===== ついでにチェック ===== -->
     <section class="fade-in">
-        <div class="section-header"><span class="text-xl">💍</span><h2>ついでにチェック</h2></div>
+        <div class="sec-head"><span class="text-xl">💍</span><h2>ついでにチェック</h2></div>
 
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-9">
+        <!-- シルバーリング -->
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-15">
             <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-9')">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-15')">
                 <div class="flex-1">
                     <div class="flex items-center gap-2 flex-wrap">
                         <span class="task-icon text-xl">🪙</span>
                         <span class="task-label font-bold text-slate-800">シルバーリング</span>
                         <span class="badge bg-slate-100 text-slate-500">オンライン</span>
                     </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">Fiorelli Layered Two Tone Octagon Sterling Silver Ring<br>ちょいちょいかわいいなぁと思ってるやつ（Autumn &amp; May）</p>
+                    <p class="task-label text-slate-500 text-sm mt-1">Fiorelli Layered Two Tone Octagon Sterling Silver Ring（Autumn &amp; May）<br>ちょいちょいかわいいなぁと思ってるやつ</p>
                     <div class="link-row">
                         <a href="https://www.autumnandmay.co.uk/product/fiorelli-layered-two-tone-octagon-sterling-silver-ring/" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
                             <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
+                        </a>
+                    </div>
+                </div>
+            </label>
+        </div>
+
+        <!-- Contemporary Ceramics（ティーポット代替） -->
+        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-16">
+            <label class="flex items-start gap-3 cursor-pointer">
+                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-16')">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="task-icon text-xl">🎨</span>
+                        <span class="task-label font-bold text-slate-800">ティーポット（最終代替）</span>
+                        <span class="badge bg-slate-200 text-slate-600">Contemporary Ceramics</span>
+                    </div>
+                    <p class="task-label text-slate-500 text-sm mt-1">JLにもF&amp;Mにも気に入ったのがなければここへ</p>
+                    <div class="link-row">
+                        <a href="https://www.contemporaryceramics.uk/" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> お店のページ
                         </a>
                     </div>
                 </div>
@@ -378,13 +531,13 @@
 </div>
 
 <script>
-    const TOTAL = 10;
+    const TOTAL = 17;
     const RATE  = 190;
 
     const PRICES = {
-        'card-3': 170.00,  // VW バッグチャーム
-        'card-5': 19.00,   // ニットワンピース（中央値）
-        'card-6': 19.99,   // タイサイドTシャツ
+        'card-6': 170.00,  // VW バッグチャーム
+        'card-8': 19.00,   // ニットワンピース（中央値）
+        'card-9': 19.99,   // タイサイドTシャツ
     };
 
     function updateProgress() {
@@ -397,15 +550,15 @@
     }
 
     function updateTotal() {
-        let totalGBP = 0;
+        let total = 0;
         document.querySelectorAll('.custom-checkbox:checked').forEach(cb => {
             const card = cb.closest('[id^="card-"]');
-            if (card && PRICES[card.id]) totalGBP += PRICES[card.id];
+            if (card && PRICES[card.id]) total += PRICES[card.id];
         });
         const bar = document.getElementById('totalBar');
-        if (totalGBP > 0) {
-            document.getElementById('totalGBP').textContent = '£' + totalGBP.toFixed(2);
-            document.getElementById('totalJPY').textContent = '¥' + Math.round(totalGBP * RATE).toLocaleString();
+        if (total > 0) {
+            document.getElementById('totalGBP').textContent = '£' + total.toFixed(2);
+            document.getElementById('totalJPY').textContent = '¥' + Math.round(total * RATE).toLocaleString();
             bar.classList.remove('hidden-bar');
         } else {
             bar.classList.add('hidden-bar');
