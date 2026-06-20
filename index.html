@@ -62,11 +62,11 @@
         <div class="flex items-center gap-3 mb-1">
             <span class="text-4xl">🏯</span>
             <div>
-                <p class="text-cyan-100 text-xs font-medium tracking-widest uppercase">San-in Family Trip ・ 改訂版</p>
+                <p class="text-cyan-100 text-xs font-medium tracking-widest uppercase">San-in Family Trip ・ 2026 Summer</p>
                 <h1 class="text-2xl font-bold leading-tight">鳥取・島根 + 天橋立</h1>
             </div>
         </div>
-        <p class="text-cyan-100 text-sm mt-2 ml-1">家族4人で楽しむ 3泊4日モデルプラン（移動負担を見直した改訂版）</p>
+        <p class="text-cyan-100 text-sm mt-2 ml-1">家族4人で楽しむ 3泊4日モデルプラン（2026年 夏）</p>
         <div class="flex gap-2 mt-4 flex-wrap">
             <span class="bg-white/15 rounded-lg px-3 py-1 text-xs font-bold">🛬 伊丹IN ／ 出雲OUT</span>
             <span class="bg-white/15 rounded-lg px-3 py-1 text-xs font-bold">🚗 レンタカー</span>
@@ -76,29 +76,6 @@
 </div>
 
 <div class="max-w-lg mx-auto px-4 mt-6 space-y-7">
-
-    <!-- ===== 改訂ポイント ===== -->
-    <section class="fade-in">
-        <div class="sec-head"><span class="text-xl">✍️</span><h2>元プランからの改訂ポイント</h2></div>
-        <div class="bg-white rounded-2xl shadow-sm p-4 space-y-3">
-            <div class="flex gap-3">
-                <span class="text-lg">①</span>
-                <p class="text-sm text-slate-600"><b class="text-slate-800">初日の長距離運転を解消。</b><br>元プランは初日に「伊丹→天橋立→三朝温泉（運転計5時間超）」と過密でした。<b>初日は天橋立観光までにして城崎温泉泊</b>に変更し、運転を約4時間→約4時間でも“観光後すぐ宿”にして到着を早めました。</p>
-            </div>
-            <div class="flex gap-3">
-                <span class="text-lg">②</span>
-                <p class="text-sm text-slate-600"><b class="text-slate-800">宿を3か所に分散。</b><br>三朝2泊→「城崎・三朝・玉造（または松江しんじ湖）」の<b>湯めぐり構成</b>に。毎日違う温泉を楽しめ、戻り運転も減らせます。</p>
-            </div>
-            <div class="flex gap-3">
-                <span class="text-lg">③</span>
-                <p class="text-sm text-slate-600"><b class="text-slate-800">3日目の動線を最短化。</b><br>三朝のすぐ近くの「倉吉→コナンの里（北栄）」を先にまとめ、その後まっすぐ松江へ。無駄な往復をカット。</p>
-            </div>
-            <div class="flex gap-3">
-                <span class="text-lg">④</span>
-                <p class="text-sm text-slate-600"><b class="text-slate-800">予算を季節別に精緻化。</b><br>「37〜71万」の広いレンジを、<b>閑散期／通常期／繁忙期の3段階</b>で具体化（下部「ざっくり予算」参照）。</p>
-            </div>
-        </div>
-    </section>
 
     <!-- ===== 1日目 ===== -->
     <section class="fade-in">
@@ -311,9 +288,9 @@
         <div class="sec-head"><span class="text-xl">💰</span><h2>ざっくり予算（家族4人・3泊4日）</h2></div>
         <div class="bg-white rounded-2xl shadow-sm p-4">
             <div class="seg mb-3">
-                <button data-season="low" class="active" onclick="setSeason('low')">閑散期<br><span class="font-normal text-[10px]">早割・平日</span></button>
-                <button data-season="mid" onclick="setSeason('mid')">通常期<br><span class="font-normal text-[10px]">春秋の土日</span></button>
-                <button data-season="high" onclick="setSeason('high')">繁忙期<br><span class="font-normal text-[10px]">GW・盆・年末</span></button>
+                <button data-season="low" class="active" onclick="setSeason('low')">夏の平日<br><span class="font-normal text-[10px]">早割活用</span></button>
+                <button data-season="mid" onclick="setSeason('mid')">夏の週末<br><span class="font-normal text-[10px]">7〜8月の土日</span></button>
+                <button data-season="high" onclick="setSeason('high')">お盆<br><span class="font-normal text-[10px]">8/中旬</span></button>
             </div>
 
             <p id="seasonNote" class="text-xs text-slate-500 mb-2 px-1"></p>
@@ -328,7 +305,7 @@
                 <span class="font-bold text-slate-700">合計目安</span>
                 <span class="font-bold text-xl text-teal-700" id="b-total"></span>
             </div>
-            <p class="text-[11px] text-slate-400 mt-2 px-1">※おとな2＋子ども2を想定。便・宿のグレードで変動します。乗り捨て料金（伊丹→出雲）は数千〜2万円程度を含みます。</p>
+            <p class="text-[11px] text-slate-400 mt-2 px-1">※おとな2＋子ども2を想定。宿は「ある程度のグレードの温泉宿（2食付）」を基準にしています。乗り捨て料金（伊丹→出雲）は数千〜2万円程度を含みます。</p>
         </div>
     </section>
 
@@ -339,7 +316,8 @@
         <div class="tip"><i class="fa-solid fa-car-side"></i><p class="text-sm text-slate-600"><b>乗り捨て（ワンウェイ）を予約時に明記。</b>伊丹発・出雲返却は別途料金。会社により有無が違うので比較を。</p></div>
         <div class="tip"><i class="fa-solid fa-clock"></i><p class="text-sm text-slate-600"><b>最終日は返却＆搭乗に余裕を。</b>出雲大社→空港は約30分ですが、返却手続き＋保安検査で1.5〜2時間前行動が安心。</p></div>
         <div class="tip"><i class="fa-solid fa-child-reaching"></i><p class="text-sm text-slate-600"><b>子ども目線の山場は2・3日目。</b>砂丘（ラクダ）とコナンの里。ここを軸に時間配分すると満足度UP。</p></div>
-        <div class="tip"><i class="fa-solid fa-cloud-sun-rain"></i><p class="text-sm text-slate-600"><b>山陰は天気が変わりやすい。</b>羽織れる上着と折り畳み傘を。冬は雪・路面凍結に注意（スタッドレス手配を）。</p></div>
+        <div class="tip"><i class="fa-solid fa-sun"></i><p class="text-sm text-slate-600"><b>真夏の砂丘は灼熱。</b>砂が高温になるので日中は帽子・サングラス・水分必須。涼しい朝夕の時間帯が狙い目です。</p></div>
+        <div class="tip"><i class="fa-solid fa-umbrella-beach"></i><p class="text-sm text-slate-600"><b>夏なら浦富海岸で海遊びも。</b>透明度の高い遊泳スポット。水着・タオルがあれば子どもが大満足。</p></div>
     </section>
 
     <p class="text-center text-xs text-slate-400 pt-2">※掲載の所要時間・料金は目安です。実際の運行・営業状況は各公式サイトでご確認ください。</p>
@@ -359,18 +337,18 @@
 </div>
 
 <script>
-    // 季節別予算（単位：万円、[最小, 最大]）
+    // 夏の時期別予算（単位：万円、[最小, 最大]）。宿は中〜上級グレードの温泉宿2食付を基準。
     const BUDGET = {
-        low:  { air:[9,14],  car:[4,5], hotel:[12,15], food:[3,5], act:[1.5,2.5] },
-        mid:  { air:[14,20], car:[5,6], hotel:[15,21], food:[4,7], act:[1.5,2.5] },
-        high: { air:[22,32], car:[6,8], hotel:[21,30], food:[5,9], act:[2,3]    },
+        low:  { air:[14,20], car:[5,6], hotel:[18,24], food:[4,7], act:[1.5,2.5] },
+        mid:  { air:[18,26], car:[5,7], hotel:[21,27], food:[4,8], act:[1.5,2.5] },
+        high: { air:[26,36], car:[6,8], hotel:[27,36], food:[5,9], act:[2,3]    },
     };
     const NOTE = {
-        low:  '1〜2月や6月の平日＋航空券の早割を活用した、もっとも安く済むパターン。',
-        mid:  '春・秋の土日など、特別な連休でない通常期の目安。',
-        high: 'GW・お盆・年末年始など料金が跳ね上がる時期。早めの確保が必須。',
+        low:  '7〜8月の平日に航空券の早割を組み合わせた、夏でもっとも抑えられるパターン。',
+        mid:  '夏休み中の土日。お盆を外せばこのあたりが現実的な目安。',
+        high: 'お盆（8月中旬）。料金が最も高騰する時期。宿・便は数か月前の確保が必須。',
     };
-    const LABEL = { low:'閑散期', mid:'通常期', high:'繁忙期' };
+    const LABEL = { low:'夏の平日', mid:'夏の週末', high:'お盆' };
 
     const yen = m => '¥' + Math.round(m * 10000).toLocaleString();
     const range = a => yen(a[0]) + '〜' + yen(a[1]);
