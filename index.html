@@ -3,624 +3,399 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ロンドン出張 家族タスク</title>
+    <title>鳥取・島根+天橋立 3泊4日 家族モデルプラン</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family:'Zen Maru Gothic',sans-serif; background:#f0f4f8; color:#334155; padding-bottom:88px; }
-        .task-card { transition:all 0.2s ease; }
-        .task-card:active { transform:scale(0.98); }
-        .task-done .task-label { text-decoration:line-through; color:#94a3b8; }
-        .task-done .task-icon { opacity:0.4; }
-        .task-done .price-tag { opacity:0.4; }
-        .custom-checkbox {
-            appearance:none; -webkit-appearance:none;
-            width:26px; height:26px;
-            border:2px solid #cbd5e1; border-radius:50%;
-            cursor:pointer; flex-shrink:0;
-            transition:all 0.2s ease; position:relative;
-        }
-        .custom-checkbox:checked { background-color:#22c55e; border-color:#22c55e; }
-        .custom-checkbox:checked::after {
-            content:''; position:absolute;
-            left:6px; top:2px; width:6px; height:11px;
-            border:2.5px solid white; border-top:none; border-left:none;
-            transform:rotate(45deg);
-        }
-        .progress-bar { transition:width 0.4s ease; }
-        .badge { display:inline-block; font-size:11px; padding:2px 8px; border-radius:999px; font-weight:700; }
-        .price-tag {
-            display:inline-flex; align-items:center; gap:6px;
-            margin-top:8px; padding:4px 10px;
-            background:#fefce8; border:1px solid #fde68a;
-            border-radius:8px; font-size:13px; font-weight:700; color:#92400e;
-        }
-        .price-tag .jpy { color:#b45309; font-size:12px; }
-        .link-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
-        .link-btn {
-            display:inline-flex; align-items:center; gap:4px;
-            font-size:12px; font-weight:600; padding:4px 10px;
-            border-radius:8px; text-decoration:none; transition:opacity 0.15s;
-        }
-        .link-btn:active { opacity:0.7; }
-        .link-btn-shop { background:#eff6ff; color:#2563eb; }
-        .link-btn-map  { background:#f0fdf4; color:#16a34a; }
-        #totalBar {
-            position:fixed; bottom:0; left:0; right:0;
-            background:linear-gradient(135deg,#1e3a5f,#1e40af);
-            color:white; padding:12px 20px;
-            display:flex; align-items:center; justify-content:space-between;
-            box-shadow:0 -4px 16px rgba(0,0,0,0.15);
-            transition:transform 0.3s ease; z-index:50;
-        }
-        #totalBar.hidden-bar { transform:translateY(100%); }
+        body { font-family:'Zen Maru Gothic',sans-serif; background:#f0f7f9; color:#334155; padding-bottom:96px; }
         .fade-in { animation:fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
         .sec-head { display:flex; align-items:center; gap:8px; margin-bottom:12px; padding-left:4px; }
-        .sec-head h2 { font-weight:700; color:#475569; font-size:15px; }
-        .divider { border-top:1px dashed #e2e8f0; margin:4px 0 12px 0; }
-        .sub-label { font-size:11px; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px; padding-left:2px; }
+        .sec-head h2 { font-weight:700; color:#475569; font-size:16px; }
+
+        .badge { display:inline-block; font-size:11px; padding:2px 8px; border-radius:999px; font-weight:700; }
+        .day-pill { display:inline-flex; align-items:center; justify-content:center; min-width:64px; font-size:13px; font-weight:700; padding:4px 12px; border-radius:999px; color:#fff; }
+
+        /* タイムライン */
+        .tl { position:relative; margin-left:10px; padding-left:22px; border-left:2px dashed #cbd5e1; }
+        .tl-item { position:relative; margin-bottom:16px; }
+        .tl-item:last-child { margin-bottom:0; }
+        .tl-dot { position:absolute; left:-31px; top:2px; width:24px; height:24px; border-radius:50%;
+                  display:flex; align-items:center; justify-content:center; font-size:12px; background:#fff; border:2px solid #38bdf8; }
+        .move { display:flex; align-items:center; gap:8px; margin:-4px 0 12px 0; padding-left:2px; color:#0891b2; font-size:12px; font-weight:600; }
+        .move i { font-size:11px; }
+
+        .link-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+        .link-btn { display:inline-flex; align-items:center; gap:4px; font-size:12px; font-weight:600;
+                    padding:4px 10px; border-radius:8px; text-decoration:none; transition:opacity 0.15s; }
+        .link-btn:active { opacity:0.7; }
+        .link-btn-map  { background:#f0fdf4; color:#16a34a; }
+        .link-btn-info { background:#eff6ff; color:#2563eb; }
+
+        .stay { display:flex; align-items:center; gap:8px; margin-top:6px; padding:8px 12px;
+                background:#fff7ed; border:1px solid #fed7aa; border-radius:10px; font-size:13px; font-weight:700; color:#9a3412; }
+
+        /* 予算タブ */
+        .seg { display:flex; gap:6px; background:#e2e8f0; padding:4px; border-radius:12px; }
+        .seg button { flex:1; font-size:12px; font-weight:700; padding:8px 4px; border-radius:9px; color:#64748b; transition:all .15s; line-height:1.3; }
+        .seg button.active { background:#fff; color:#0f766e; box-shadow:0 1px 3px rgba(0,0,0,.1); }
+        .brow { display:flex; align-items:center; justify-content:space-between; padding:11px 4px; border-bottom:1px dashed #e2e8f0; }
+        .brow:last-of-type { border-bottom:none; }
+        .brow .lbl { display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600; color:#475569; }
+        .brow .val { font-size:14px; font-weight:700; color:#334155; }
+
+        #totalBar { position:fixed; bottom:0; left:0; right:0;
+            background:linear-gradient(135deg,#0e7490,#0f766e); color:white; padding:12px 20px;
+            display:flex; align-items:center; justify-content:space-between;
+            box-shadow:0 -4px 16px rgba(0,0,0,0.15); z-index:50; }
+        .tip { display:flex; gap:10px; padding:10px 12px; background:#fff; border-radius:12px; margin-bottom:8px; box-shadow:0 1px 2px rgba(0,0,0,.04); }
+        .tip i { color:#0891b2; margin-top:2px; }
     </style>
 </head>
 <body>
 
 <!-- ヘッダー -->
-<div class="bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white px-4 pt-10 pb-8">
+<div class="bg-gradient-to-br from-cyan-700 via-sky-700 to-teal-700 text-white px-4 pt-10 pb-8">
     <div class="max-w-lg mx-auto">
         <div class="flex items-center gap-3 mb-1">
-            <span class="text-4xl">🇬🇧</span>
+            <span class="text-4xl">🏯</span>
             <div>
-                <p class="text-blue-200 text-sm font-medium tracking-widest uppercase">London Business Trip</p>
-                <h1 class="text-2xl font-bold">家族タスクリスト</h1>
+                <p class="text-cyan-100 text-xs font-medium tracking-widest uppercase">San-in Family Trip ・ 改訂版</p>
+                <h1 class="text-2xl font-bold leading-tight">鳥取・島根 + 天橋立</h1>
             </div>
         </div>
-        <p class="text-blue-300 text-sm mt-2 ml-1">家族からのお願いをまとめたよ。全部やってきてね！</p>
-        <div class="mt-5 bg-blue-950/50 rounded-full h-3 overflow-hidden">
-            <div id="progressBar" class="progress-bar bg-gradient-to-r from-green-400 to-emerald-500 h-3 rounded-full" style="width:0%"></div>
-        </div>
-        <div class="flex justify-between mt-1">
-            <p class="text-blue-300 text-xs" id="progressText">0 / 18 完了</p>
-            <p class="text-blue-300 text-xs" id="progressPercent">0%</p>
+        <p class="text-cyan-100 text-sm mt-2 ml-1">家族4人で楽しむ 3泊4日モデルプラン（移動負担を見直した改訂版）</p>
+        <div class="flex gap-2 mt-4 flex-wrap">
+            <span class="bg-white/15 rounded-lg px-3 py-1 text-xs font-bold">🛬 伊丹IN ／ 出雲OUT</span>
+            <span class="bg-white/15 rounded-lg px-3 py-1 text-xs font-bold">🚗 レンタカー</span>
+            <span class="bg-white/15 rounded-lg px-3 py-1 text-xs font-bold">♨️ 温泉3泊</span>
         </div>
     </div>
 </div>
 
-<div class="max-w-lg mx-auto px-4 mt-6 space-y-6">
+<div class="max-w-lg mx-auto px-4 mt-6 space-y-7">
 
-    <!-- ===== 行くべきスポット ===== -->
+    <!-- ===== 改訂ポイント ===== -->
     <section class="fade-in">
-        <div class="sec-head"><span class="text-xl">📍</span><h2>行くべきスポット</h2></div>
-
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-0">
-            <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-0')">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🔭</span>
-                        <span class="task-label font-bold text-slate-800">グリニッジ天文台</span>
-                        <span class="badge bg-amber-100 text-amber-700">観光</span>
-                    </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">Blackheath Ave, London SE10 8XJ<br>天文台内のショップでかえで・紗英のお土産も忘れずに！</p>
-                    <div class="link-row">
-                        <a href="https://www.google.com/maps/search/?api=1&query=Royal+Observatory+Greenwich+SE10+8XJ" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-map-location-dot"></i> Google Maps
-                        </a>
-                    </div>
-                </div>
-            </label>
-        </div>
-
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-1">
-            <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-1')">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🏬</span>
-                        <span class="task-label font-bold text-slate-800">ジョン・ルイス</span>
-                        <span class="badge bg-purple-100 text-purple-700">カナリーワーフ店</span>
-                    </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">服・ティーポット・食器など盛りだくさん</p>
-                    <div class="link-row">
-                        <a href="https://www.google.com/maps/search/?api=1&query=John+Lewis+Canary+Wharf+London" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-map-location-dot"></i> Google Maps
-                        </a>
-                    </div>
-                </div>
-            </label>
-        </div>
-
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-2">
-            <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-2')">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🛒</span>
-                        <span class="task-label font-bold text-slate-800">グリニッジマーケット</span>
-                        <span class="badge bg-green-100 text-green-700">マーケット</span>
-                    </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">地元民おすすめ！絶対行くべし</p>
-                    <div class="link-row">
-                        <a href="https://www.google.com/maps/search/?api=1&query=Greenwich+Market+London+SE10" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-map-location-dot"></i> Google Maps
-                        </a>
-                    </div>
-                </div>
-            </label>
-        </div>
-
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-3">
-            <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-3')">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🍵</span>
-                        <span class="task-label font-bold text-slate-800">フォートナム&amp;メイソン</span>
-                        <span class="badge bg-rose-100 text-rose-700">カナリーワーフ近く</span>
-                    </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">後輩への紅茶はここで！ティーポットの代替候補でもある</p>
-                    <div class="link-row">
-                        <a href="https://www.google.com/maps/search/?api=1&query=Fortnum+Mason+Canary+Wharf+London" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-map-location-dot"></i> Google Maps
-                        </a>
-                    </div>
-                </div>
-            </label>
+        <div class="sec-head"><span class="text-xl">✍️</span><h2>元プランからの改訂ポイント</h2></div>
+        <div class="bg-white rounded-2xl shadow-sm p-4 space-y-3">
+            <div class="flex gap-3">
+                <span class="text-lg">①</span>
+                <p class="text-sm text-slate-600"><b class="text-slate-800">初日の長距離運転を解消。</b><br>元プランは初日に「伊丹→天橋立→三朝温泉（運転計5時間超）」と過密でした。<b>初日は天橋立観光までにして城崎温泉泊</b>に変更し、運転を約4時間→約4時間でも“観光後すぐ宿”にして到着を早めました。</p>
+            </div>
+            <div class="flex gap-3">
+                <span class="text-lg">②</span>
+                <p class="text-sm text-slate-600"><b class="text-slate-800">宿を3か所に分散。</b><br>三朝2泊→「城崎・三朝・玉造（または松江しんじ湖）」の<b>湯めぐり構成</b>に。毎日違う温泉を楽しめ、戻り運転も減らせます。</p>
+            </div>
+            <div class="flex gap-3">
+                <span class="text-lg">③</span>
+                <p class="text-sm text-slate-600"><b class="text-slate-800">3日目の動線を最短化。</b><br>三朝のすぐ近くの「倉吉→コナンの里（北栄）」を先にまとめ、その後まっすぐ松江へ。無駄な往復をカット。</p>
+            </div>
+            <div class="flex gap-3">
+                <span class="text-lg">④</span>
+                <p class="text-sm text-slate-600"><b class="text-slate-800">予算を季節別に精緻化。</b><br>「37〜71万」の広いレンジを、<b>閑散期／通常期／繁忙期の3段階</b>で具体化（下部「ざっくり予算」参照）。</p>
+            </div>
         </div>
     </section>
 
-    <!-- ===== ドラッグストアで ===== -->
+    <!-- ===== 1日目 ===== -->
     <section class="fade-in">
-        <div class="sec-head"><span class="text-xl">💊</span><h2>ドラッグストアで</h2></div>
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-4">
-            <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-4')">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🟢</span>
-                        <span class="task-label font-bold text-slate-800">パースピレックス コンフォート 20ml</span>
-                        <span class="badge bg-emerald-100 text-emerald-700">複数個</span>
-                    </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">敏感肌用・緑のやつ。5〜10個とか幾つでもOK！<br>日本より断然安いので買えるだけ買ってきて</p>
+        <div class="sec-head">
+            <span class="day-pill" style="background:#0ea5e9">1日目</span>
+            <h2>天橋立の絶景 → 城崎温泉へ</h2>
+        </div>
+        <div class="bg-white rounded-2xl shadow-sm p-5">
+            <div class="tl">
+                <div class="tl-item">
+                    <div class="tl-dot">✈️</div>
+                    <p class="font-bold text-slate-800">羽田 → 伊丹空港 ・ レンタカー出発</p>
+                    <p class="text-slate-500 text-sm mt-1">午前便で伊丹着。ピックアップして北へ。</p>
                     <div class="link-row">
-                        <a href="https://item.rakuten.co.jp/greenbasket/uk-perspirexcom20ml/" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 楽天で確認（参考）
-                        </a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=大阪国際空港+伊丹" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 伊丹空港</a>
                     </div>
                 </div>
-            </label>
+                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約2時間30分</div>
+
+                <div class="tl-item">
+                    <div class="tl-dot">⛰️</div>
+                    <p class="font-bold text-slate-800">天橋立（股のぞき・ケーブルカー）</p>
+                    <span class="badge bg-amber-100 text-amber-700">日本三景</span>
+                    <p class="text-slate-500 text-sm mt-1">ビューランド or 傘松公園から松並木の絶景を。展望と昼食をここで。</p>
+                    <div class="link-row">
+                        <a href="https://www.google.com/maps/search/?api=1&query=天橋立ビューランド" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 天橋立</a>
+                    </div>
+                </div>
+                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約1時間30分</div>
+
+                <div class="tl-item">
+                    <div class="tl-dot">♨️</div>
+                    <p class="font-bold text-slate-800">城崎温泉に到着・外湯めぐり</p>
+                    <p class="text-slate-500 text-sm mt-1">浴衣で7つの外湯めぐり。夕方に着けるので初日からゆったり。</p>
+                    <div class="link-row">
+                        <a href="https://www.google.com/maps/search/?api=1&query=城崎温泉" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 城崎温泉</a>
+                    </div>
+                </div>
+            </div>
+            <div class="stay"><i class="fa-solid fa-bed"></i> 宿泊：城崎温泉（兵庫県）</div>
         </div>
     </section>
 
-    <!-- ===== グリニッジ天文台ショップで ===== -->
+    <!-- ===== 2日目 ===== -->
     <section class="fade-in">
-        <div class="sec-head"><span class="text-xl">🔭</span><h2>グリニッジ天文台ショップで</h2></div>
-
-        <!-- かえでへ -->
-        <p class="sub-label">🌍 かえでへ</p>
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-5">
-            <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-5')">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🌍</span>
-                        <span class="task-label font-bold text-slate-800">木台つきグローブ</span>
-                    </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">Royal Museums Greenwich 公式ショップで</p>
-                    <div class="link-row">
-                        <a href="https://shop.rmg.co.uk/collections/homeware/products/globe-on-wooden-base" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
-                        </a>
-                        <a href="https://www.google.com/maps/search/?api=1&query=Royal+Observatory+Greenwich+SE10+8XJ" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-map-location-dot"></i> 天文台
-                        </a>
-                    </div>
-                </div>
-            </label>
+        <div class="sec-head">
+            <span class="day-pill" style="background:#f59e0b">2日目</span>
+            <h2>鳥取の王道スポットを満喫</h2>
         </div>
+        <div class="bg-white rounded-2xl shadow-sm p-5">
+            <div class="tl">
+                <div class="tl-item">
+                    <div class="tl-dot">🚗</div>
+                    <p class="font-bold text-slate-800">城崎温泉を出発 → 鳥取へ</p>
+                </div>
+                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約1時間30分</div>
 
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-17">
-            <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-17')">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🔭</span>
-                        <span class="task-label font-bold text-slate-800">真鍮製テレスコープ キーリング</span>
-                    </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">Brass Telescope Keyring（同じくRMGショップで）</p>
+                <div class="tl-item">
+                    <div class="tl-dot">🏜️</div>
+                    <p class="font-bold text-slate-800">鳥取砂丘</p>
+                    <span class="badge bg-yellow-100 text-yellow-700">絶景</span>
+                    <p class="text-slate-500 text-sm mt-1">ラクダ体験やパラグライダーも。子どもが大はしゃぎ間違いなし。</p>
                     <div class="link-row">
-                        <a href="https://shop.rmg.co.uk/collections/homeware/products/brass-telescope-keyring" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
-                        </a>
-                        <a href="https://www.google.com/maps/search/?api=1&query=Royal+Observatory+Greenwich+SE10+8XJ" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-map-location-dot"></i> 天文台
-                        </a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=鳥取砂丘" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 鳥取砂丘</a>
                     </div>
                 </div>
-            </label>
-        </div>
+                <div class="move"><i class="fa-solid fa-person-walking"></i> 砂丘のすぐ隣（徒歩すぐ）</div>
 
-        <div class="divider"></div>
-
-        <!-- 紗英へ（RMG） -->
-        <p class="sub-label">👕 紗英へ</p>
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-18">
-            <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-18')">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🌪️</span>
-                        <span class="task-label font-bold text-slate-800">ストームグラス気圧計</span>
-                    </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">Storm Glass Barometer（天文台ショップのおみやげ）</p>
+                <div class="tl-item">
+                    <div class="tl-dot">🏛️</div>
+                    <p class="font-bold text-slate-800">砂の美術館</p>
+                    <p class="text-slate-500 text-sm mt-1">世界唯一の砂像専門美術館。砂丘とセットで。</p>
                     <div class="link-row">
-                        <a href="https://shop.rmg.co.uk/collections/homeware/products/storm-glass-barometer" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
-                        </a>
-                        <a href="https://www.google.com/maps/search/?api=1&query=Royal+Observatory+Greenwich+SE10+8XJ" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-map-location-dot"></i> 天文台
-                        </a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=砂の美術館" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 砂の美術館</a>
                     </div>
                 </div>
-            </label>
+                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約15分</div>
+
+                <div class="tl-item">
+                    <div class="tl-dot">🍣</div>
+                    <p class="font-bold text-slate-800">かろいち / 海鮮市場（昼食）</p>
+                    <span class="badge bg-rose-100 text-rose-700">グルメ</span>
+                    <p class="text-slate-500 text-sm mt-1">賀露港の新鮮な海鮮丼を。</p>
+                    <div class="link-row">
+                        <a href="https://www.google.com/maps/search/?api=1&query=かろいち+鳥取" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> かろいち</a>
+                    </div>
+                </div>
+                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約30分</div>
+
+                <div class="tl-item">
+                    <div class="tl-dot">🌊</div>
+                    <p class="font-bold text-slate-800">浦富海岸（時間があれば）</p>
+                    <p class="text-slate-500 text-sm mt-1">透明度抜群の海岸線。遊覧船や散策で。</p>
+                    <div class="link-row">
+                        <a href="https://www.google.com/maps/search/?api=1&query=浦富海岸" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 浦富海岸</a>
+                    </div>
+                </div>
+                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約1時間</div>
+
+                <div class="tl-item">
+                    <div class="tl-dot">♨️</div>
+                    <p class="font-bold text-slate-800">三朝温泉でゆっくり</p>
+                    <p class="text-slate-500 text-sm mt-1">世界有数のラジウム温泉。川沿いの風情ある湯の町。</p>
+                    <div class="link-row">
+                        <a href="https://www.google.com/maps/search/?api=1&query=三朝温泉" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 三朝温泉</a>
+                    </div>
+                </div>
+            </div>
+            <div class="stay"><i class="fa-solid fa-bed"></i> 宿泊：三朝温泉（鳥取県）</div>
         </div>
     </section>
 
-    <!-- ===== ジョン・ルイスで ===== -->
+    <!-- ===== 3日目 ===== -->
     <section class="fade-in">
-        <div class="sec-head"><span class="text-xl">🏬</span><h2>ジョン・ルイスで買うもの</h2></div>
-
-        <p class="sub-label">👜 サエカエへ</p>
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-6">
-            <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-6')">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🐻</span>
-                        <span class="task-label font-bold text-slate-800">ヴィヴィアン テディベア バッグチャーム</span>
-                    </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">Vivienne Westwood Teddy Bear Handbag Charm・Multi</p>
-                    <div class="price-tag"><span>£170.00</span><span class="jpy">≈ ¥32,300</span></div>
-                    <div class="link-row">
-                        <a href="https://www.johnlewis.com/vivienne-westwood-teddy-bear-handbag-charm-multi/p114158120" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
-                        </a>
-                        <a href="https://www.google.com/maps/search/?api=1&query=John+Lewis+Canary+Wharf+London" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-map-location-dot"></i> ジョン・ルイス
-                        </a>
-                    </div>
-                </div>
-            </label>
+        <div class="sec-head">
+            <span class="day-pill" style="background:#10b981">3日目</span>
+            <h2>コナンの里 → 松江へ</h2>
         </div>
-
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-7">
-            <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-7')">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">⌚</span>
-                        <span class="task-label font-bold text-slate-800">腕時計</span>
-                        <span class="badge bg-slate-100 text-slate-500">予算が許せば</span>
-                    </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">バッグチャームとあわせて検討して！</p>
+        <div class="bg-white rounded-2xl shadow-sm p-5">
+            <div class="tl">
+                <div class="tl-item">
+                    <div class="tl-dot">🏘️</div>
+                    <p class="font-bold text-slate-800">倉吉 白壁土蔵群</p>
+                    <p class="text-slate-500 text-sm mt-1">三朝から約15分。レトロな町並みを朝さんぽ。</p>
                     <div class="link-row">
-                        <a href="https://www.google.com/maps/search/?api=1&query=John+Lewis+Canary+Wharf+London" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-map-location-dot"></i> ジョン・ルイス
-                        </a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=倉吉白壁土蔵群" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 倉吉白壁土蔵群</a>
                     </div>
                 </div>
-            </label>
-        </div>
+                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約15分</div>
 
-        <div class="divider"></div>
-        <p class="sub-label">👗 ぴぴへ</p>
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-8">
-            <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-8')">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🌊</span>
-                        <span class="task-label font-bold text-slate-800">ウェーブストライプ ニットワンピース</span>
-                    </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">John Lewis Kids Wavy Stripe Knit Dress・Multi<br>ぴぴに似合いそう！</p>
-                    <div class="price-tag">
-                        <span>£18〜20</span><span class="jpy">≈ ¥3,420〜3,800</span>
-                        <span style="font-size:10px;color:#b45309;font-weight:500">サイズにより変動</span>
-                    </div>
+                <div class="tl-item">
+                    <div class="tl-dot">🔍</div>
+                    <p class="font-bold text-slate-800">青山剛昌ふるさと館（コナンの里・北栄町）</p>
+                    <span class="badge bg-blue-100 text-blue-700">子どもが喜ぶ</span>
+                    <p class="text-slate-500 text-sm mt-1">コナン通り・銅像・トリックが満載。グッズ購入も。</p>
                     <div class="link-row">
-                        <a href="https://www.johnlewis.com/john-lewis-kids-wavy-stripe-knit-dress-multi/p114464209" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
-                        </a>
-                        <a href="https://www.google.com/maps/search/?api=1&query=John+Lewis+Canary+Wharf+London" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-map-location-dot"></i> ジョン・ルイス
-                        </a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=青山剛昌ふるさと館" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> コナンの里</a>
                     </div>
                 </div>
-            </label>
-        </div>
+                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約1時間30分（昼食は道中で）</div>
 
-        <div class="divider"></div>
-        <p class="sub-label">👕 紗英へ</p>
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-9">
-            <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-9')">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🩵</span>
-                        <span class="task-label font-bold text-slate-800">タイサイドTシャツ（アクア）</span>
-                    </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">Mango Kids Textured Short Sleeve Tie Side T-Shirt・Aqua<br>紗英がギリ着てくれそうな女の子っぽいTシャツ</p>
-                    <div class="price-tag"><span>£19.99</span><span class="jpy">≈ ¥3,798</span></div>
+                <div class="tl-item">
+                    <div class="tl-dot">🏯</div>
+                    <p class="font-bold text-slate-800">松江城</p>
+                    <span class="badge bg-indigo-100 text-indigo-700">国宝</span>
+                    <p class="text-slate-500 text-sm mt-1">現存天守の国宝。堀川めぐりの遊覧船もおすすめ。</p>
                     <div class="link-row">
-                        <a href="https://www.johnlewis.com/mango-kids-textured-short-sleeve-tie-side-t-shirt-aqua/p115117304" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
-                        </a>
-                        <a href="https://www.google.com/maps/search/?api=1&query=John+Lewis+Canary+Wharf+London" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-map-location-dot"></i> ジョン・ルイス
-                        </a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=松江城" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 松江城</a>
                     </div>
                 </div>
-            </label>
-        </div>
+                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約20分</div>
 
-        <div class="divider"></div>
-        <p class="sub-label">🫖 食器・ティーポット（Ground Level / Cooking &amp; Dining）</p>
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-10">
-            <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-10')">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🫖</span>
-                        <span class="task-label font-bold text-slate-800">Emma Bridgewater ティーポット</span>
-                        <span class="badge bg-orange-100 text-orange-700">2候補あり</span>
-                    </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">どちらかを選んで購入してね！</p>
+                <div class="tl-item">
+                    <div class="tl-dot">♨️</div>
+                    <p class="font-bold text-slate-800">玉造温泉（または松江しんじ湖温泉）</p>
+                    <p class="text-slate-500 text-sm mt-1">美肌の湯として名高い玉造温泉。出雲大社にも近く翌朝が楽。</p>
                     <div class="link-row">
-                        <a href="https://www.emmabridgewater.co.uk/collections/teapots-cups-saucers/products/poppies-pinks-3-mug-teapot?variant=56134598328707" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 候補A: Poppies Pinks
-                        </a>
-                        <a href="https://www.emmabridgewater.co.uk/products/black-toast-4-mug-teapot?variant=12975167471688" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 候補B: Black Toast
-                        </a>
-                        <a href="https://www.google.com/maps/search/?api=1&query=John+Lewis+Canary+Wharf+London" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-map-location-dot"></i> ジョン・ルイス
-                        </a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=玉造温泉" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 玉造温泉</a>
                     </div>
                 </div>
-            </label>
-        </div>
-
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-11">
-            <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-11')">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🥛</span>
-                        <span class="task-label font-bold text-slate-800">Emma Bridgewater ミルクジャグ</span>
-                        <span class="badge bg-orange-100 text-orange-700">候補Bとお揃い</span>
-                    </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">Black Toast を選んだ場合はこちらも！Jersey Cream 1/2 Pint Jug</p>
-                    <div class="link-row">
-                        <a href="https://www.emmabridgewater.co.uk/collections/jugs/products/black-toast-jersey-cream-1-2-pint-jug?variant=55146918281603" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
-                        </a>
-                        <a href="https://www.google.com/maps/search/?api=1&query=John+Lewis+Canary+Wharf+London" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-map-location-dot"></i> ジョン・ルイス
-                        </a>
-                    </div>
-                </div>
-            </label>
+            </div>
+            <div class="stay"><i class="fa-solid fa-bed"></i> 宿泊：玉造温泉 / 松江しんじ湖温泉（島根県）</div>
         </div>
     </section>
 
-    <!-- ===== フォートナム&メイソンで ===== -->
+    <!-- ===== 4日目 ===== -->
     <section class="fade-in">
-        <div class="sec-head"><span class="text-xl">🍵</span><h2>フォートナム&amp;メイソンで買うもの</h2></div>
-
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-12">
-            <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-12')">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🫖</span>
-                        <span class="task-label font-bold text-slate-800">後輩へのお土産：紅茶</span>
-                        <span class="badge bg-rose-100 text-rose-700">F&amp;M</span>
-                    </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">フォートナム&amp;メイソンのブランド紅茶。喜ばれること間違いなし！</p>
-                    <div class="link-row">
-                        <a href="https://www.google.com/maps/search/?api=1&query=Fortnum+Mason+Canary+Wharf+London" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-map-location-dot"></i> フォートナム&amp;メイソン
-                        </a>
-                    </div>
-                </div>
-            </label>
+        <div class="sec-head">
+            <span class="day-pill" style="background:#8b5cf6">4日目</span>
+            <h2>出雲大社で締めて帰路へ</h2>
         </div>
-
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-13">
-            <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-13')">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🫖</span>
-                        <span class="task-label font-bold text-slate-800">ティーポット代替：Piccadilly（白）</span>
-                        <span class="badge bg-slate-200 text-slate-600">JLになければ</span>
-                    </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">Fortnum &amp; Mason Piccadilly Teapot White</p>
-                    <div class="bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 mt-2">
-                        <p class="text-amber-700 text-xs font-bold">⚠️ 食洗機対応か不明 → 店員さんに確認してね！</p>
-                    </div>
+        <div class="bg-white rounded-2xl shadow-sm p-5">
+            <div class="tl">
+                <div class="tl-item">
+                    <div class="tl-dot">⛩️</div>
+                    <p class="font-bold text-slate-800">出雲大社</p>
+                    <span class="badge bg-purple-100 text-purple-700">縁結び</span>
+                    <p class="text-slate-500 text-sm mt-1">大しめ縄で有名な縁結びの聖地。神門通りの散策も。</p>
                     <div class="link-row">
-                        <a href="https://www.fortnumandmason.com/piccadilly-teapot-white" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
-                        </a>
-                        <a href="https://www.google.com/maps/search/?api=1&query=Fortnum+Mason+Canary+Wharf+London" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-map-location-dot"></i> フォートナム&amp;メイソン
-                        </a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=出雲大社" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 出雲大社</a>
                     </div>
                 </div>
-            </label>
+                <div class="move"><i class="fa-solid fa-person-walking"></i> 神門通り（徒歩すぐ）</div>
+
+                <div class="tl-item">
+                    <div class="tl-dot">🍜</div>
+                    <p class="font-bold text-slate-800">出雲そば（昼食）</p>
+                    <span class="badge bg-rose-100 text-rose-700">グルメ</span>
+                    <p class="text-slate-500 text-sm mt-1">名物の割子そば。参拝後の締めにぴったり。</p>
+                    <div class="link-row">
+                        <a href="https://www.google.com/maps/search/?api=1&query=出雲そば+神門通り" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 出雲そば</a>
+                    </div>
+                </div>
+                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約30分（レンタカー返却）</div>
+
+                <div class="tl-item">
+                    <div class="tl-dot">✈️</div>
+                    <p class="font-bold text-slate-800">出雲縁結び空港 → 羽田</p>
+                    <p class="text-slate-500 text-sm mt-1">夕方便で帰路へ。乗り捨て返却のため返却時刻に余裕を。</p>
+                    <div class="link-row">
+                        <a href="https://www.google.com/maps/search/?api=1&query=出雲縁結び空港" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 出雲空港</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- ===== グリニッジマーケット周辺で ===== -->
+    <!-- ===== ざっくり予算（季節別） ===== -->
     <section class="fade-in">
-        <div class="sec-head"><span class="text-xl">🛒</span><h2>グリニッジマーケット周辺で買うもの</h2></div>
+        <div class="sec-head"><span class="text-xl">💰</span><h2>ざっくり予算（家族4人・3泊4日）</h2></div>
+        <div class="bg-white rounded-2xl shadow-sm p-4">
+            <div class="seg mb-3">
+                <button data-season="low" class="active" onclick="setSeason('low')">閑散期<br><span class="font-normal text-[10px]">早割・平日</span></button>
+                <button data-season="mid" onclick="setSeason('mid')">通常期<br><span class="font-normal text-[10px]">春秋の土日</span></button>
+                <button data-season="high" onclick="setSeason('high')">繁忙期<br><span class="font-normal text-[10px]">GW・盆・年末</span></button>
+            </div>
 
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-14">
-            <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-14')">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🍽️</span>
-                        <span class="task-label font-bold text-slate-800">お皿</span>
-                        <span class="badge bg-orange-100 text-orange-700">All Things Greenwich</span>
-                    </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">フィッシュ&amp;チップスが似合いそうなやつ</p>
-                    <div class="link-row">
-                        <a href="https://www.allthingsgreenwich.co.uk/business/overview.php?BusinessID=1676" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> お店のページ
-                        </a>
-                        <a href="https://www.google.com/maps/search/?api=1&query=Greenwich+Market+London+SE10" target="_blank" class="link-btn link-btn-map" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-map-location-dot"></i> マーケットエリア
-                        </a>
-                    </div>
-                </div>
-            </label>
+            <p id="seasonNote" class="text-xs text-slate-500 mb-2 px-1"></p>
+
+            <div class="brow"><span class="lbl"><i class="fa-solid fa-plane-departure text-sky-500"></i> 航空券（羽田↔伊丹/出雲・片道×2）</span><span class="val" id="b-air"></span></div>
+            <div class="brow"><span class="lbl"><i class="fa-solid fa-car text-emerald-500"></i> レンタカー＋乗り捨て＋ガソリン・高速</span><span class="val" id="b-car"></span></div>
+            <div class="brow"><span class="lbl"><i class="fa-solid fa-hot-tub-person text-orange-500"></i> 宿泊（温泉宿2食付 ×3泊）</span><span class="val" id="b-hotel"></span></div>
+            <div class="brow"><span class="lbl"><i class="fa-solid fa-utensils text-rose-500"></i> 昼食・おやつ・その他</span><span class="val" id="b-food"></span></div>
+            <div class="brow"><span class="lbl"><i class="fa-solid fa-ticket text-indigo-500"></i> 観光・入場料・体験</span><span class="val" id="b-act"></span></div>
+
+            <div class="flex items-center justify-between mt-3 pt-3 border-t-2 border-slate-100">
+                <span class="font-bold text-slate-700">合計目安</span>
+                <span class="font-bold text-xl text-teal-700" id="b-total"></span>
+            </div>
+            <p class="text-[11px] text-slate-400 mt-2 px-1">※おとな2＋子ども2を想定。便・宿のグレードで変動します。乗り捨て料金（伊丹→出雲）は数千〜2万円程度を含みます。</p>
         </div>
     </section>
 
-    <!-- ===== ついでにチェック ===== -->
+    <!-- ===== 旅行のコツ ===== -->
     <section class="fade-in">
-        <div class="sec-head"><span class="text-xl">💍</span><h2>ついでにチェック</h2></div>
-
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-15">
-            <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-15')">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🪙</span>
-                        <span class="task-label font-bold text-slate-800">シルバーリング</span>
-                        <span class="badge bg-slate-100 text-slate-500">オンライン</span>
-                    </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">Fiorelli Layered Two Tone Octagon Sterling Silver Ring（Autumn &amp; May）<br>ちょいちょいかわいいなぁと思ってるやつ</p>
-                    <div class="link-row">
-                        <a href="https://www.autumnandmay.co.uk/product/fiorelli-layered-two-tone-octagon-sterling-silver-ring/" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> 商品ページ
-                        </a>
-                    </div>
-                </div>
-            </label>
-        </div>
-
-        <div class="task-card bg-white rounded-2xl shadow-sm p-4 mb-3" id="card-16">
-            <label class="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" class="custom-checkbox mt-0.5" onchange="toggleTask(this,'card-16')">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span class="task-icon text-xl">🎨</span>
-                        <span class="task-label font-bold text-slate-800">ティーポット（最終代替）</span>
-                        <span class="badge bg-slate-200 text-slate-600">Contemporary Ceramics</span>
-                    </div>
-                    <p class="task-label text-slate-500 text-sm mt-1">JLにもF&amp;Mにも気に入ったのがなければここへ</p>
-                    <div class="link-row">
-                        <a href="https://www.contemporaryceramics.uk/" target="_blank" class="link-btn link-btn-shop" onclick="event.stopPropagation()">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> お店のページ
-                        </a>
-                    </div>
-                </div>
-            </label>
-        </div>
+        <div class="sec-head"><span class="text-xl">💡</span><h2>このプランの旅行のコツ</h2></div>
+        <div class="tip"><i class="fa-solid fa-tag"></i><p class="text-sm text-slate-600"><b>航空券は早割が鍵。</b>伊丹IN・出雲OUTの片道2枚は、ANA/JALの「75日前割」等で大きく下がります。閑散期×早割が最安。</p></div>
+        <div class="tip"><i class="fa-solid fa-car-side"></i><p class="text-sm text-slate-600"><b>乗り捨て（ワンウェイ）を予約時に明記。</b>伊丹発・出雲返却は別途料金。会社により有無が違うので比較を。</p></div>
+        <div class="tip"><i class="fa-solid fa-clock"></i><p class="text-sm text-slate-600"><b>最終日は返却＆搭乗に余裕を。</b>出雲大社→空港は約30分ですが、返却手続き＋保安検査で1.5〜2時間前行動が安心。</p></div>
+        <div class="tip"><i class="fa-solid fa-child-reaching"></i><p class="text-sm text-slate-600"><b>子ども目線の山場は2・3日目。</b>砂丘（ラクダ）とコナンの里。ここを軸に時間配分すると満足度UP。</p></div>
+        <div class="tip"><i class="fa-solid fa-cloud-sun-rain"></i><p class="text-sm text-slate-600"><b>山陰は天気が変わりやすい。</b>羽織れる上着と折り畳み傘を。冬は雪・路面凍結に注意（スタッドレス手配を）。</p></div>
     </section>
 
-    <div id="allDoneMsg" class="hidden text-center py-8">
-        <div class="text-5xl mb-3">🎉</div>
-        <p class="font-bold text-slate-700 text-lg">全部クリア！</p>
-        <p class="text-slate-500 text-sm mt-1">お疲れさまでした。家族が喜ぶといいね！</p>
-    </div>
+    <p class="text-center text-xs text-slate-400 pt-2">※掲載の所要時間・料金は目安です。実際の運行・営業状況は各公式サイトでご確認ください。</p>
 
 </div>
 
 <!-- 合計バー -->
-<div id="totalBar" class="hidden-bar">
+<div id="totalBar">
     <div>
-        <p class="text-xs text-blue-200 mb-0.5">お買い物合計 <span class="text-blue-300">（£1 ≈ ¥190）</span></p>
-        <p class="font-bold text-lg" id="totalGBP">£0.00</p>
+        <p class="text-xs text-cyan-100 mb-0.5">合計目安（<span id="bar-season">閑散期</span>）</p>
+        <p class="font-bold text-lg" id="bar-total">¥0</p>
     </div>
     <div class="text-right">
-        <p class="text-xs text-blue-200 mb-0.5">日本円換算</p>
-        <p class="font-bold text-lg" id="totalJPY">¥0</p>
+        <p class="text-xs text-cyan-100 mb-0.5">1人あたり</p>
+        <p class="font-bold text-lg" id="bar-per">¥0</p>
     </div>
 </div>
 
 <script>
-    const TOTAL = 18;
-    const RATE  = 190;
-    const PRICES = {
-        'card-6':  170.00,
-        'card-8':  19.00,
-        'card-9':  19.99,
+    // 季節別予算（単位：万円、[最小, 最大]）
+    const BUDGET = {
+        low:  { air:[9,14],  car:[4,5], hotel:[12,15], food:[3,5], act:[1.5,2.5] },
+        mid:  { air:[14,20], car:[5,6], hotel:[15,21], food:[4,7], act:[1.5,2.5] },
+        high: { air:[22,32], car:[6,8], hotel:[21,30], food:[5,9], act:[2,3]    },
     };
+    const NOTE = {
+        low:  '1〜2月や6月の平日＋航空券の早割を活用した、もっとも安く済むパターン。',
+        mid:  '春・秋の土日など、特別な連休でない通常期の目安。',
+        high: 'GW・お盆・年末年始など料金が跳ね上がる時期。早めの確保が必須。',
+    };
+    const LABEL = { low:'閑散期', mid:'通常期', high:'繁忙期' };
 
-    function updateProgress() {
-        const checked = document.querySelectorAll('.custom-checkbox:checked').length;
-        const pct = Math.round((checked / TOTAL) * 100);
-        document.getElementById('progressBar').style.width = pct + '%';
-        document.getElementById('progressText').textContent = checked + ' / ' + TOTAL + ' 完了';
-        document.getElementById('progressPercent').textContent = pct + '%';
-        document.getElementById('allDoneMsg').classList.toggle('hidden', checked < TOTAL);
+    const yen = m => '¥' + Math.round(m * 10000).toLocaleString();
+    const range = a => yen(a[0]) + '〜' + yen(a[1]);
+
+    function setSeason(s) {
+        const b = BUDGET[s];
+        document.querySelectorAll('.seg button').forEach(btn =>
+            btn.classList.toggle('active', btn.dataset.season === s));
+        document.getElementById('seasonNote').textContent = NOTE[s];
+        document.getElementById('b-air').textContent   = range(b.air);
+        document.getElementById('b-car').textContent   = range(b.car);
+        document.getElementById('b-hotel').textContent = range(b.hotel);
+        document.getElementById('b-food').textContent  = range(b.food);
+        document.getElementById('b-act').textContent   = range(b.act);
+
+        const min = b.air[0]+b.car[0]+b.hotel[0]+b.food[0]+b.act[0];
+        const max = b.air[1]+b.car[1]+b.hotel[1]+b.food[1]+b.act[1];
+        document.getElementById('b-total').textContent = range([min,max]);
+
+        document.getElementById('bar-season').textContent = LABEL[s];
+        document.getElementById('bar-total').textContent  = yen(min) + '〜' + yen(max);
+        document.getElementById('bar-per').textContent    = yen(min/4) + '〜' + yen(max/4);
     }
 
-    function updateTotal() {
-        let total = 0;
-        document.querySelectorAll('.custom-checkbox:checked').forEach(cb => {
-            const card = cb.closest('[id^="card-"]');
-            if (card && PRICES[card.id]) total += PRICES[card.id];
-        });
-        const bar = document.getElementById('totalBar');
-        if (total > 0) {
-            document.getElementById('totalGBP').textContent = '£' + total.toFixed(2);
-            document.getElementById('totalJPY').textContent = '¥' + Math.round(total * RATE).toLocaleString();
-            bar.classList.remove('hidden-bar');
-        } else {
-            bar.classList.add('hidden-bar');
-        }
-    }
-
-    function toggleTask(checkbox, cardId) {
-        const card = document.getElementById(cardId);
-        card.classList.toggle('task-done', checkbox.checked);
-        card.style.opacity = checkbox.checked ? '0.65' : '1';
-        updateProgress();
-        updateTotal();
-        saveState();
-    }
-
-    function saveState() {
-        const states = {};
-        document.querySelectorAll('[id^="card-"]').forEach(card => {
-            const cb = card.querySelector('.custom-checkbox');
-            if (cb) states[card.id] = cb.checked;
-        });
-        try { localStorage.setItem('london_tasks_v2', JSON.stringify(states)); } catch(e) {}
-    }
-
-    function loadState() {
-        try {
-            const states = JSON.parse(localStorage.getItem('london_tasks_v2') || '{}');
-            document.querySelectorAll('[id^="card-"]').forEach(card => {
-                const cb = card.querySelector('.custom-checkbox');
-                if (cb && states[card.id]) {
-                    cb.checked = true;
-                    card.classList.add('task-done');
-                    card.style.opacity = '0.65';
-                }
-            });
-        } catch(e) {}
-        updateProgress();
-        updateTotal();
-    }
-
-    loadState();
+    setSeason('low');
 </script>
 
 </body>
