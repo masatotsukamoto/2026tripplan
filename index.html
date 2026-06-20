@@ -66,7 +66,8 @@
                 <h1 class="text-2xl font-bold leading-tight">鳥取・島根 + 天橋立</h1>
             </div>
         </div>
-        <p class="text-cyan-100 text-sm mt-2 ml-1">家族4人で楽しむ 3泊4日モデルプラン（2026年 夏）</p>
+        <p class="text-cyan-100 text-sm mt-2 ml-1">家族4人で楽しむ 3泊4日モデルプラン</p>
+        <p class="text-white font-bold text-sm mt-1 ml-1">📅 2026/8/17（月）〜 8/20（木）</p>
         <div class="flex gap-2 mt-4 flex-wrap">
             <span class="bg-white/15 rounded-lg px-3 py-1 text-xs font-bold">🛬 伊丹IN ／ 出雲OUT</span>
             <span class="bg-white/15 rounded-lg px-3 py-1 text-xs font-bold">🚗 レンタカー</span>
@@ -81,7 +82,7 @@
     <section class="fade-in">
         <div class="sec-head">
             <span class="day-pill" style="background:#0ea5e9">1日目</span>
-            <h2>天橋立・伊根の舟屋 → 城崎温泉へ</h2>
+            <h2>8/17(月)　天橋立・伊根の舟屋 → 城崎温泉へ</h2>
         </div>
         <div class="bg-white rounded-2xl shadow-sm p-5">
             <div class="tl">
@@ -134,7 +135,7 @@
     <section class="fade-in">
         <div class="sec-head">
             <span class="day-pill" style="background:#f59e0b">2日目</span>
-            <h2>鳥取の王道スポットを満喫</h2>
+            <h2>8/18(火)　鳥取の王道スポットを満喫</h2>
         </div>
         <div class="bg-white rounded-2xl shadow-sm p-5">
             <div class="tl">
@@ -203,7 +204,7 @@
     <section class="fade-in">
         <div class="sec-head">
             <span class="day-pill" style="background:#10b981">3日目</span>
-            <h2>コナンの里 → 松江へ</h2>
+            <h2>8/19(水)　コナンの里 → 松江へ</h2>
         </div>
         <div class="bg-white rounded-2xl shadow-sm p-5">
             <div class="tl">
@@ -256,7 +257,7 @@
     <section class="fade-in">
         <div class="sec-head">
             <span class="day-pill" style="background:#8b5cf6">4日目</span>
-            <h2>出雲大社で締めて帰路へ</h2>
+            <h2>8/20(木)　出雲大社で締めて帰路へ</h2>
         </div>
         <div class="bg-white rounded-2xl shadow-sm p-5">
             <div class="tl">
@@ -298,10 +299,14 @@
     <section class="fade-in">
         <div class="sec-head"><span class="text-xl">💰</span><h2>ざっくり予算（家族4人・3泊4日）</h2></div>
         <div class="bg-white rounded-2xl shadow-sm p-4">
+            <div class="flex gap-2 items-start mb-3 p-2.5 bg-amber-50 border border-amber-200 rounded-xl">
+                <i class="fa-solid fa-circle-info text-amber-500 mt-0.5"></i>
+                <p class="text-xs text-amber-800">今回の日程 <b>8/17(月)〜20(木)</b> は<b>お盆直後の夏休み平日</b>。お盆ピークは外せていますが夏の繁忙期です。目安は下の <b>「夏の週末」</b> 前後を基準に。早割で「夏の平日」に近づけられます。</p>
+            </div>
             <div class="seg mb-3">
                 <button data-season="low" class="active" onclick="setSeason('low')">夏の平日<br><span class="font-normal text-[10px]">早割活用</span></button>
-                <button data-season="mid" onclick="setSeason('mid')">夏の週末<br><span class="font-normal text-[10px]">7〜8月の土日</span></button>
-                <button data-season="high" onclick="setSeason('high')">お盆<br><span class="font-normal text-[10px]">8/中旬</span></button>
+                <button data-season="mid" onclick="setSeason('mid')">夏の週末<br><span class="font-normal text-[10px]">今回の目安</span></button>
+                <button data-season="high" onclick="setSeason('high')">お盆<br><span class="font-normal text-[10px]">8/13〜16</span></button>
             </div>
 
             <p id="seasonNote" class="text-xs text-slate-500 mb-2 px-1"></p>
@@ -384,7 +389,7 @@
         document.getElementById('bar-per').textContent    = yen(min/4) + '〜' + yen(max/4);
     }
 
-    setSeason('low');
+    setSeason('mid');
 </script>
 
 </body>
