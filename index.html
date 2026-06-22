@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>鳥取・島根+天橋立 3泊4日 家族モデルプラン</title>
+    <title>鳥取・島根 3泊4日 家族モデルプラン（サンライズ出雲）</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -18,7 +18,6 @@
         .badge { display:inline-block; font-size:11px; padding:2px 8px; border-radius:999px; font-weight:700; }
         .day-pill { display:inline-flex; align-items:center; justify-content:center; min-width:64px; font-size:13px; font-weight:700; padding:4px 12px; border-radius:999px; color:#fff; }
 
-        /* タイムライン */
         .tl { position:relative; margin-left:10px; padding-left:22px; border-left:2px dashed #cbd5e1; }
         .tl-item { position:relative; margin-bottom:16px; }
         .tl-item:last-child { margin-bottom:0; }
@@ -32,19 +31,14 @@
                     padding:4px 10px; border-radius:8px; text-decoration:none; transition:opacity 0.15s; }
         .link-btn:active { opacity:0.7; }
         .link-btn-map  { background:#f0fdf4; color:#16a34a; }
-        .link-btn-info { background:#eff6ff; color:#2563eb; }
 
         .stay { display:flex; align-items:center; gap:8px; margin-top:6px; padding:8px 12px;
                 background:#fff7ed; border:1px solid #fed7aa; border-radius:10px; font-size:13px; font-weight:700; color:#9a3412; }
 
-        /* 予算タブ */
-        .seg { display:flex; gap:6px; background:#e2e8f0; padding:4px; border-radius:12px; }
-        .seg button { flex:1; font-size:12px; font-weight:700; padding:8px 4px; border-radius:9px; color:#64748b; transition:all .15s; line-height:1.3; }
-        .seg button.active { background:#fff; color:#0f766e; box-shadow:0 1px 3px rgba(0,0,0,.1); }
         .brow { display:flex; align-items:center; justify-content:space-between; padding:11px 4px; border-bottom:1px dashed #e2e8f0; }
         .brow:last-of-type { border-bottom:none; }
-        .brow .lbl { display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600; color:#475569; }
-        .brow .val { font-size:14px; font-weight:700; color:#334155; }
+        .brow .lbl { display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:600; color:#475569; }
+        .brow .val { font-size:13.5px; font-weight:700; color:#334155; white-space:nowrap; padding-left:8px; }
 
         #totalBar { position:fixed; bottom:0; left:0; right:0;
             background:linear-gradient(135deg,#0e7490,#0f766e); color:white; padding:12px 20px;
@@ -60,17 +54,17 @@
 <div class="bg-gradient-to-br from-cyan-700 via-sky-700 to-teal-700 text-white px-4 pt-10 pb-8">
     <div class="max-w-lg mx-auto">
         <div class="flex items-center gap-3 mb-1">
-            <span class="text-4xl">🏯</span>
+            <span class="text-4xl">🚆</span>
             <div>
                 <p class="text-cyan-100 text-xs font-medium tracking-widest uppercase">San-in Family Trip ・ 2026 Summer</p>
-                <h1 class="text-2xl font-bold leading-tight">鳥取・島根 + 天橋立</h1>
+                <h1 class="text-2xl font-bold leading-tight">鳥取・島根</h1>
             </div>
         </div>
         <p class="text-cyan-100 text-sm mt-2 ml-1">家族4人で楽しむ 3泊4日モデルプラン</p>
-        <p class="text-white font-bold text-sm mt-1 ml-1">📅 2026/8/17（月）〜 8/20（木）</p>
+        <p class="text-white font-bold text-sm mt-1 ml-1">📅 2026/8/16（日）夜発 〜 8/20（木）</p>
         <div class="flex gap-2 mt-4 flex-wrap">
-            <span class="bg-white/15 rounded-lg px-3 py-1 text-xs font-bold">🛬 伊丹IN ／ 出雲OUT</span>
-            <span class="bg-white/15 rounded-lg px-3 py-1 text-xs font-bold">🚗 レンタカー</span>
+            <span class="bg-white/15 rounded-lg px-3 py-1 text-xs font-bold">🚆 行き：サンライズ出雲</span>
+            <span class="bg-white/15 rounded-lg px-3 py-1 text-xs font-bold">✈️ 帰り：鳥取→羽田</span>
             <span class="bg-white/15 rounded-lg px-3 py-1 text-xs font-bold">♨️ 温泉3泊</span>
         </div>
     </div>
@@ -78,56 +72,69 @@
 
 <div class="max-w-lg mx-auto px-4 mt-6 space-y-7">
 
+    <!-- ===== 行きの夜行列車 ===== -->
+    <section class="fade-in">
+        <div class="sec-head"><span class="text-xl">🌙</span><h2>前夜　8/16(日) サンライズ出雲で出発</h2></div>
+        <div class="bg-gradient-to-br from-indigo-50 to-sky-50 border border-indigo-100 rounded-2xl shadow-sm p-4">
+            <p class="font-bold text-slate-800">寝台特急サンライズ出雲</p>
+            <p class="text-slate-600 text-sm mt-1">東京駅 <b>21:50頃 発</b>（8/16夜）→ 出雲市駅 <b>翌 9:58頃 着</b>（8/17朝）。寝ている間に山陰へ。車窓と朝の到着が旅のハイライト。</p>
+            <div class="bg-white/70 border border-indigo-100 rounded-lg px-3 py-2 mt-3 text-xs text-indigo-800">
+                <b>⚠️ 寝台は1か月前の10時発売・即完売。</b>8/16乗車ぶんは <b>7/16(木) 10:00</b> 発売開始。発売直後の確保が必須（下部「予約タイミング」参照）。
+            </div>
+            <p class="text-[11px] text-slate-400 mt-2">※時刻・運転日は時期により変動。最新はJRの時刻表でご確認を。</p>
+        </div>
+    </section>
+
     <!-- ===== 1日目 ===== -->
     <section class="fade-in">
         <div class="sec-head">
             <span class="day-pill" style="background:#0ea5e9">1日目</span>
-            <h2>8/17(月)　天橋立・伊根の舟屋 → 城崎温泉へ</h2>
+            <h2>8/17(月)　出雲大社で旅のはじまり</h2>
         </div>
         <div class="bg-white rounded-2xl shadow-sm p-5">
             <div class="tl">
                 <div class="tl-item">
-                    <div class="tl-dot">✈️</div>
-                    <p class="font-bold text-slate-800">羽田 → 伊丹空港 ・ レンタカー出発</p>
-                    <p class="text-slate-500 text-sm mt-1">午前便で伊丹着。ピックアップして北へ。</p>
+                    <div class="tl-dot">🚆</div>
+                    <p class="font-bold text-slate-800">出雲市駅 着（9:58頃）・レンタカー出発</p>
+                    <p class="text-slate-500 text-sm mt-1">駅前でピックアップ。ここから旅程はすべて山陰を東へ進みます。</p>
                     <div class="link-row">
-                        <a href="https://www.google.com/maps/search/?api=1&query=大阪国際空港+伊丹" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 伊丹空港</a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=出雲市駅" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 出雲市駅</a>
                     </div>
                 </div>
-                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約2時間30分</div>
+                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約15分</div>
 
                 <div class="tl-item">
-                    <div class="tl-dot">⛰️</div>
-                    <p class="font-bold text-slate-800">天橋立（股のぞき・ケーブルカー）</p>
-                    <span class="badge bg-amber-100 text-amber-700">日本三景</span>
-                    <p class="text-slate-500 text-sm mt-1">ビューランド or 傘松公園から松並木の絶景を。展望と昼食をここで。</p>
+                    <div class="tl-dot">⛩️</div>
+                    <p class="font-bold text-slate-800">出雲大社</p>
+                    <span class="badge bg-purple-100 text-purple-700">縁結び</span>
+                    <p class="text-slate-500 text-sm mt-1">大しめ縄で有名な縁結びの聖地。神門通りの散策も。すぐ近くの稲佐の浜・日御碕灯台もおすすめ。</p>
                     <div class="link-row">
-                        <a href="https://www.google.com/maps/search/?api=1&query=天橋立ビューランド" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 天橋立</a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=出雲大社" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 出雲大社</a>
                     </div>
                 </div>
-                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約30分</div>
+                <div class="move"><i class="fa-solid fa-person-walking"></i> 神門通り（徒歩すぐ）</div>
 
                 <div class="tl-item">
-                    <div class="tl-dot">🛶</div>
-                    <p class="font-bold text-slate-800">伊根町（舟屋めぐり）</p>
-                    <span class="badge bg-cyan-100 text-cyan-700">重伝建</span>
-                    <p class="text-slate-500 text-sm mt-1">海ぎわに舟屋が並ぶ風景。遊覧船や海上タクシーで海から眺めるのも◎。</p>
+                    <div class="tl-dot">🍜</div>
+                    <p class="font-bold text-slate-800">出雲そば（昼食）</p>
+                    <span class="badge bg-rose-100 text-rose-700">グルメ</span>
+                    <p class="text-slate-500 text-sm mt-1">名物の割子そば。参拝の締めにぴったり。</p>
                     <div class="link-row">
-                        <a href="https://www.google.com/maps/search/?api=1&query=伊根の舟屋" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 伊根の舟屋</a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=出雲そば+神門通り" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 出雲そば</a>
                     </div>
                 </div>
-                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約1時間50分</div>
+                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約40分</div>
 
                 <div class="tl-item">
                     <div class="tl-dot">♨️</div>
-                    <p class="font-bold text-slate-800">城崎温泉に到着・外湯めぐり</p>
-                    <p class="text-slate-500 text-sm mt-1">浴衣で7つの外湯めぐり。夕方〜宵に到着、温泉街のそぞろ歩きを。</p>
+                    <p class="font-bold text-slate-800">玉造温泉でゆっくり</p>
+                    <p class="text-slate-500 text-sm mt-1">美肌の湯として名高い名湯。夜行明けの初日はここで早めにのんびり。</p>
                     <div class="link-row">
-                        <a href="https://www.google.com/maps/search/?api=1&query=城崎温泉" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 城崎温泉</a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=玉造温泉" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 玉造温泉</a>
                     </div>
                 </div>
             </div>
-            <div class="stay"><i class="fa-solid fa-bed"></i> 宿泊：城崎温泉（兵庫県）</div>
+            <div class="stay"><i class="fa-solid fa-bed"></i> 宿泊：玉造温泉（島根県）</div>
         </div>
     </section>
 
@@ -135,21 +142,79 @@
     <section class="fade-in">
         <div class="sec-head">
             <span class="day-pill" style="background:#f59e0b">2日目</span>
-            <h2>8/18(火)　鳥取の王道スポットを満喫</h2>
+            <h2>8/18(火)　松江・倉吉を巡って三朝へ</h2>
         </div>
         <div class="bg-white rounded-2xl shadow-sm p-5">
             <div class="tl">
                 <div class="tl-item">
-                    <div class="tl-dot">🚗</div>
-                    <p class="font-bold text-slate-800">城崎温泉を出発 → 鳥取へ</p>
+                    <div class="tl-dot">🏯</div>
+                    <p class="font-bold text-slate-800">松江城・堀川めぐり</p>
+                    <span class="badge bg-indigo-100 text-indigo-700">国宝</span>
+                    <p class="text-slate-500 text-sm mt-1">現存天守の国宝。堀をぐるりと巡る遊覧船が気持ちいい。</p>
+                    <div class="link-row">
+                        <a href="https://www.google.com/maps/search/?api=1&query=松江城" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 松江城</a>
+                    </div>
                 </div>
-                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約1時間30分</div>
+                <div class="move"><i class="fa-solid fa-car-side"></i> ＜任意＞境港・水木しげるロードへ寄るなら片道約40分</div>
+
+                <div class="tl-item">
+                    <div class="tl-dot">👹</div>
+                    <p class="font-bold text-slate-800">（任意）境港 水木しげるロード</p>
+                    <span class="badge bg-slate-100 text-slate-500">寄り道</span>
+                    <p class="text-slate-500 text-sm mt-1">ゲゲゲの鬼太郎の妖怪ブロンズ像が並ぶ商店街。子どもに人気。時間と相談で。</p>
+                    <div class="link-row">
+                        <a href="https://www.google.com/maps/search/?api=1&query=水木しげるロード" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 水木しげるロード</a>
+                    </div>
+                </div>
+                <div class="move"><i class="fa-solid fa-car-side"></i> 松江から倉吉まで約1時間</div>
+
+                <div class="tl-item">
+                    <div class="tl-dot">🏘️</div>
+                    <p class="font-bold text-slate-800">倉吉 白壁土蔵群</p>
+                    <p class="text-slate-500 text-sm mt-1">レトロな町並みを散策。レトロ・カフェも点在。</p>
+                    <div class="link-row">
+                        <a href="https://www.google.com/maps/search/?api=1&query=倉吉白壁土蔵群" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 倉吉白壁土蔵群</a>
+                    </div>
+                </div>
+                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約15分</div>
+
+                <div class="tl-item">
+                    <div class="tl-dot">♨️</div>
+                    <p class="font-bold text-slate-800">三朝温泉</p>
+                    <p class="text-slate-500 text-sm mt-1">世界有数のラジウム温泉。川沿いの風情ある湯の町。</p>
+                    <div class="link-row">
+                        <a href="https://www.google.com/maps/search/?api=1&query=三朝温泉" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 三朝温泉</a>
+                    </div>
+                </div>
+            </div>
+            <div class="stay"><i class="fa-solid fa-bed"></i> 宿泊：三朝温泉（鳥取県）</div>
+        </div>
+    </section>
+
+    <!-- ===== 3日目 ===== -->
+    <section class="fade-in">
+        <div class="sec-head">
+            <span class="day-pill" style="background:#10b981">3日目</span>
+            <h2>8/19(水)　コナンの里と鳥取砂丘</h2>
+        </div>
+        <div class="bg-white rounded-2xl shadow-sm p-5">
+            <div class="tl">
+                <div class="tl-item">
+                    <div class="tl-dot">🔍</div>
+                    <p class="font-bold text-slate-800">青山剛昌ふるさと館（コナンの里・北栄町）</p>
+                    <span class="badge bg-blue-100 text-blue-700">子どもが喜ぶ</span>
+                    <p class="text-slate-500 text-sm mt-1">三朝から約20分。コナン通り・銅像・トリックが満載。グッズ購入も。</p>
+                    <div class="link-row">
+                        <a href="https://www.google.com/maps/search/?api=1&query=青山剛昌ふるさと館" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> コナンの里</a>
+                    </div>
+                </div>
+                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約40分</div>
 
                 <div class="tl-item">
                     <div class="tl-dot">🏜️</div>
                     <p class="font-bold text-slate-800">鳥取砂丘</p>
                     <span class="badge bg-yellow-100 text-yellow-700">絶景</span>
-                    <p class="text-slate-500 text-sm mt-1">ラクダ体験やパラグライダーも。子どもが大はしゃぎ間違いなし。</p>
+                    <p class="text-slate-500 text-sm mt-1">ラクダ体験やパラグライダーも。暑い時期は朝夕がおすすめ。</p>
                     <div class="link-row">
                         <a href="https://www.google.com/maps/search/?api=1&query=鳥取砂丘" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 鳥取砂丘</a>
                     </div>
@@ -168,88 +233,16 @@
 
                 <div class="tl-item">
                     <div class="tl-dot">🍣</div>
-                    <p class="font-bold text-slate-800">かろいち / 海鮮市場（昼食）</p>
+                    <p class="font-bold text-slate-800">かろいち / 海鮮市場</p>
                     <span class="badge bg-rose-100 text-rose-700">グルメ</span>
-                    <p class="text-slate-500 text-sm mt-1">賀露港の新鮮な海鮮丼を。</p>
+                    <p class="text-slate-500 text-sm mt-1">賀露港の新鮮な海鮮丼を。浦富海岸（透明度抜群）まで足を延ばすのも◎。</p>
                     <div class="link-row">
                         <a href="https://www.google.com/maps/search/?api=1&query=かろいち+鳥取" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> かろいち</a>
-                    </div>
-                </div>
-                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約30分</div>
-
-                <div class="tl-item">
-                    <div class="tl-dot">🌊</div>
-                    <p class="font-bold text-slate-800">浦富海岸（時間があれば）</p>
-                    <p class="text-slate-500 text-sm mt-1">透明度抜群の海岸線。遊覧船や散策で。</p>
-                    <div class="link-row">
                         <a href="https://www.google.com/maps/search/?api=1&query=浦富海岸" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 浦富海岸</a>
                     </div>
                 </div>
-                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約1時間</div>
-
-                <div class="tl-item">
-                    <div class="tl-dot">♨️</div>
-                    <p class="font-bold text-slate-800">三朝温泉でゆっくり</p>
-                    <p class="text-slate-500 text-sm mt-1">世界有数のラジウム温泉。川沿いの風情ある湯の町。</p>
-                    <div class="link-row">
-                        <a href="https://www.google.com/maps/search/?api=1&query=三朝温泉" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 三朝温泉</a>
-                    </div>
-                </div>
             </div>
-            <div class="stay"><i class="fa-solid fa-bed"></i> 宿泊：三朝温泉（鳥取県）</div>
-        </div>
-    </section>
-
-    <!-- ===== 3日目 ===== -->
-    <section class="fade-in">
-        <div class="sec-head">
-            <span class="day-pill" style="background:#10b981">3日目</span>
-            <h2>8/19(水)　コナンの里 → 松江へ</h2>
-        </div>
-        <div class="bg-white rounded-2xl shadow-sm p-5">
-            <div class="tl">
-                <div class="tl-item">
-                    <div class="tl-dot">🏘️</div>
-                    <p class="font-bold text-slate-800">倉吉 白壁土蔵群</p>
-                    <p class="text-slate-500 text-sm mt-1">三朝から約15分。レトロな町並みを朝さんぽ。</p>
-                    <div class="link-row">
-                        <a href="https://www.google.com/maps/search/?api=1&query=倉吉白壁土蔵群" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 倉吉白壁土蔵群</a>
-                    </div>
-                </div>
-                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約15分</div>
-
-                <div class="tl-item">
-                    <div class="tl-dot">🔍</div>
-                    <p class="font-bold text-slate-800">青山剛昌ふるさと館（コナンの里・北栄町）</p>
-                    <span class="badge bg-blue-100 text-blue-700">子どもが喜ぶ</span>
-                    <p class="text-slate-500 text-sm mt-1">コナン通り・銅像・トリックが満載。グッズ購入も。</p>
-                    <div class="link-row">
-                        <a href="https://www.google.com/maps/search/?api=1&query=青山剛昌ふるさと館" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> コナンの里</a>
-                    </div>
-                </div>
-                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約1時間30分（昼食は道中で）</div>
-
-                <div class="tl-item">
-                    <div class="tl-dot">🏯</div>
-                    <p class="font-bold text-slate-800">松江城</p>
-                    <span class="badge bg-indigo-100 text-indigo-700">国宝</span>
-                    <p class="text-slate-500 text-sm mt-1">現存天守の国宝。堀川めぐりの遊覧船もおすすめ。</p>
-                    <div class="link-row">
-                        <a href="https://www.google.com/maps/search/?api=1&query=松江城" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 松江城</a>
-                    </div>
-                </div>
-                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約20分</div>
-
-                <div class="tl-item">
-                    <div class="tl-dot">♨️</div>
-                    <p class="font-bold text-slate-800">玉造温泉（または松江しんじ湖温泉）</p>
-                    <p class="text-slate-500 text-sm mt-1">美肌の湯として名高い玉造温泉。出雲大社にも近く翌朝が楽。</p>
-                    <div class="link-row">
-                        <a href="https://www.google.com/maps/search/?api=1&query=玉造温泉" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 玉造温泉</a>
-                    </div>
-                </div>
-            </div>
-            <div class="stay"><i class="fa-solid fa-bed"></i> 宿泊：玉造温泉 / 松江しんじ湖温泉（島根県）</div>
+            <div class="stay"><i class="fa-solid fa-bed"></i> 宿泊：鳥取市内（空港アクセス重視・三朝連泊も可）</div>
         </div>
     </section>
 
@@ -257,71 +250,50 @@
     <section class="fade-in">
         <div class="sec-head">
             <span class="day-pill" style="background:#8b5cf6">4日目</span>
-            <h2>8/20(木)　出雲大社で締めて帰路へ</h2>
+            <h2>8/20(木)　鳥取から空路で帰宅</h2>
         </div>
         <div class="bg-white rounded-2xl shadow-sm p-5">
             <div class="tl">
                 <div class="tl-item">
-                    <div class="tl-dot">⛩️</div>
-                    <p class="font-bold text-slate-800">出雲大社</p>
-                    <span class="badge bg-purple-100 text-purple-700">縁結び</span>
-                    <p class="text-slate-500 text-sm mt-1">大しめ縄で有名な縁結びの聖地。神門通りの散策も。</p>
+                    <div class="tl-dot">🐪</div>
+                    <p class="font-bold text-slate-800">午前：砂丘の朝さんぽ or 市内観光</p>
+                    <p class="text-slate-500 text-sm mt-1">前日に回りきれなかったスポットや、わらべ館・鳥取城跡などで最終日をゆっくり。</p>
                     <div class="link-row">
-                        <a href="https://www.google.com/maps/search/?api=1&query=出雲大社" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 出雲大社</a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=わらべ館+鳥取" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> わらべ館</a>
                     </div>
                 </div>
-                <div class="move"><i class="fa-solid fa-person-walking"></i> 神門通り（徒歩すぐ）</div>
-
-                <div class="tl-item">
-                    <div class="tl-dot">🍜</div>
-                    <p class="font-bold text-slate-800">出雲そば（昼食）</p>
-                    <span class="badge bg-rose-100 text-rose-700">グルメ</span>
-                    <p class="text-slate-500 text-sm mt-1">名物の割子そば。参拝後の締めにぴったり。</p>
-                    <div class="link-row">
-                        <a href="https://www.google.com/maps/search/?api=1&query=出雲そば+神門通り" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 出雲そば</a>
-                    </div>
-                </div>
-                <div class="move"><i class="fa-solid fa-car-side"></i> 車で約30分（レンタカー返却）</div>
+                <div class="move"><i class="fa-solid fa-car-side"></i> 鳥取市内から空港まで約20分（レンタカー返却）</div>
 
                 <div class="tl-item">
                     <div class="tl-dot">✈️</div>
-                    <p class="font-bold text-slate-800">出雲縁結び空港 → 羽田</p>
-                    <p class="text-slate-500 text-sm mt-1">夕方便で帰路へ。乗り捨て返却のため返却時刻に余裕を。</p>
+                    <p class="font-bold text-slate-800">鳥取砂丘コナン空港 → 羽田</p>
+                    <p class="text-slate-500 text-sm mt-1">午後便で帰路へ。返却＋保安検査で1.5〜2時間前行動が安心。<br>※米子鬼太郎空港から飛ぶ場合は3日目の宿を松江・米子側にすると楽。</p>
                     <div class="link-row">
-                        <a href="https://www.google.com/maps/search/?api=1&query=出雲縁結び空港" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 出雲空港</a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=鳥取砂丘コナン空港" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 鳥取空港</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== ざっくり予算（季節別） ===== -->
+    <!-- ===== ざっくり予算 ===== -->
     <section class="fade-in">
-        <div class="sec-head"><span class="text-xl">💰</span><h2>ざっくり予算（家族4人・3泊4日）</h2></div>
+        <div class="sec-head"><span class="text-xl">💰</span><h2>ざっくり予算（家族4人・この日程）</h2></div>
         <div class="bg-white rounded-2xl shadow-sm p-4">
-            <div class="flex gap-2 items-start mb-3 p-2.5 bg-amber-50 border border-amber-200 rounded-xl">
-                <i class="fa-solid fa-circle-info text-amber-500 mt-0.5"></i>
-                <p class="text-xs text-amber-800">今回の日程 <b>8/17(月)〜20(木)</b> は<b>お盆直後の夏休み平日</b>。お盆ピークは外せていますが夏の繁忙期です。目安は下の <b>「夏の週末」</b> 前後を基準に。早割で「夏の平日」に近づけられます。</p>
-            </div>
-            <div class="seg mb-3">
-                <button data-season="low" class="active" onclick="setSeason('low')">夏の平日<br><span class="font-normal text-[10px]">早割活用</span></button>
-                <button data-season="mid" onclick="setSeason('mid')">夏の週末<br><span class="font-normal text-[10px]">今回の目安</span></button>
-                <button data-season="high" onclick="setSeason('high')">お盆<br><span class="font-normal text-[10px]">8/13〜16</span></button>
-            </div>
+            <p class="text-xs text-slate-500 mb-2 px-1">8/17〜20 はお盆直後の夏休み平日。宿は中〜上級グレードの温泉宿（2食付）を基準にした目安です。</p>
 
-            <p id="seasonNote" class="text-xs text-slate-500 mb-2 px-1"></p>
-
-            <div class="brow"><span class="lbl"><i class="fa-solid fa-plane-departure text-sky-500"></i> 航空券（羽田↔伊丹/出雲・片道×2）</span><span class="val" id="b-air"></span></div>
-            <div class="brow"><span class="lbl"><i class="fa-solid fa-car text-emerald-500"></i> レンタカー＋乗り捨て＋ガソリン・高速</span><span class="val" id="b-car"></span></div>
-            <div class="brow"><span class="lbl"><i class="fa-solid fa-hot-tub-person text-orange-500"></i> 宿泊（温泉宿2食付 ×3泊）</span><span class="val" id="b-hotel"></span></div>
-            <div class="brow"><span class="lbl"><i class="fa-solid fa-utensils text-rose-500"></i> 昼食・おやつ・その他</span><span class="val" id="b-food"></span></div>
-            <div class="brow"><span class="lbl"><i class="fa-solid fa-ticket text-indigo-500"></i> 観光・入場料・体験</span><span class="val" id="b-act"></span></div>
+            <div class="brow"><span class="lbl"><i class="fa-solid fa-train text-indigo-500"></i> サンライズ出雲（行き・寝台×4）</span><span class="val" id="b-train">¥6万〜9万</span></div>
+            <div class="brow"><span class="lbl"><i class="fa-solid fa-plane-departure text-sky-500"></i> 帰りの航空券（鳥取→羽田・片道×4）</span><span class="val" id="b-air">¥6万〜10万</span></div>
+            <div class="brow"><span class="lbl"><i class="fa-solid fa-car text-emerald-500"></i> レンタカー＋乗り捨て＋ガソリン</span><span class="val">¥5万〜7万</span></div>
+            <div class="brow"><span class="lbl"><i class="fa-solid fa-hot-tub-person text-orange-500"></i> 宿泊（温泉宿2食付 ×3泊）</span><span class="val">¥21万〜30万</span></div>
+            <div class="brow"><span class="lbl"><i class="fa-solid fa-utensils text-rose-500"></i> 昼食・おやつ・その他</span><span class="val">¥4万〜7万</span></div>
+            <div class="brow"><span class="lbl"><i class="fa-solid fa-ticket text-purple-500"></i> 観光・入場料・体験</span><span class="val">¥1.5万〜2.5万</span></div>
 
             <div class="flex items-center justify-between mt-3 pt-3 border-t-2 border-slate-100">
                 <span class="font-bold text-slate-700">合計目安</span>
-                <span class="font-bold text-xl text-teal-700" id="b-total"></span>
+                <span class="font-bold text-xl text-teal-700">¥43.5万〜65.5万</span>
             </div>
-            <p class="text-[11px] text-slate-400 mt-2 px-1">※おとな2＋子ども2を想定。宿は「ある程度のグレードの温泉宿（2食付）」を基準にしています。乗り捨て料金（伊丹→出雲）は数千〜2万円程度を含みます。</p>
+            <p class="text-[11px] text-slate-400 mt-2 px-1">※おとな2＋子ども2を想定。サンライズの寝台種別（ノビノビ座席なら安く、シングル/ツインは個室）や宿のグレードで変動します。</p>
         </div>
     </section>
 
@@ -330,35 +302,34 @@
         <div class="sec-head"><span class="text-xl">📌</span><h2>いつ予約する？（出発まで約2か月）</h2></div>
 
         <div class="bg-white rounded-2xl shadow-sm p-4 space-y-3">
-            <!-- 今すぐ -->
-            <div class="border-l-4 border-red-400 pl-3">
+            <!-- 最重要：サンライズ -->
+            <div class="border-l-4 border-red-500 pl-3 bg-red-50/60 py-2 rounded-r-lg">
                 <div class="flex items-center gap-2 mb-1">
-                    <span class="badge bg-red-100 text-red-700">🔴 今すぐ（6月中）</span>
+                    <span class="badge bg-red-100 text-red-700">🚨 7/16(木) 10:00ちょうど</span>
                 </div>
                 <ul class="text-sm text-slate-600 space-y-1.5">
-                    <li><b>宿（3泊）</b>：夏休みの人気温泉宿は早い者勝ち。お盆直後でも埋まるので最優先で確保。</li>
-                    <li><b>航空券</b>：JAL「先得」/ANA「スーパーバリュー」など早割は早いほど安い。55日前（≒6/23）の枠を逃さず今押さえる。</li>
-                    <li><b>レンタカー（伊丹発・出雲返却）</b>：乗り捨て対応車は台数限定。早めに予約しないと夏は枠切れも。</li>
+                    <li><b>サンライズ出雲の寝台</b>：1か月前の10時発売で<b>即完売</b>。8/16乗車は7/16(木)10:00に「10時打ち」で確保（みどりの窓口・えきねっと・電話予約）。これが最優先かつ最難関。</li>
+                </ul>
+            </div>
+            <!-- 今すぐ -->
+            <div class="border-l-4 border-orange-400 pl-3">
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="badge bg-orange-100 text-orange-700">🟠 今すぐ（6月中）</span>
+                </div>
+                <ul class="text-sm text-slate-600 space-y-1.5">
+                    <li><b>宿（3泊）</b>：夏休みの人気温泉宿は早い者勝ち。玉造・三朝・鳥取を最優先で確保。</li>
+                    <li><b>帰りの航空券（鳥取/米子→羽田）</b>：早割は早いほど安い。8/20(木)便を押さえる。</li>
+                    <li><b>レンタカー（出雲発・鳥取返却）</b>：乗り捨て対応車は台数限定。夏は早めに。</li>
                 </ul>
             </div>
             <!-- 7月上旬 -->
-            <div class="border-l-4 border-orange-400 pl-3">
-                <div class="flex items-center gap-2 mb-1">
-                    <span class="badge bg-orange-100 text-orange-700">🟠 7月上旬（約1.5か月前）</span>
-                </div>
-                <ul class="text-sm text-slate-600 space-y-1.5">
-                    <li><b>体験アクティビティ</b>：鳥取砂丘のラクダ・パラグライダー、砂の美術館の混雑回避チケットなど予約制のものを確保。</li>
-                    <li><b>松江・堀川めぐり</b>等の遊覧系で予約可能なものはこの辺で。</li>
-                </ul>
-            </div>
-            <!-- 2〜3週前 -->
             <div class="border-l-4 border-amber-400 pl-3">
                 <div class="flex items-center gap-2 mb-1">
-                    <span class="badge bg-amber-100 text-amber-700">🟡 7月下旬〜8月上旬（2〜3週前）</span>
+                    <span class="badge bg-amber-100 text-amber-700">🟡 7月上旬〜中旬（体験系）</span>
                 </div>
                 <ul class="text-sm text-slate-600 space-y-1.5">
-                    <li><b>人気の食事処</b>：海鮮丼・出雲そばなど予約を受ける店は予約。各日の昼食の目星を付ける。</li>
-                    <li><b>持ち物・天気</b>の最終確認（猛暑対策・海遊びグッズ）。</li>
+                    <li><b>体験アクティビティ</b>：鳥取砂丘のラクダ・パラグライダー、松江の堀川めぐりなど予約制のものを確保。</li>
+                    <li><b>人気の食事処</b>（出雲そば・海鮮丼）で予約を受ける店は予約。</li>
                 </ul>
             </div>
             <!-- 直前〜当日 -->
@@ -367,80 +338,39 @@
                     <span class="badge bg-emerald-100 text-emerald-700">🟢 直前〜当日</span>
                 </div>
                 <ul class="text-sm text-slate-600 space-y-1.5">
-                    <li><b>伊根・天橋立の遊覧船</b>：基本は当日乗船でOK（天候で運休あり）。</li>
-                    <li><b>外湯・温泉街の散策</b>は予約不要。当日の気分で。</li>
+                    <li>外湯・温泉街の散策、砂丘の入場などは予約不要。当日の気分で。</li>
+                    <li>天気・運休（強風時のラクダ等）を前日にチェック。</li>
                 </ul>
             </div>
-            <p class="text-[11px] text-slate-400 px-1">※早割の締切日や催行条件は各公式で要確認。キャンセル規定もあわせてチェックを。</p>
+            <p class="text-[11px] text-slate-400 px-1">※サンライズの寝台は「10時打ち」をJRの窓口に依頼すると取りやすい。キャンセル規定もあわせて確認を。</p>
         </div>
     </section>
 
     <!-- ===== 旅行のコツ ===== -->
     <section class="fade-in">
         <div class="sec-head"><span class="text-xl">💡</span><h2>このプランの旅行のコツ</h2></div>
-        <div class="tip"><i class="fa-solid fa-tag"></i><p class="text-sm text-slate-600"><b>航空券は早割が鍵。</b>伊丹IN・出雲OUTの片道2枚は、ANA/JALの「75日前割」等で大きく下がります。閑散期×早割が最安。</p></div>
-        <div class="tip"><i class="fa-solid fa-car-side"></i><p class="text-sm text-slate-600"><b>乗り捨て（ワンウェイ）を予約時に明記。</b>伊丹発・出雲返却は別途料金。会社により有無が違うので比較を。</p></div>
-        <div class="tip"><i class="fa-solid fa-clock"></i><p class="text-sm text-slate-600"><b>最終日は返却＆搭乗に余裕を。</b>出雲大社→空港は約30分ですが、返却手続き＋保安検査で1.5〜2時間前行動が安心。</p></div>
-        <div class="tip"><i class="fa-solid fa-child-reaching"></i><p class="text-sm text-slate-600"><b>子ども目線の山場は2・3日目。</b>砂丘（ラクダ）とコナンの里。ここを軸に時間配分すると満足度UP。</p></div>
-        <div class="tip"><i class="fa-solid fa-sun"></i><p class="text-sm text-slate-600"><b>真夏の砂丘は灼熱。</b>砂が高温になるので日中は帽子・サングラス・水分必須。涼しい朝夕の時間帯が狙い目です。</p></div>
-        <div class="tip"><i class="fa-solid fa-umbrella-beach"></i><p class="text-sm text-slate-600"><b>夏なら浦富海岸で海遊びも。</b>透明度の高い遊泳スポット。水着・タオルがあれば子どもが大満足。</p></div>
+        <div class="tip"><i class="fa-solid fa-train"></i><p class="text-sm text-slate-600"><b>サンライズはシャワーカードを早めに確保。</b>車内のシャワー室は数量限定のカード制。乗車後すぐに購入を。個室なら浴衣・スリッパ付きで快適。</p></div>
+        <div class="tip"><i class="fa-solid fa-camera"></i><p class="text-sm text-slate-600"><b>早朝の車窓が見どころ。</b>岡山〜山陰の景色を楽しんで。到着前に身支度を済ませておくとスムーズ。</p></div>
+        <div class="tip"><i class="fa-solid fa-car-side"></i><p class="text-sm text-slate-600"><b>乗り捨て（出雲発・鳥取返却）を予約時に明記。</b>同一県内より安く済むことが多いが、会社により有無・料金が違うので比較を。</p></div>
+        <div class="tip"><i class="fa-solid fa-sun"></i><p class="text-sm text-slate-600"><b>真夏の砂丘は灼熱。</b>砂が高温になるので帽子・サングラス・水分必須。涼しい朝夕が狙い目。</p></div>
+        <div class="tip"><i class="fa-solid fa-child-reaching"></i><p class="text-sm text-slate-600"><b>子ども目線の山場は3日目。</b>コナンの里と砂丘（ラクダ）。ここを軸に時間配分すると満足度UP。</p></div>
     </section>
 
-    <p class="text-center text-xs text-slate-400 pt-2">※掲載の所要時間・料金は目安です。実際の運行・営業状況は各公式サイトでご確認ください。</p>
+    <p class="text-center text-xs text-slate-400 pt-2">※掲載の所要時間・料金・時刻は目安です。実際の運行・営業状況は各公式サイトでご確認ください。</p>
 
 </div>
 
 <!-- 合計バー -->
 <div id="totalBar">
     <div>
-        <p class="text-xs text-cyan-100 mb-0.5">合計目安（<span id="bar-season">閑散期</span>）</p>
-        <p class="font-bold text-lg" id="bar-total">¥0</p>
+        <p class="text-xs text-cyan-100 mb-0.5">合計目安（家族4人）</p>
+        <p class="font-bold text-lg">¥43.5万 〜 65.5万</p>
     </div>
     <div class="text-right">
         <p class="text-xs text-cyan-100 mb-0.5">1人あたり</p>
-        <p class="font-bold text-lg" id="bar-per">¥0</p>
+        <p class="font-bold text-lg">約 ¥11万 〜 16万</p>
     </div>
 </div>
-
-<script>
-    // 夏の時期別予算（単位：万円、[最小, 最大]）。宿は中〜上級グレードの温泉宿2食付を基準。
-    const BUDGET = {
-        low:  { air:[14,20], car:[5,6], hotel:[18,24], food:[4,7], act:[1.5,2.5] },
-        mid:  { air:[18,26], car:[5,7], hotel:[21,27], food:[4,8], act:[1.5,2.5] },
-        high: { air:[26,36], car:[6,8], hotel:[27,36], food:[5,9], act:[2,3]    },
-    };
-    const NOTE = {
-        low:  '7〜8月の平日に航空券の早割を組み合わせた、夏でもっとも抑えられるパターン。',
-        mid:  '夏休み中の土日。お盆を外せばこのあたりが現実的な目安。',
-        high: 'お盆（8月中旬）。料金が最も高騰する時期。宿・便は数か月前の確保が必須。',
-    };
-    const LABEL = { low:'夏の平日', mid:'夏の週末', high:'お盆' };
-
-    const yen = m => '¥' + Math.round(m * 10000).toLocaleString();
-    const range = a => yen(a[0]) + '〜' + yen(a[1]);
-
-    function setSeason(s) {
-        const b = BUDGET[s];
-        document.querySelectorAll('.seg button').forEach(btn =>
-            btn.classList.toggle('active', btn.dataset.season === s));
-        document.getElementById('seasonNote').textContent = NOTE[s];
-        document.getElementById('b-air').textContent   = range(b.air);
-        document.getElementById('b-car').textContent   = range(b.car);
-        document.getElementById('b-hotel').textContent = range(b.hotel);
-        document.getElementById('b-food').textContent  = range(b.food);
-        document.getElementById('b-act').textContent   = range(b.act);
-
-        const min = b.air[0]+b.car[0]+b.hotel[0]+b.food[0]+b.act[0];
-        const max = b.air[1]+b.car[1]+b.hotel[1]+b.food[1]+b.act[1];
-        document.getElementById('b-total').textContent = range([min,max]);
-
-        document.getElementById('bar-season').textContent = LABEL[s];
-        document.getElementById('bar-total').textContent  = yen(min) + '〜' + yen(max);
-        document.getElementById('bar-per').textContent    = yen(min/4) + '〜' + yen(max/4);
-    }
-
-    setSeason('mid');
-</script>
 
 </body>
 </html>
