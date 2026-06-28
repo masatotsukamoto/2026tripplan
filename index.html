@@ -8,7 +8,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        html { scroll-behavior:smooth; }
         body { font-family:'Zen Maru Gothic',sans-serif; background:#f0f7f9; color:#334155; padding-bottom:96px; }
+
+        /* 日付ジャンプナビ */
+        .daynav { position:sticky; top:0; z-index:40; background:#f0f7f9; padding:8px 0 8px; margin:0 0 10px; display:flex; gap:6px; overflow-x:auto; }
+        .daynav::-webkit-scrollbar { display:none; }
+        .daynav a { flex:0 0 auto; font-size:12px; font-weight:700; color:#fff; padding:6px 12px; border-radius:999px; text-decoration:none; opacity:.92; }
+        .daynav a:active { opacity:.7; }
+
+        /* 折りたたみ日カード */
+        .day { background:#fff; border-radius:16px; box-shadow:0 1px 2px rgba(0,0,0,.05); margin-bottom:12px; overflow:hidden; border-left:5px solid var(--c); scroll-margin-top:58px; }
+        .day.today { box-shadow:0 0 0 2px var(--c), 0 1px 2px rgba(0,0,0,.05); }
+        .day-head { width:100%; display:flex; align-items:center; gap:8px; padding:12px 14px; background:none; border:none; cursor:pointer; text-align:left; font-family:inherit; }
+        .day-ttl { flex:1; min-width:0; font-weight:700; color:#334155; font-size:14px; }
+        .chev { color:#94a3b8; transition:transform .2s; }
+        .day.collapsed .chev { transform:rotate(-90deg); }
+        .day-sub { display:flex; flex-wrap:wrap; gap:8px; padding:0 14px 11px 14px; align-items:center; }
+        .stay-chip { font-size:12px; font-weight:700; color:#9a3412; background:#fff7ed; border:1px solid #fed7aa; border-radius:999px; padding:3px 10px; }
+        .qlink { display:inline-flex; align-items:center; gap:4px; font-size:11.5px; font-weight:600; text-decoration:none; padding:3px 9px; border-radius:999px; }
+        .qlink-map { background:#f0fdf4; color:#16a34a; }
+        .qlink-wx  { background:#eff6ff; color:#2563eb; }
+        .day-body { padding:2px 14px 12px 14px; }
+        .day.collapsed .day-body { display:none; }
+        .today-badge { font-size:10px; font-weight:700; color:#fff; background:#ef4444; border-radius:999px; padding:2px 7px; }
+
+        /* トップへ戻る */
+        .backtop { position:fixed; right:14px; bottom:84px; width:44px; height:44px; border-radius:50%; background:#0e7490; color:#fff; border:none; box-shadow:0 2px 10px rgba(0,0,0,.25); display:none; align-items:center; justify-content:center; z-index:45; font-size:17px; }
+        .backtop.show { display:flex; }
         .fade-in { animation:fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 
@@ -65,7 +92,7 @@
         .hrow { display:flex; gap:10px; padding:8px 2px; border-bottom:1px solid #f1f5f9; }
         .hrow:last-child { border-bottom:none; }
         .hrow .hh { flex:0 0 46px; font-size:12px; font-weight:700; color:#0e7490; padding-top:1px; }
-        .hrow .hb { flex:1; font-size:13px; color:#475569; line-height:1.45; }
+        .hrow .hb { flex:1; min-width:0; font-size:13px; color:#475569; line-height:1.45; word-break:break-word; }
         .hrow .hb b { color:#1e293b; }
         .hrow .sug { display:inline-block; font-size:10.5px; font-weight:700; color:#7c3aed; background:#f5f3ff; border-radius:6px; padding:1px 6px; margin-left:4px; }
         .hrow .mv  { color:#0891b2; font-weight:600; }
@@ -135,12 +162,25 @@
         </div>
     </section>
 
-    <!-- ===== 全日程 ===== -->
+    <!-- ===== 全日程（1時間ごと） ===== -->
     <section class="fade-in">
-        <div class="sec-head"><span class="text-xl">🗓️</span><h2>全日程（完成版）</h2></div>
+        <div class="sec-head"><span class="text-xl">🗓️</span><h2>全日程（1時間ごと・一案）</h2></div>
+        <div class="daynav">
+            <a href="#d1" style="background:#0ea5e9">1日目</a>
+            <a href="#d2" style="background:#f59e0b">2日目</a>
+            <a href="#d3" style="background:#10b981">3日目</a>
+            <a href="#d4" style="background:#8b5cf6">4日目</a>
+            <a href="#d5" style="background:#ec4899">5日目</a>
+            <a href="#d6" style="background:#6366f1">6日目</a>
+        </div>
+        <div class="flex items-center mb-3">
+            <p class="text-xs text-slate-500 flex-1">時刻は目安。<span class="sug">紫タグ</span>は寄り道・移動手段の提案。<b>日付バーで移動／見出しタップで開閉</b>。</p>
+            <button onclick="setAll(false)" class="text-xs font-bold text-teal-700 bg-teal-50 rounded-lg px-2.5 py-1 ml-2">全部開く</button>
+            <button onclick="setAll(true)" class="text-xs font-bold text-slate-500 bg-slate-100 rounded-lg px-2.5 py-1 ml-1.5">閉じる</button>
+        </div>
 
         <!-- 出発前 -->
-        <div class="bg-white rounded-2xl shadow-sm p-4 mb-3">
+        <div class="bg-white rounded-2xl shadow-sm p-4 mb-4">
             <p class="text-xs font-bold text-slate-400 mb-2">出発前</p>
             <div class="space-y-1.5 text-sm text-slate-600">
                 <div class="flex gap-3"><span class="badge bg-slate-100 text-slate-500 shrink-0">8/16(日)</span><span>習い事（11時まで）→ 自宅</span></div>
@@ -148,129 +188,48 @@
             </div>
         </div>
 
-        <!-- Day1 -->
-        <div class="flex items-center gap-2 mb-2"><span class="day-pill" style="background:#0ea5e9">1日目</span><h3 class="font-bold text-slate-700">8/18(火)　羽田→大分→由布院</h3></div>
-        <div class="bg-white rounded-2xl shadow-sm p-5 mb-4">
-            <div class="tl">
-                <div class="tl-item"><div class="tl-dot">✈️</div><p class="tl-time">07:55 / 09:30</p>
-                    <p class="font-bold text-slate-800">NH791 羽田 → 大分</p></div>
-                <div class="move"><i class="fa-solid fa-bus"></i> 空港バスで由布院へ（約1時間）</div>
-                <div class="tl-item"><div class="tl-dot">♨️</div><p class="tl-time">午後</p>
-                    <p class="font-bold text-slate-800">由布院 着・温泉街さんぽ</p>
-                    <p class="text-slate-500 text-sm mt-1">湯の坪街道・金鱗湖など。チェックインしてのんびり。</p>
-                    <div class="link-row"><a href="https://www.google.com/maps/search/?api=1&query=由布院温泉" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 由布院</a></div>
-                </div>
-            </div>
-            <div class="stay"><i class="fa-solid fa-bed"></i> 宿泊：由布院（1泊目）</div>
-        </div>
-
-        <!-- Day2 -->
-        <div class="flex items-center gap-2 mb-2"><span class="day-pill" style="background:#f59e0b">2日目</span><h3 class="font-bold text-slate-700">8/19(水)　由布院でのんびり</h3></div>
-        <div class="bg-white rounded-2xl shadow-sm p-5 mb-4">
-            <div class="tl">
-                <div class="tl-item"><div class="tl-dot">🌿</div><p class="tl-time">終日</p>
-                    <p class="font-bold text-slate-800">由布院で温泉＆街あるき</p>
-                    <span class="badge bg-amber-100 text-amber-700">ママのんびり</span>
-                    <p class="text-slate-500 text-sm mt-1">2泊あるので移動なしでゆったり。カフェ・ショップ巡りや貸切風呂も。</p>
-                </div>
-            </div>
-            <div class="stay"><i class="fa-solid fa-bed"></i> 宿泊：由布院（2泊目）</div>
-        </div>
-
-        <!-- Day3 -->
-        <div class="flex items-center gap-2 mb-2"><span class="day-pill" style="background:#10b981">3日目</span><h3 class="font-bold text-slate-700">8/20(木)　由布院→別府・杉乃井プール</h3></div>
-        <div class="bg-white rounded-2xl shadow-sm p-5 mb-4">
-            <div class="tl">
-                <div class="move"><i class="fa-solid fa-train"></i> 由布院 → 別府（ゆふりん／JR久大本線）</div>
-                <div class="tl-item"><div class="tl-dot">🏊</div><p class="tl-time">日中</p>
-                    <p class="font-bold text-slate-800">杉乃井ホテル「アクアビート」でプール</p>
-                    <span class="badge bg-sky-100 text-sky-700">娘たちプール</span>
-                    <p class="text-slate-500 text-sm mt-1">屋内・屋外プール。チェックイン後は名物の棚湯（眺望露天）も。</p>
-                    <div class="link-row"><a href="https://www.google.com/maps/search/?api=1&query=杉乃井ホテル+別府" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 杉乃井ホテル</a></div>
-                </div>
-            </div>
-            <div class="stay"><i class="fa-solid fa-bed"></i> 宿泊：杉乃井ホテル（3泊目）</div>
-            <div class="memo"><i class="fa-solid fa-triangle-exclamation"></i><span>観光快速「ゆふりん」は木曜運休の可能性あり。当日朝にJR久大本線（由布院→大分→別府）も選べるよう調べておくと安心。</span></div>
-        </div>
-
-        <!-- Day4 -->
-        <div class="flex items-center gap-2 mb-2"><span class="day-pill" style="background:#8b5cf6">4日目</span><h3 class="font-bold text-slate-700">8/21(金)　いちろく号で久留米へ</h3></div>
-        <div class="bg-white rounded-2xl shadow-sm p-5 mb-4">
-            <div class="tl">
-                <div class="tl-item"><div class="tl-dot">🚆</div><p class="tl-time">11:00 → 14:57</p>
-                    <p class="font-bold text-slate-800">観光列車「いちろく号」別府 → 久留米</p>
-                    <span class="badge bg-purple-100 text-purple-700">パパの特別な乗車体験</span>
-                    <p class="text-slate-500 text-sm mt-1">食事付きのD&amp;S列車。車内グルメと車窓を楽しむ旅のハイライト。</p>
-                    <div class="link-row"><a href="https://www.google.com/maps/search/?api=1&query=別府駅" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 別府駅</a></div>
-                </div>
-                <div class="tl-item"><div class="tl-dot">🏠</div><p class="tl-time">午後</p>
-                    <p class="font-bold text-slate-800">久留米・実家入り（大善寺町）</p>
-                </div>
-            </div>
-            <div class="stay"><i class="fa-solid fa-house"></i> 宿泊：久留米 実家（4泊目）</div>
-            <div class="memo"><i class="fa-solid fa-triangle-exclamation"></i><span>いちろく号は別府11:00発。杉乃井を<b>10時前にはチェックアウト</b>して別府駅へ。前夜のうちに荷造りを。</span></div>
-        </div>
-
-        <!-- Day5 -->
-        <div class="flex items-center gap-2 mb-2"><span class="day-pill" style="background:#ec4899">5日目</span><h3 class="font-bold text-slate-700">8/22(土)　久留米 実家</h3></div>
-        <div class="bg-white rounded-2xl shadow-sm p-5 mb-4">
-            <div class="tl">
-                <div class="tl-item"><div class="tl-dot">👨‍👩‍👧‍👧</div><p class="tl-time">終日</p>
-                    <p class="font-bold text-slate-800">実家でゆっくり</p>
-                    <p class="text-slate-500 text-sm mt-1">余裕があればハーモニーランド等のお出かけも（入場料は予備費から）。</p>
-                </div>
-            </div>
-            <div class="stay"><i class="fa-solid fa-house"></i> 宿泊：久留米 実家（5泊目）</div>
-        </div>
-
-        <!-- Day6 -->
-        <div class="flex items-center gap-2 mb-2"><span class="day-pill" style="background:#6366f1">6日目</span><h3 class="font-bold text-slate-700">8/23(日)　福岡→羽田で帰宅</h3></div>
-        <div class="bg-white rounded-2xl shadow-sm p-5">
-            <div class="tl">
-                <div class="tl-item"><div class="tl-dot">🏠</div><p class="tl-time">午前</p>
-                    <p class="font-bold text-slate-800">実家で午前ゆっくり → 昼前に出発</p>
-                </div>
-                <div class="move"><i class="fa-solid fa-train"></i> 久留米 → 福岡空港（約1〜1.5時間）</div>
-                <div class="tl-item"><div class="tl-dot">✈️</div><p class="tl-time">15:10 / 17:10</p>
-                    <p class="font-bold text-slate-800">NH258 福岡 → 羽田</p>
-                    <div class="link-row"><a href="https://www.google.com/maps/search/?api=1&query=福岡空港" target="_blank" class="link-btn link-btn-map"><i class="fa-solid fa-map-location-dot"></i> 福岡空港</a></div>
-                </div>
-            </div>
-            <div class="memo"><i class="fa-solid fa-triangle-exclamation"></i><span>復路は福岡15:10発。お盆Uターンと重なるため、<b>遅くとも12:30〜13時には久留米を出発</b>。実家の朝はゆっくりできます。</span></div>
-        </div>
-    </section>
-
-    <!-- ===== 1時間ごとの詳細プラン ===== -->
-    <section class="fade-in">
-        <div class="sec-head"><span class="text-xl">🕐</span><h2>1時間ごとの詳細プラン（一案）</h2></div>
-        <div class="bg-violet-50 border border-violet-200 rounded-2xl p-3 mb-3 flex gap-2">
-            <i class="fa-solid fa-wand-magic-sparkles text-violet-500 mt-0.5"></i>
-            <p class="text-xs text-violet-800">あくまで叩き台です。時刻は目安、当日の天気・子どもの体調・気分で柔軟に。<span class="sug">紫タグ</span>は私からの「寄り道・移動手段」の提案です。</p>
-        </div>
-
         <!-- D1 -->
-        <div class="flex items-center gap-2 mb-2"><span class="day-pill" style="background:#0ea5e9">1日目</span><h3 class="font-bold text-slate-700">8/18(火)　羽田→大分→由布院</h3></div>
-        <div class="bg-white rounded-2xl shadow-sm p-4 mb-4">
+        <div class="day" id="d1" style="--c:#0ea5e9">
+            <button class="day-head" onclick="toggleDay('d1')">
+                <span class="day-pill" style="background:#0ea5e9">1日目</span>
+                <span class="day-ttl">8/18(火)　羽田→大分→由布院</span>
+                <i class="fa-solid fa-chevron-down chev"></i>
+            </button>
+            <div class="day-sub">
+                <span class="stay-chip"><i class="fa-solid fa-bed"></i> 由布院（1泊目）</span>
+                <a class="qlink qlink-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=由布院温泉"><i class="fa-solid fa-map-location-dot"></i> マップ</a>
+                <a class="qlink qlink-wx" target="_blank" href="https://www.google.com/search?q=由布院+天気"><i class="fa-solid fa-cloud-sun"></i> 天気</a>
+            </div>
+            <div class="day-body">
             <div class="hrow"><div class="hh">6:30</div><div class="hb">羽田空港T2着。子連れは早めに保安検査。朝食は出発ロビーで軽く。</div></div>
             <div class="hrow"><div class="hh">7:55</div><div class="hb"><b>NH791 出発</b> → 機内で仮眠/おやつ。</div></div>
             <div class="hrow"><div class="hh">9:30</div><div class="hb">大分空港着・手荷物受取。トイレ＆飲み物を準備。</div></div>
             <div class="hrow"><div class="hh">10:00</div><div class="hb"><span class="mv">移動：</span>空港バスで由布院へ（約55分）。<span class="sug">提案：大分空港発「由布院行き直行リムジン」を予約しておくと座れて確実</span></div></div>
             <div class="hrow"><div class="hh">11:00</div><div class="hb">由布院着。荷物は宿に先に預ける（チェックイン前でもOK）。</div></div>
-            <div class="hrow"><div class="hh">11:30</div><div class="hb"><span class="mv">移動：</span>タクシーでアルテジオへ（約10〜15分）。</div></div>
-            <div class="hrow"><div class="hh">11:45</div><div class="hb"><b>空想の森アルテジオ</b> 見学＋<b>théomurata</b>（茶葉ショコラ・柚子トリュフ）。</div></div>
-            <div class="hrow"><div class="hh">12:15</div><div class="hb"><b>ランチ：tea room the theo</b>（アルテジオ内）🍽️ <span class="sug">火曜はランチ提供が限られる場合あり→電話確認・予約推奨 0977-28-8686。NGなら茶＆ケーキにして昼は心/食べ歩きで</span></div></div>
-            <div class="hrow"><div class="hh">13:30</div><div class="hb"><span class="mv">移動：</span>タクシーで金鱗湖へ。<span class="sug">退店時にお店から配車を頼んでおくと待ち減</span></div></div>
-            <div class="hrow"><div class="hh">13:45</div><div class="hb">金鱗湖さんぽ＋<b>CAFE LA RUCHE</b>（湖畔のカフェ）。<span class="sug">水曜定休なので“今日”／L.O.16:00</span></div></div>
-            <div class="hrow"><div class="hh">15:00</div><div class="hb"><b>COMICO ART MUSEUM YUFUIN</b> 🎨 隈研吾建築＋現代アート（中心部・最終入場16:00）。<span class="sug">オンライン予約で1,500円（当日1,700円）</span></div></div>
-            <div class="hrow"><div class="hh">16:30</div><div class="hb"><b>チェックイン</b>・温泉でひと息。</div></div>
+            <div class="hrow"><div class="hh">11:30</div><div class="hb"><b>COMICO ART MUSEUM YUFUIN</b> 🎨 隈研吾建築＋現代アート（中心部・最終入場16:00）。<span class="sug">オンライン予約で1,500円（当日1,700円）</span></div></div>
+            <div class="hrow"><div class="hh">13:00</div><div class="hb"><b>ランチ（道中）</b>🍽️ 中心部〜アルテジオ方面で。<span class="sug">由布まぶし 心（地鶏/豊後牛まぶし）／とり天「陽だまり」など</span></div></div>
+            <div class="hrow"><div class="hh">14:15</div><div class="hb"><span class="mv">移動：</span>タクシーでアルテジオへ（約10〜15分）。<span class="sug">お店から配車を頼んでおくと待ち減</span></div></div>
+            <div class="hrow"><div class="hh">14:30</div><div class="hb"><b>空想の森アルテジオ</b> 見学＋<b>théomurata</b>（茶葉ショコラ・柚子トリュフ）＋<b>tea room the theo でカフェ</b>☕ <span class="sug">カフェ利用なら火曜もOK／L.O.16:30</span></div></div>
+            <div class="hrow"><div class="hh">16:45</div><div class="hb"><b>チェックイン</b>・温泉でひと息。</div></div>
             <div class="hrow"><div class="hh">18:00</div><div class="hb">宿の夕食（会席）。食後は貸切風呂や星空さんぽ。</div></div>
-            <div class="memo"><i class="fa-solid fa-triangle-exclamation"></i><span><b>水曜定休に注意：</b>COMICO（隔週水曜休）・アルテジオ・CAFE LA RUCHE は<b>8/19(水)が休みの可能性</b>。アート2館とLA RUCHEは初日(8/18火)にまとめています。</span></div>
+            <div class="memo"><i class="fa-solid fa-triangle-exclamation"></i><span><b>水曜定休に注意：</b>COMICO（隔週水曜休）・アルテジオは<b>8/19(水)が休みの可能性</b>。アート2館は初日(8/18火)に。<b>CAFE LA RUCHE（金鱗湖畔・水曜休）</b>も行くなら時間が許せば初日に組み込みを。</span></div>
             <div class="memo"><i class="fa-solid fa-taxi"></i><span><b>由布院のタクシーは流しが少なめ</b>。アルテジオは少し離れているのでタクシー必須。お店・宿に呼んでもらうのが確実（配車に時間がかかることあり）。</span></div>
+            </div>
         </div>
 
         <!-- D2 -->
-        <div class="flex items-center gap-2 mb-2"><span class="day-pill" style="background:#f59e0b">2日目</span><h3 class="font-bold text-slate-700">8/19(水)　湯の坪街道 食べ歩き＆のんびり</h3></div>
-        <div class="bg-white rounded-2xl shadow-sm p-4 mb-4">
+        <div class="day" id="d2" style="--c:#f59e0b">
+            <button class="day-head" onclick="toggleDay('d2')">
+                <span class="day-pill" style="background:#f59e0b">2日目</span>
+                <span class="day-ttl">8/19(水)　湯の坪街道 食べ歩き＆のんびり</span>
+                <i class="fa-solid fa-chevron-down chev"></i>
+            </button>
+            <div class="day-sub">
+                <span class="stay-chip"><i class="fa-solid fa-bed"></i> 由布院（2泊目）</span>
+                <a class="qlink qlink-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=由布院温泉"><i class="fa-solid fa-map-location-dot"></i> マップ</a>
+                <a class="qlink qlink-wx" target="_blank" href="https://www.google.com/search?q=由布院+天気"><i class="fa-solid fa-cloud-sun"></i> 天気</a>
+            </div>
+            <div class="day-body">
             <div class="hrow"><div class="hh">7:00</div><div class="hb"><span class="sug">提案：早朝の金鱗湖さんぽ</span>人が少なく静か。朝の涼しい時間に。</div></div>
             <div class="hrow"><div class="hh">8:30</div><div class="hb">朝食、朝風呂。午前はゆっくり。</div></div>
             <div class="hrow"><div class="hh">10:30</div><div class="hb"><b>湯の坪街道で食べ歩き</b> 🍩 <b>由布院 金賞コロッケ</b>／<b>由布院ミルヒ</b>（ケーゼクーヘン＆ドーナツ）／スヌーピー茶屋・雑貨店。</div></div>
@@ -279,11 +238,22 @@
             <div class="hrow"><div class="hh">14:00</div><div class="hb"><b>のんびり枠</b>（ママ向け）。宿に戻って温泉・昼寝・貸切風呂。</div></div>
             <div class="hrow"><div class="hh">18:00</div><div class="hb">夕食。明日の移動に備えて軽く荷物整理。</div></div>
             <div class="memo"><i class="fa-solid fa-circle-check"></i><span>この日(水)に回す店は<b>水曜も営業</b>（B-speak・ミルヒ・金賞コロッケ・陽だまり）。水曜定休のアート2館・La Rucheは初日に済ませる前提。</span></div>
+            </div>
         </div>
 
         <!-- D3 -->
-        <div class="flex items-center gap-2 mb-2"><span class="day-pill" style="background:#10b981">3日目</span><h3 class="font-bold text-slate-700">8/20(木)　由布院→別府・杉乃井</h3></div>
-        <div class="bg-white rounded-2xl shadow-sm p-4 mb-4">
+        <div class="day" id="d3" style="--c:#10b981">
+            <button class="day-head" onclick="toggleDay('d3')">
+                <span class="day-pill" style="background:#10b981">3日目</span>
+                <span class="day-ttl">8/20(木)　由布院→別府・杉乃井</span>
+                <i class="fa-solid fa-chevron-down chev"></i>
+            </button>
+            <div class="day-sub">
+                <span class="stay-chip"><i class="fa-solid fa-bed"></i> 杉乃井ホテル（3泊目）</span>
+                <a class="qlink qlink-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=杉乃井ホテル+別府"><i class="fa-solid fa-map-location-dot"></i> マップ</a>
+                <a class="qlink qlink-wx" target="_blank" href="https://www.google.com/search?q=別府+天気"><i class="fa-solid fa-cloud-sun"></i> 天気</a>
+            </div>
+            <div class="day-body">
             <div class="hrow"><div class="hh">8:00</div><div class="hb">朝食・チェックアウト準備。</div></div>
             <div class="hrow"><div class="hh">9:30</div><div class="hb">最後の由布院さんぽ＆お土産（駅周辺）。</div></div>
             <div class="hrow"><div class="hh">11:00</div><div class="hb"><span class="mv">移動：</span>由布院駅 →（ゆふりん or JR久大本線）別府、約1時間10分。<span class="sug">木曜は「ゆふりん」運休の可能性 → 普通列車で由布院→大分→別府の乗継も候補</span></div></div>
@@ -293,11 +263,22 @@
             <div class="hrow"><div class="hh">16:30</div><div class="hb">チェックイン。名物「棚湯」で別府湾を一望。</div></div>
             <div class="hrow"><div class="hh">18:30</div><div class="hb">夕食（ビュッフェ「Seeds」など）。</div></div>
             <div class="hrow"><div class="hh">20:00</div><div class="hb"><span class="sug">提案：夜の噴水ショー／ゲームコーナー</span>子ども大満足の夜。</div></div>
+            </div>
         </div>
 
         <!-- D4 -->
-        <div class="flex items-center gap-2 mb-2"><span class="day-pill" style="background:#8b5cf6">4日目</span><h3 class="font-bold text-slate-700">8/21(金)　いちろく号で久留米へ</h3></div>
-        <div class="bg-white rounded-2xl shadow-sm p-4 mb-4">
+        <div class="day" id="d4" style="--c:#8b5cf6">
+            <button class="day-head" onclick="toggleDay('d4')">
+                <span class="day-pill" style="background:#8b5cf6">4日目</span>
+                <span class="day-ttl">8/21(金)　いちろく号で久留米へ</span>
+                <i class="fa-solid fa-chevron-down chev"></i>
+            </button>
+            <div class="day-sub">
+                <span class="stay-chip"><i class="fa-solid fa-house"></i> 久留米 実家（4泊目）</span>
+                <a class="qlink qlink-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=久留米市大善寺町"><i class="fa-solid fa-map-location-dot"></i> マップ</a>
+                <a class="qlink qlink-wx" target="_blank" href="https://www.google.com/search?q=久留米+天気"><i class="fa-solid fa-cloud-sun"></i> 天気</a>
+            </div>
+            <div class="day-body">
             <div class="hrow"><div class="hh">7:30</div><div class="hb">朝食。<span class="sug">提案：朝のうちに棚湯にもう一度</span></div></div>
             <div class="hrow"><div class="hh">9:00</div><div class="hb">荷造り・最終チェック（前夜にほぼ済ませておく）。</div></div>
             <div class="hrow"><div class="hh">9:40</div><div class="hb"><b>チェックアウト</b>（10時前厳守）→ シャトルで別府駅へ。</div></div>
@@ -306,22 +287,44 @@
             <div class="hrow"><div class="hh">14:57</div><div class="hb">久留米着。</div></div>
             <div class="hrow"><div class="hh">15:30</div><div class="hb"><span class="mv">移動：</span>大善寺へ（西鉄久留米→西鉄大善寺 約10分、または家族の迎え）。<b>実家入り</b>。</div></div>
             <div class="hrow"><div class="hh">夕</div><div class="hb">実家でゆっくり。久留米ラーメンや焼き鳥も◎。</div></div>
+            </div>
         </div>
 
         <!-- D5 -->
-        <div class="flex items-center gap-2 mb-2"><span class="day-pill" style="background:#ec4899">5日目</span><h3 class="font-bold text-slate-700">8/22(土)　久留米 実家（フリー）</h3></div>
-        <div class="bg-white rounded-2xl shadow-sm p-4 mb-4">
+        <div class="day" id="d5" style="--c:#ec4899">
+            <button class="day-head" onclick="toggleDay('d5')">
+                <span class="day-pill" style="background:#ec4899">5日目</span>
+                <span class="day-ttl">8/22(土)　久留米 実家（フリー）</span>
+                <i class="fa-solid fa-chevron-down chev"></i>
+            </button>
+            <div class="day-sub">
+                <span class="stay-chip"><i class="fa-solid fa-house"></i> 久留米 実家（5泊目）</span>
+                <a class="qlink qlink-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=久留米市大善寺町"><i class="fa-solid fa-map-location-dot"></i> マップ</a>
+                <a class="qlink qlink-wx" target="_blank" href="https://www.google.com/search?q=久留米+天気"><i class="fa-solid fa-cloud-sun"></i> 天気</a>
+            </div>
+            <div class="day-body">
             <div class="hrow"><div class="hh">午前</div><div class="hb">実家でのんびり。子どもは祖父母とゆっくり。</div></div>
             <div class="hrow"><div class="hh">10:30</div><div class="hb"><span class="sug">提案A（近場・子連れ最適）：柳川川下り＋うなぎせいろ蒸し</span>大善寺から西鉄で柳川まで約15〜20分。</div></div>
             <div class="hrow"><div class="hh">10:30</div><div class="hb"><span class="sug">提案B（市内）：石橋文化センター／北野天満宮</span>移動少なめでのんびり派向け。</div></div>
             <div class="hrow"><div class="hh">10:30</div><div class="hb"><span class="sug">提案C（遠出）：福岡アンパンマンこどもミュージアム</span>西鉄で天神へ約40分、雨でも安心。</div></div>
             <div class="hrow"><div class="hh">16:00</div><div class="hb">実家に戻りゆっくり。明日の荷造りを少しだけ。</div></div>
             <div class="hrow"><div class="hh">夜</div><div class="hb">家族での夕食。お土産の買い忘れチェック。</div></div>
+            </div>
         </div>
 
         <!-- D6 -->
-        <div class="flex items-center gap-2 mb-2"><span class="day-pill" style="background:#6366f1">6日目</span><h3 class="font-bold text-slate-700">8/23(日)　福岡→羽田で帰宅</h3></div>
-        <div class="bg-white rounded-2xl shadow-sm p-4">
+        <div class="day" id="d6" style="--c:#6366f1">
+            <button class="day-head" onclick="toggleDay('d6')">
+                <span class="day-pill" style="background:#6366f1">6日目</span>
+                <span class="day-ttl">8/23(日)　福岡→羽田で帰宅</span>
+                <i class="fa-solid fa-chevron-down chev"></i>
+            </button>
+            <div class="day-sub">
+                <span class="stay-chip" style="color:#3730a3;background:#eef2ff;border-color:#c7d2fe"><i class="fa-solid fa-plane-departure"></i> 帰宅日</span>
+                <a class="qlink qlink-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=福岡空港"><i class="fa-solid fa-map-location-dot"></i> マップ</a>
+                <a class="qlink qlink-wx" target="_blank" href="https://www.google.com/search?q=福岡+天気"><i class="fa-solid fa-cloud-sun"></i> 天気</a>
+            </div>
+            <div class="day-body">
             <div class="hrow"><div class="hh">8:00</div><div class="hb">朝食・荷造り仕上げ。</div></div>
             <div class="hrow"><div class="hh">10:00</div><div class="hb">実家で午前ゆっくり、見送り。</div></div>
             <div class="hrow"><div class="hh">12:00</div><div class="hb"><b>久留米を出発</b>（遅くとも12:30〜13時）。<span class="mv">移動：</span><span class="sug">提案：西鉄大善寺→西鉄福岡(天神)約50分→地下鉄で福岡空港11分</span></div></div>
@@ -329,6 +332,7 @@
             <div class="hrow"><div class="hh">14:20</div><div class="hb">保安検査・搭乗口へ（Uターン期で混むため早め）。</div></div>
             <div class="hrow"><div class="hh">15:10</div><div class="hb"><b>NH258 出発</b> ✈️</div></div>
             <div class="hrow"><div class="hh">17:10</div><div class="hb">羽田着。おつかれさまでした！</div></div>
+            </div>
         </div>
     </section>
 
@@ -386,6 +390,35 @@
         <p class="font-bold text-lg">約 2.9万 余裕</p>
     </div>
 </div>
+
+<!-- トップへ戻る -->
+<button id="backtop" class="backtop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="トップへ戻る"><i class="fa-solid fa-arrow-up"></i></button>
+
+<script>
+    function toggleDay(id){ document.getElementById(id).classList.toggle('collapsed'); }
+    function setAll(collapsed){ document.querySelectorAll('.day').forEach(d=>d.classList.toggle('collapsed', collapsed)); }
+
+    // トップへ戻るボタンの表示制御
+    window.addEventListener('scroll', function(){
+        document.getElementById('backtop').classList.toggle('show', window.scrollY > 500);
+    });
+
+    // 旅行期間中は「今日」を自動でハイライト＆スクロール
+    (function(){
+        var map={'2026-8-18':'d1','2026-8-19':'d2','2026-8-20':'d3','2026-8-21':'d4','2026-8-22':'d5','2026-8-23':'d6'};
+        var t=new Date();
+        var key=t.getFullYear()+'-'+(t.getMonth()+1)+'-'+t.getDate();
+        var id=map[key];
+        if(id){
+            var el=document.getElementById(id);
+            el.classList.add('today');
+            var head=el.querySelector('.day-head');
+            var b=document.createElement('span'); b.className='today-badge'; b.textContent='今日';
+            head.insertBefore(b, head.querySelector('.chev'));
+            setTimeout(function(){ el.scrollIntoView({behavior:'smooth',block:'start'}); }, 300);
+        }
+    })();
+</script>
 
 </body>
 </html>
