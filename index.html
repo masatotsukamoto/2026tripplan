@@ -60,6 +60,15 @@
         .tip i { color:#f59e0b; margin-top:2px; }
         .req { display:flex; align-items:center; gap:10px; padding:10px 12px; background:#fff; border-radius:12px; margin-bottom:8px; box-shadow:0 1px 2px rgba(0,0,0,.04); }
         .req .ok { color:#16a34a; font-size:18px; }
+
+        /* 1時間ごと */
+        .hrow { display:flex; gap:10px; padding:8px 2px; border-bottom:1px solid #f1f5f9; }
+        .hrow:last-child { border-bottom:none; }
+        .hrow .hh { flex:0 0 46px; font-size:12px; font-weight:700; color:#0e7490; padding-top:1px; }
+        .hrow .hb { flex:1; font-size:13px; color:#475569; line-height:1.45; }
+        .hrow .hb b { color:#1e293b; }
+        .hrow .sug { display:inline-block; font-size:10.5px; font-weight:700; color:#7c3aed; background:#f5f3ff; border-radius:6px; padding:1px 6px; margin-left:4px; }
+        .hrow .mv  { color:#0891b2; font-weight:600; }
     </style>
 </head>
 <body>
@@ -228,6 +237,92 @@
                 </div>
             </div>
             <div class="memo"><i class="fa-solid fa-triangle-exclamation"></i><span>復路は福岡15:10発。お盆Uターンと重なるため、<b>遅くとも12:30〜13時には久留米を出発</b>。実家の朝はゆっくりできます。</span></div>
+        </div>
+    </section>
+
+    <!-- ===== 1時間ごとの詳細プラン ===== -->
+    <section class="fade-in">
+        <div class="sec-head"><span class="text-xl">🕐</span><h2>1時間ごとの詳細プラン（一案）</h2></div>
+        <div class="bg-violet-50 border border-violet-200 rounded-2xl p-3 mb-3 flex gap-2">
+            <i class="fa-solid fa-wand-magic-sparkles text-violet-500 mt-0.5"></i>
+            <p class="text-xs text-violet-800">あくまで叩き台です。時刻は目安、当日の天気・子どもの体調・気分で柔軟に。<span class="sug">紫タグ</span>は私からの「寄り道・移動手段」の提案です。</p>
+        </div>
+
+        <!-- D1 -->
+        <div class="flex items-center gap-2 mb-2"><span class="day-pill" style="background:#0ea5e9">1日目</span><h3 class="font-bold text-slate-700">8/18(火)　羽田→大分→由布院</h3></div>
+        <div class="bg-white rounded-2xl shadow-sm p-4 mb-4">
+            <div class="hrow"><div class="hh">6:30</div><div class="hb">羽田空港T2着。子連れは早めに保安検査。朝食は出発ロビーで軽く。</div></div>
+            <div class="hrow"><div class="hh">7:55</div><div class="hb"><b>NH791 出発</b> → 機内で仮眠/おやつ。</div></div>
+            <div class="hrow"><div class="hh">9:30</div><div class="hb">大分空港着・手荷物受取。トイレ＆飲み物を準備。</div></div>
+            <div class="hrow"><div class="hh">10:00</div><div class="hb"><span class="mv">移動：</span>空港バスで由布院へ（約55分）。<span class="sug">提案：大分空港発「由布院行き直行リムジン」を予約しておくと座れて確実</span></div></div>
+            <div class="hrow"><div class="hh">11:00</div><div class="hb">由布院着。荷物は宿に先に預ける（チェックイン前でもOK）。</div></div>
+            <div class="hrow"><div class="hh">11:30</div><div class="hb">昼食：豊後牛や地鶏、または湯の坪街道の食べ歩き。</div></div>
+            <div class="hrow"><div class="hh">13:00</div><div class="hb">金鱗湖さんぽ＋湯の坪街道のショップ巡り。</div></div>
+            <div class="hrow"><div class="hh">14:00</div><div class="hb">のんびり枠。<span class="sug">提案：由布院駅前の「観光辻馬車」（約50分）か、ステンドグラス美術館</span></div></div>
+            <div class="hrow"><div class="hh">15:00</div><div class="hb"><b>チェックイン</b>・温泉でひと息。</div></div>
+            <div class="hrow"><div class="hh">18:00</div><div class="hb">宿の夕食（会席）。食後は貸切風呂や星空さんぽ。</div></div>
+        </div>
+
+        <!-- D2 -->
+        <div class="flex items-center gap-2 mb-2"><span class="day-pill" style="background:#f59e0b">2日目</span><h3 class="font-bold text-slate-700">8/19(水)　由布院でのんびり</h3></div>
+        <div class="bg-white rounded-2xl shadow-sm p-4 mb-4">
+            <div class="hrow"><div class="hh">7:00</div><div class="hb"><span class="sug">提案：早朝の金鱗湖さんぽ</span>朝靄が幻想的（夏は出にくいが朝の涼しさが気持ちいい）。</div></div>
+            <div class="hrow"><div class="hh">8:30</div><div class="hb">朝食、朝風呂。午前はゆっくり。</div></div>
+            <div class="hrow"><div class="hh">10:30</div><div class="hb">由布院アート巡り。<span class="sug">提案：COMICO ART MUSEUM／空想の森アルテジオ</span></div></div>
+            <div class="hrow"><div class="hh">12:00</div><div class="hb">昼食：カフェランチ（チーズケーキやプリンの名店も）。</div></div>
+            <div class="hrow"><div class="hh">13:30</div><div class="hb"><span class="sug">提案：狭霧台までタクシーで由布岳ビュー</span>or 宿に戻ってプール/温泉。</div></div>
+            <div class="hrow"><div class="hh">15:00</div><div class="hb"><b>のんびり枠</b>（ママ向け）。読書・昼寝・貸切風呂。</div></div>
+            <div class="hrow"><div class="hh">18:00</div><div class="hb">夕食。明日の移動に備えて軽く荷物整理。</div></div>
+        </div>
+
+        <!-- D3 -->
+        <div class="flex items-center gap-2 mb-2"><span class="day-pill" style="background:#10b981">3日目</span><h3 class="font-bold text-slate-700">8/20(木)　由布院→別府・杉乃井</h3></div>
+        <div class="bg-white rounded-2xl shadow-sm p-4 mb-4">
+            <div class="hrow"><div class="hh">8:00</div><div class="hb">朝食・チェックアウト準備。</div></div>
+            <div class="hrow"><div class="hh">9:30</div><div class="hb">最後の由布院さんぽ＆お土産（駅周辺）。</div></div>
+            <div class="hrow"><div class="hh">11:00</div><div class="hb"><span class="mv">移動：</span>由布院駅 →（ゆふりん or JR久大本線）別府、約1時間10分。<span class="sug">木曜は「ゆふりん」運休の可能性 → 普通列車で由布院→大分→別府の乗継も候補</span></div></div>
+            <div class="hrow"><div class="hh">12:30</div><div class="hb">別府着。昼食：とり天・別府冷麺など。</div></div>
+            <div class="hrow"><div class="hh">13:30</div><div class="hb"><span class="mv">移動：</span>別府駅から杉乃井の無料シャトルバス（約15分）。荷物を預ける。</div></div>
+            <div class="hrow"><div class="hh">14:00</div><div class="hb"><b>アクアビートでプール</b>（娘たち本番）🏊</div></div>
+            <div class="hrow"><div class="hh">16:30</div><div class="hb">チェックイン。名物「棚湯」で別府湾を一望。</div></div>
+            <div class="hrow"><div class="hh">18:30</div><div class="hb">夕食（ビュッフェ「Seeds」など）。</div></div>
+            <div class="hrow"><div class="hh">20:00</div><div class="hb"><span class="sug">提案：夜の噴水ショー／ゲームコーナー</span>子ども大満足の夜。</div></div>
+        </div>
+
+        <!-- D4 -->
+        <div class="flex items-center gap-2 mb-2"><span class="day-pill" style="background:#8b5cf6">4日目</span><h3 class="font-bold text-slate-700">8/21(金)　いちろく号で久留米へ</h3></div>
+        <div class="bg-white rounded-2xl shadow-sm p-4 mb-4">
+            <div class="hrow"><div class="hh">7:30</div><div class="hb">朝食。<span class="sug">提案：朝のうちに棚湯にもう一度</span></div></div>
+            <div class="hrow"><div class="hh">9:00</div><div class="hb">荷造り・最終チェック（前夜にほぼ済ませておく）。</div></div>
+            <div class="hrow"><div class="hh">9:40</div><div class="hb"><b>チェックアウト</b>（10時前厳守）→ シャトルで別府駅へ。</div></div>
+            <div class="hrow"><div class="hh">10:15</div><div class="hb">別府駅着。お土産・トイレ・ホーム移動を余裕を持って。</div></div>
+            <div class="hrow"><div class="hh">11:00</div><div class="hb"><b>いちろく号 別府発</b> 🚆 車内で食事・車窓を満喫（パパの目玉）。</div></div>
+            <div class="hrow"><div class="hh">14:57</div><div class="hb">久留米着。</div></div>
+            <div class="hrow"><div class="hh">15:30</div><div class="hb"><span class="mv">移動：</span>大善寺へ（西鉄久留米→西鉄大善寺 約10分、または家族の迎え）。<b>実家入り</b>。</div></div>
+            <div class="hrow"><div class="hh">夕</div><div class="hb">実家でゆっくり。久留米ラーメンや焼き鳥も◎。</div></div>
+        </div>
+
+        <!-- D5 -->
+        <div class="flex items-center gap-2 mb-2"><span class="day-pill" style="background:#ec4899">5日目</span><h3 class="font-bold text-slate-700">8/22(土)　久留米 実家（フリー）</h3></div>
+        <div class="bg-white rounded-2xl shadow-sm p-4 mb-4">
+            <div class="hrow"><div class="hh">午前</div><div class="hb">実家でのんびり。子どもは祖父母とゆっくり。</div></div>
+            <div class="hrow"><div class="hh">10:30</div><div class="hb"><span class="sug">提案A（近場・子連れ最適）：柳川川下り＋うなぎせいろ蒸し</span>大善寺から西鉄で柳川まで約15〜20分。</div></div>
+            <div class="hrow"><div class="hh">10:30</div><div class="hb"><span class="sug">提案B（市内）：石橋文化センター／北野天満宮</span>移動少なめでのんびり派向け。</div></div>
+            <div class="hrow"><div class="hh">10:30</div><div class="hb"><span class="sug">提案C（遠出）：福岡アンパンマンこどもミュージアム</span>西鉄で天神へ約40分、雨でも安心。</div></div>
+            <div class="hrow"><div class="hh">16:00</div><div class="hb">実家に戻りゆっくり。明日の荷造りを少しだけ。</div></div>
+            <div class="hrow"><div class="hh">夜</div><div class="hb">家族での夕食。お土産の買い忘れチェック。</div></div>
+        </div>
+
+        <!-- D6 -->
+        <div class="flex items-center gap-2 mb-2"><span class="day-pill" style="background:#6366f1">6日目</span><h3 class="font-bold text-slate-700">8/23(日)　福岡→羽田で帰宅</h3></div>
+        <div class="bg-white rounded-2xl shadow-sm p-4">
+            <div class="hrow"><div class="hh">8:00</div><div class="hb">朝食・荷造り仕上げ。</div></div>
+            <div class="hrow"><div class="hh">10:00</div><div class="hb">実家で午前ゆっくり、見送り。</div></div>
+            <div class="hrow"><div class="hh">12:00</div><div class="hb"><b>久留米を出発</b>（遅くとも12:30〜13時）。<span class="mv">移動：</span><span class="sug">提案：西鉄大善寺→西鉄福岡(天神)約50分→地下鉄で福岡空港11分</span></div></div>
+            <div class="hrow"><div class="hh">13:30</div><div class="hb">福岡空港着。昼食（「ラーメン滑走路」等）・最後のお土産。</div></div>
+            <div class="hrow"><div class="hh">14:20</div><div class="hb">保安検査・搭乗口へ（Uターン期で混むため早め）。</div></div>
+            <div class="hrow"><div class="hh">15:10</div><div class="hb"><b>NH258 出発</b> ✈️</div></div>
+            <div class="hrow"><div class="hh">17:10</div><div class="hb">羽田着。おつかれさまでした！</div></div>
         </div>
     </section>
 
