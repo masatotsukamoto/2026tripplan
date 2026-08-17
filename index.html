@@ -91,11 +91,73 @@
         /* 1時間ごと */
         .hrow { display:flex; gap:10px; padding:8px 2px; border-bottom:1px solid #f1f5f9; }
         .hrow:last-child { border-bottom:none; }
-        .hrow .hh { flex:0 0 46px; font-size:12px; font-weight:700; color:#0e7490; padding-top:1px; }
+        .hrow .hh { flex:0 0 56px; font-size:12px; font-weight:700; color:#0e7490; padding-top:1px; white-space:nowrap; }
         .hrow .hb { flex:1; min-width:0; font-size:13px; color:#475569; line-height:1.45; word-break:break-word; }
         .hrow .hb b { color:#1e293b; }
         .hrow .sug { display:inline-block; font-size:10.5px; font-weight:700; color:#7c3aed; background:#f5f3ff; border-radius:6px; padding:1px 6px; margin-left:4px; }
         .hrow .mv  { color:#0891b2; font-weight:600; }
+
+        /* ===== いま／進行状況 ===== */
+        .hrow { position:relative; transition:background .3s; border-radius:8px; }
+        .hrow.past { opacity:.45; }
+        .hrow.past .hh::after { content:' ✓'; color:#16a34a; }
+        .hrow.now { background:#fff7ed; box-shadow:inset 0 0 0 2px #fb923c; padding-left:8px; padding-right:8px; opacity:1; }
+        .hrow.now .hh { color:#c2410c; }
+        .hrow.now .hb { color:#1e293b; }
+        .nowtag { display:inline-block; font-size:10px; font-weight:700; color:#fff; background:#f97316;
+                  border-radius:999px; padding:1px 8px; margin-right:6px; animation:blink 1.6s ease-in-out infinite; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.5} }
+        .hrow.next { background:#eff6ff; box-shadow:inset 0 0 0 1.5px #93c5fd; padding-left:8px; padding-right:8px; }
+        .nexttag { display:inline-block; font-size:10px; font-weight:700; color:#fff; background:#3b82f6;
+                   border-radius:999px; padding:1px 8px; margin-right:6px; }
+
+        /* いまここライン */
+        .nowline { display:flex; align-items:center; gap:6px; margin:2px 0; }
+        .nowline .dot { width:9px; height:9px; border-radius:50%; background:#ef4444; box-shadow:0 0 0 4px rgba(239,68,68,.2); animation:pulse 1.8s infinite; }
+        .nowline .bar { flex:1; height:2px; background:linear-gradient(90deg,#ef4444,rgba(239,68,68,.15)); }
+        .nowline .lb { font-size:10px; font-weight:700; color:#ef4444; white-space:nowrap; }
+        @keyframes pulse { 0%,100%{box-shadow:0 0 0 3px rgba(239,68,68,.25)} 50%{box-shadow:0 0 0 7px rgba(239,68,68,0)} }
+
+        /* いまカード */
+        .nowcard { background:linear-gradient(135deg,#0f766e,#0e7490); color:#fff; border-radius:18px; padding:16px; box-shadow:0 4px 14px rgba(13,148,136,.25); }
+        .nowcard .lbl { font-size:11px; font-weight:700; color:#a5f3fc; letter-spacing:.08em; }
+        .nowcard .act { font-size:17px; font-weight:700; line-height:1.4; margin-top:3px; }
+        .nowcard .nx  { margin-top:11px; padding-top:10px; border-top:1px solid rgba(255,255,255,.25); font-size:13px; }
+        .nowcard .cd  { font-size:22px; font-weight:700; }
+        .nowcard .jump { display:inline-flex; align-items:center; gap:5px; margin-top:11px; background:rgba(255,255,255,.2);
+                         border:none; color:#fff; font-family:inherit; font-weight:700; font-size:12px; padding:7px 13px; border-radius:999px; cursor:pointer; }
+
+        /* 旅の進みぐあい */
+        .prog { background:#fff; border-radius:14px; padding:12px 14px; margin-top:10px; box-shadow:0 1px 2px rgba(0,0,0,.05); }
+        .prog .track { position:relative; height:10px; background:#e2e8f0; border-radius:999px; margin:10px 0 4px; }
+        .prog .fill  { height:10px; border-radius:999px; background:linear-gradient(90deg,#22d3ee,#0e7490); transition:width .6s; }
+        .prog .plane { position:absolute; top:-9px; transform:translateX(-50%); font-size:16px; transition:left .6s; }
+
+        /* スタンプラリー（こども向け） */
+        .stamps { display:grid; grid-template-columns:repeat(4,1fr); gap:9px; }
+        .stamp { aspect-ratio:1; border:2.5px dashed #cbd5e1; border-radius:14px; background:#fff; cursor:pointer;
+                 display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; padding:4px;
+                 font-family:inherit; transition:transform .15s; }
+        .stamp:active { transform:scale(.93); }
+        .stamp .em { font-size:23px; filter:grayscale(1); opacity:.35; }
+        .stamp .nm { font-size:9.5px; font-weight:700; color:#94a3b8; line-height:1.2; text-align:center; }
+        .stamp.got { border:2.5px solid #f59e0b; background:#fffbeb; }
+        .stamp.got .em { filter:none; opacity:1; animation:pop .45s ease-out; }
+        .stamp.got .nm { color:#b45309; }
+        @keyframes pop { 0%{transform:scale(.3) rotate(-25deg)} 60%{transform:scale(1.25) rotate(8deg)} 100%{transform:scale(1)} }
+        .kidbox { background:linear-gradient(135deg,#fef3c7,#fee2e2); border-radius:18px; padding:14px; }
+        .kidbox h3 { font-weight:700; color:#b45309; font-size:15px; }
+
+        /* おおきなもじ（こどもモード） */
+        body.kid .hrow .hb { font-size:15px; line-height:1.6; }
+        body.kid .hrow .hh { font-size:13.5px; }
+        body.kid .day-ttl { font-size:15.5px; }
+        body.kid .sug { font-size:12px; }
+        body.kid .memo { font-size:13.5px; }
+        .kidtoggle { display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:700;
+                     border:none; font-family:inherit; padding:5px 11px; border-radius:999px; cursor:pointer;
+                     background:#f1f5f9; color:#64748b; }
+        .kidtoggle.on { background:#fde68a; color:#92400e; }
     </style>
 </head>
 <body>
@@ -121,6 +183,30 @@
 </div>
 
 <div class="max-w-lg mx-auto px-4 mt-6 space-y-7">
+
+    <!-- ===== いま ここ ===== -->
+    <section class="fade-in">
+        <div class="nowcard" id="nowcard">
+            <p class="lbl">🕐 いま の よてい</p>
+            <p class="act" id="nowAct">よみこみちゅう…</p>
+            <div class="nx" id="nowNext"></div>
+            <button class="jump" onclick="jumpNow()"><i class="fa-solid fa-location-crosshairs"></i> いまの ばしょへ</button>
+        </div>
+
+        <div class="prog">
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-slate-500">たびの すすみぐあい</span>
+                <span class="text-xs font-bold text-teal-700" id="progPct">0%</span>
+            </div>
+            <div class="track">
+                <div class="fill" id="progFill" style="width:0%"></div>
+                <span class="plane" id="progPlane" style="left:0%">✈️</span>
+            </div>
+            <div class="flex justify-between text-[10px] text-slate-400">
+                <span>8/18 しゅっぱつ</span><span>8/23 かえる</span>
+            </div>
+        </div>
+    </section>
 
     <!-- ===== フライト ===== -->
     <section class="fade-in">
@@ -173,10 +259,12 @@
             <a href="#d5" style="background:#ec4899">5日目</a>
             <a href="#d6" style="background:#6366f1">6日目</a>
         </div>
-        <div class="flex items-center mb-3">
-            <p class="text-xs text-slate-500 flex-1">時刻は目安。<span class="sug">紫タグ</span>は寄り道・移動手段の提案。<b>日付バーで移動／見出しタップで開閉</b>。</p>
-            <button onclick="setAll(false)" class="text-xs font-bold text-teal-700 bg-teal-50 rounded-lg px-2.5 py-1 ml-2">全部開く</button>
-            <button onclick="setAll(true)" class="text-xs font-bold text-slate-500 bg-slate-100 rounded-lg px-2.5 py-1 ml-1.5">閉じる</button>
+        <p class="text-xs text-slate-500 mb-2">時刻は目安。<span class="sug">紫タグ</span>は寄り道・移動手段の提案。<b>日付バーで移動／見出しタップで開閉</b>。</p>
+        <div class="flex items-center gap-1.5 mb-3 flex-wrap">
+            <button class="kidtoggle" id="kidBtn" onclick="toggleKid()"><i class="fa-solid fa-child-reaching"></i> こどもモード</button>
+            <span class="flex-1"></span>
+            <button onclick="setAll(false)" class="text-xs font-bold text-teal-700 bg-teal-50 rounded-lg px-2.5 py-1">全部開く</button>
+            <button onclick="setAll(true)" class="text-xs font-bold text-slate-500 bg-slate-100 rounded-lg px-2.5 py-1">閉じる</button>
         </div>
 
         <!-- 出発前 -->
@@ -189,7 +277,7 @@
         </div>
 
         <!-- D1 -->
-        <div class="day" id="d1" style="--c:#0ea5e9">
+        <div class="day" id="d1" data-date="2026-08-18" style="--c:#0ea5e9">
             <button class="day-head" onclick="toggleDay('d1')">
                 <span class="day-pill" style="background:#0ea5e9">1日目</span>
                 <span class="day-ttl">8/18(火)　羽田→大分→由布院</span>
@@ -201,24 +289,24 @@
                 <a class="qlink qlink-wx" target="_blank" href="https://www.google.com/search?q=由布院+天気"><i class="fa-solid fa-cloud-sun"></i> 天気</a>
             </div>
             <div class="day-body">
-            <div class="hrow"><div class="hh">6:30</div><div class="hb">羽田空港T2着。子連れは早めに保安検査。朝食は出発ロビーで軽く。</div></div>
-            <div class="hrow"><div class="hh">7:55</div><div class="hb"><b>NH791 出発</b> → 機内で仮眠/おやつ。</div></div>
-            <div class="hrow"><div class="hh">9:30</div><div class="hb">大分空港着・手荷物受取。トイレ＆飲み物を準備。</div></div>
-            <div class="hrow"><div class="hh">10:00</div><div class="hb"><span class="mv">移動：</span>空港バスで由布院へ（約55分）。<span class="sug">提案：大分空港発「由布院行き直行リムジン」を予約しておくと座れて確実</span></div></div>
-            <div class="hrow"><div class="hh">11:00</div><div class="hb">由布院着。荷物は宿に先に預ける（チェックイン前でもOK）。</div></div>
-            <div class="hrow"><div class="hh">11:30</div><div class="hb"><b>COMICO ART MUSEUM YUFUIN</b> 🎨 隈研吾建築＋現代アート（中心部・最終入場16:00）。<span class="sug">オンライン予約で1,500円（当日1,700円）</span></div></div>
-            <div class="hrow"><div class="hh">13:00</div><div class="hb"><b>ランチ（道中）</b>🍽️ 中心部〜アルテジオ方面で。<span class="sug">由布まぶし 心（地鶏/豊後牛まぶし）／とり天「陽だまり」など</span></div></div>
-            <div class="hrow"><div class="hh">14:15</div><div class="hb"><span class="mv">移動：</span>タクシーでアルテジオへ（約10〜15分）。<span class="sug">お店から配車を頼んでおくと待ち減</span></div></div>
-            <div class="hrow"><div class="hh">14:30</div><div class="hb"><b>空想の森アルテジオ</b> 見学＋<b>théomurata</b>（茶葉ショコラ・柚子トリュフ）＋<b>tea room the theo でカフェ</b>☕ <span class="sug">カフェ利用なら火曜もOK／L.O.16:30</span></div></div>
-            <div class="hrow"><div class="hh">16:45</div><div class="hb"><b>チェックイン</b>・温泉でひと息。</div></div>
-            <div class="hrow"><div class="hh">18:00</div><div class="hb">宿の夕食（会席）。食後は貸切風呂や星空さんぽ。</div></div>
+            <div class="hrow" data-t="06:30"><div class="hh">6:30</div><div class="hb">羽田空港T2着。子連れは早めに保安検査。朝食は出発ロビーで軽く。</div></div>
+            <div class="hrow" data-t="07:55"><div class="hh">7:55</div><div class="hb"><b>NH791 出発</b> → 機内で仮眠/おやつ。</div></div>
+            <div class="hrow" data-t="09:30"><div class="hh">9:30</div><div class="hb">大分空港着・手荷物受取。トイレ＆飲み物を準備。</div></div>
+            <div class="hrow" data-t="10:00"><div class="hh">10:00</div><div class="hb"><span class="mv">移動：</span>空港バスで由布院へ（約55分）。<span class="sug">提案：大分空港発「由布院行き直行リムジン」を予約しておくと座れて確実</span></div></div>
+            <div class="hrow" data-t="11:00"><div class="hh">11:00</div><div class="hb">由布院着。荷物は宿に先に預ける（チェックイン前でもOK）。</div></div>
+            <div class="hrow" data-t="11:30"><div class="hh">11:30</div><div class="hb"><b>COMICO ART MUSEUM YUFUIN</b> 🎨 隈研吾建築＋現代アート（中心部・最終入場16:00）。<span class="sug">オンライン予約で1,500円（当日1,700円）</span></div></div>
+            <div class="hrow" data-t="13:00"><div class="hh">13:00</div><div class="hb"><b>ランチ（道中）</b>🍽️ 中心部〜アルテジオ方面で。<span class="sug">由布まぶし 心（地鶏/豊後牛まぶし）／とり天「陽だまり」など</span></div></div>
+            <div class="hrow" data-t="14:15"><div class="hh">14:15</div><div class="hb"><span class="mv">移動：</span>タクシーでアルテジオへ（約10〜15分）。<span class="sug">お店から配車を頼んでおくと待ち減</span></div></div>
+            <div class="hrow" data-t="14:30"><div class="hh">14:30</div><div class="hb"><b>空想の森アルテジオ</b> 見学＋<b>théomurata</b>（茶葉ショコラ・柚子トリュフ）＋<b>tea room the theo でカフェ</b>☕ <span class="sug">カフェ利用なら火曜もOK／L.O.16:30</span></div></div>
+            <div class="hrow" data-t="16:45"><div class="hh">16:45</div><div class="hb"><b>チェックイン</b>・温泉でひと息。</div></div>
+            <div class="hrow" data-t="18:00"><div class="hh">18:00</div><div class="hb">宿の夕食（会席）。食後は貸切風呂や星空さんぽ。</div></div>
             <div class="memo"><i class="fa-solid fa-triangle-exclamation"></i><span><b>水曜定休に注意：</b>COMICO（隔週水曜休）・アルテジオは<b>8/19(水)が休みの可能性</b>。アート2館は初日(8/18火)に。<b>CAFE LA RUCHE（金鱗湖畔・水曜休）</b>も行くなら時間が許せば初日に組み込みを。</span></div>
             <div class="memo"><i class="fa-solid fa-taxi"></i><span><b>由布院のタクシーは流しが少なめ</b>。アルテジオは少し離れているのでタクシー必須。お店・宿に呼んでもらうのが確実（配車に時間がかかることあり）。</span></div>
             </div>
         </div>
 
         <!-- D2 -->
-        <div class="day" id="d2" style="--c:#f59e0b">
+        <div class="day" id="d2" data-date="2026-08-19" style="--c:#f59e0b">
             <button class="day-head" onclick="toggleDay('d2')">
                 <span class="day-pill" style="background:#f59e0b">2日目</span>
                 <span class="day-ttl">8/19(水)　湯の坪街道 食べ歩き＆のんびり</span>
@@ -230,19 +318,19 @@
                 <a class="qlink qlink-wx" target="_blank" href="https://www.google.com/search?q=由布院+天気"><i class="fa-solid fa-cloud-sun"></i> 天気</a>
             </div>
             <div class="day-body">
-            <div class="hrow"><div class="hh">7:00</div><div class="hb"><span class="sug">提案：早朝の金鱗湖さんぽ</span>人が少なく静か。朝の涼しい時間に。</div></div>
-            <div class="hrow"><div class="hh">8:30</div><div class="hb">朝食、朝風呂。午前はゆっくり。</div></div>
-            <div class="hrow"><div class="hh">10:30</div><div class="hb"><b>湯の坪街道で食べ歩き</b> 🍩 <b>由布院 金賞コロッケ</b>／<b>由布院ミルヒ</b>（ケーゼクーヘン＆ドーナツ）／スヌーピー茶屋・雑貨店。</div></div>
-            <div class="hrow"><div class="hh">11:30</div><div class="hb"><b>B-speak で名物「Pロール」</b>。<span class="sug">売切れ必至。電話予約推奨（水曜は基本営業）</span></div></div>
-            <div class="hrow"><div class="hh">12:30</div><div class="hb"><b>ランチ：とり天「陽だまり」</b>大分名物とり天＋だんご汁＋コロッケの定食。駅すぐ。</div></div>
-            <div class="hrow"><div class="hh">14:00</div><div class="hb"><b>のんびり枠</b>（ママ向け）。宿に戻って温泉・昼寝・貸切風呂。</div></div>
-            <div class="hrow"><div class="hh">18:00</div><div class="hb">夕食。明日の移動に備えて軽く荷物整理。</div></div>
+            <div class="hrow" data-t="07:00"><div class="hh">7:00</div><div class="hb"><span class="sug">提案：早朝の金鱗湖さんぽ</span>人が少なく静か。朝の涼しい時間に。</div></div>
+            <div class="hrow" data-t="08:30"><div class="hh">8:30</div><div class="hb">朝食、朝風呂。午前はゆっくり。</div></div>
+            <div class="hrow" data-t="10:30"><div class="hh">10:30</div><div class="hb"><b>湯の坪街道で食べ歩き</b> 🍩 <b>由布院 金賞コロッケ</b>／<b>由布院ミルヒ</b>（ケーゼクーヘン＆ドーナツ）／スヌーピー茶屋・雑貨店。</div></div>
+            <div class="hrow" data-t="11:30"><div class="hh">11:30</div><div class="hb"><b>B-speak で名物「Pロール」</b>。<span class="sug">売切れ必至。電話予約推奨（水曜は基本営業）</span></div></div>
+            <div class="hrow" data-t="12:30"><div class="hh">12:30</div><div class="hb"><b>ランチ：とり天「陽だまり」</b>大分名物とり天＋だんご汁＋コロッケの定食。駅すぐ。</div></div>
+            <div class="hrow" data-t="14:00"><div class="hh">14:00</div><div class="hb"><b>のんびり枠</b>（ママ向け）。宿に戻って温泉・昼寝・貸切風呂。</div></div>
+            <div class="hrow" data-t="18:00"><div class="hh">18:00</div><div class="hb">夕食。明日の移動に備えて軽く荷物整理。</div></div>
             <div class="memo"><i class="fa-solid fa-circle-check"></i><span>この日(水)に回す店は<b>水曜も営業</b>（B-speak・ミルヒ・金賞コロッケ・陽だまり）。水曜定休のアート2館・La Rucheは初日に済ませる前提。</span></div>
             </div>
         </div>
 
         <!-- D3 -->
-        <div class="day" id="d3" style="--c:#10b981">
+        <div class="day" id="d3" data-date="2026-08-20" style="--c:#10b981">
             <button class="day-head" onclick="toggleDay('d3')">
                 <span class="day-pill" style="background:#10b981">3日目</span>
                 <span class="day-ttl">8/20(木)　由布院→別府・杉乃井</span>
@@ -254,20 +342,20 @@
                 <a class="qlink qlink-wx" target="_blank" href="https://www.google.com/search?q=別府+天気"><i class="fa-solid fa-cloud-sun"></i> 天気</a>
             </div>
             <div class="day-body">
-            <div class="hrow"><div class="hh">8:00</div><div class="hb">朝食・チェックアウト準備。</div></div>
-            <div class="hrow"><div class="hh">9:30</div><div class="hb">最後の由布院さんぽ＆お土産（駅周辺）。</div></div>
-            <div class="hrow"><div class="hh">11:00</div><div class="hb"><span class="mv">移動：</span>由布院駅 →（ゆふりん or JR久大本線）別府、約1時間10分。<span class="sug">木曜は「ゆふりん」運休の可能性 → 普通列車で由布院→大分→別府の乗継も候補</span></div></div>
-            <div class="hrow"><div class="hh">12:30</div><div class="hb">別府着。昼食：とり天・別府冷麺など。</div></div>
-            <div class="hrow"><div class="hh">13:30</div><div class="hb"><span class="mv">移動：</span>別府駅から杉乃井の無料シャトルバス（約15分）。荷物を預ける。</div></div>
-            <div class="hrow"><div class="hh">14:00</div><div class="hb"><b>アクアビートでプール</b>（娘たち本番）🏊</div></div>
-            <div class="hrow"><div class="hh">16:30</div><div class="hb">チェックイン。名物「棚湯」で別府湾を一望。</div></div>
-            <div class="hrow"><div class="hh">18:30</div><div class="hb">夕食（ビュッフェ「Seeds」など）。</div></div>
-            <div class="hrow"><div class="hh">20:00</div><div class="hb"><span class="sug">提案：夜の噴水ショー／ゲームコーナー</span>子ども大満足の夜。</div></div>
+            <div class="hrow" data-t="08:00"><div class="hh">8:00</div><div class="hb">朝食・チェックアウト準備。</div></div>
+            <div class="hrow" data-t="09:30"><div class="hh">9:30</div><div class="hb">最後の由布院さんぽ＆お土産（駅周辺）。</div></div>
+            <div class="hrow" data-t="11:00"><div class="hh">11:00</div><div class="hb"><span class="mv">移動：</span>由布院駅 →（ゆふりん or JR久大本線）別府、約1時間10分。<span class="sug">木曜は「ゆふりん」運休の可能性 → 普通列車で由布院→大分→別府の乗継も候補</span></div></div>
+            <div class="hrow" data-t="12:30"><div class="hh">12:30</div><div class="hb">別府着。昼食：とり天・別府冷麺など。</div></div>
+            <div class="hrow" data-t="13:30"><div class="hh">13:30</div><div class="hb"><span class="mv">移動：</span>別府駅から杉乃井の無料シャトルバス（約15分）。荷物を預ける。</div></div>
+            <div class="hrow" data-t="14:00"><div class="hh">14:00</div><div class="hb"><b>アクアビートでプール</b>（娘たち本番）🏊</div></div>
+            <div class="hrow" data-t="16:30"><div class="hh">16:30</div><div class="hb">チェックイン。名物「棚湯」で別府湾を一望。</div></div>
+            <div class="hrow" data-t="18:30"><div class="hh">18:30</div><div class="hb">夕食（ビュッフェ「Seeds」など）。</div></div>
+            <div class="hrow" data-t="20:00"><div class="hh">20:00</div><div class="hb"><span class="sug">提案：夜の噴水ショー／ゲームコーナー</span>子ども大満足の夜。</div></div>
             </div>
         </div>
 
         <!-- D4 -->
-        <div class="day" id="d4" style="--c:#8b5cf6">
+        <div class="day" id="d4" data-date="2026-08-21" style="--c:#8b5cf6">
             <button class="day-head" onclick="toggleDay('d4')">
                 <span class="day-pill" style="background:#8b5cf6">4日目</span>
                 <span class="day-ttl">8/21(金)　いちろく号で久留米へ</span>
@@ -279,19 +367,19 @@
                 <a class="qlink qlink-wx" target="_blank" href="https://www.google.com/search?q=久留米+天気"><i class="fa-solid fa-cloud-sun"></i> 天気</a>
             </div>
             <div class="day-body">
-            <div class="hrow"><div class="hh">7:30</div><div class="hb">朝食。<span class="sug">提案：朝のうちに棚湯にもう一度</span></div></div>
-            <div class="hrow"><div class="hh">9:00</div><div class="hb">荷造り・最終チェック（前夜にほぼ済ませておく）。</div></div>
-            <div class="hrow"><div class="hh">9:40</div><div class="hb"><b>チェックアウト</b>（10時前厳守）→ シャトルで別府駅へ。</div></div>
-            <div class="hrow"><div class="hh">10:15</div><div class="hb">別府駅着。お土産・トイレ・ホーム移動を余裕を持って。</div></div>
-            <div class="hrow"><div class="hh">11:00</div><div class="hb"><b>いちろく号 別府発</b> 🚆 車内で食事・車窓を満喫（パパの目玉）。</div></div>
-            <div class="hrow"><div class="hh">14:57</div><div class="hb">久留米着。</div></div>
-            <div class="hrow"><div class="hh">15:30</div><div class="hb"><span class="mv">移動：</span>大善寺へ（西鉄久留米→西鉄大善寺 約10分、または家族の迎え）。<b>実家入り</b>。</div></div>
-            <div class="hrow"><div class="hh">夕</div><div class="hb">実家でゆっくり。久留米ラーメンや焼き鳥も◎。</div></div>
+            <div class="hrow" data-t="07:30"><div class="hh">7:30</div><div class="hb">朝食。<span class="sug">提案：朝のうちに棚湯にもう一度</span></div></div>
+            <div class="hrow" data-t="09:00"><div class="hh">9:00</div><div class="hb">荷造り・最終チェック（前夜にほぼ済ませておく）。</div></div>
+            <div class="hrow" data-t="09:40"><div class="hh">9:40</div><div class="hb"><b>チェックアウト</b>（10時前厳守）→ シャトルで別府駅へ。</div></div>
+            <div class="hrow" data-t="10:15"><div class="hh">10:15</div><div class="hb">別府駅着。お土産・トイレ・ホーム移動を余裕を持って。</div></div>
+            <div class="hrow" data-t="11:00"><div class="hh">11:00</div><div class="hb"><b>いちろく号 別府発</b> 🚆 車内で食事・車窓を満喫（パパの目玉）。</div></div>
+            <div class="hrow" data-t="14:57"><div class="hh">14:57</div><div class="hb">久留米着。</div></div>
+            <div class="hrow" data-t="15:30"><div class="hh">15:30</div><div class="hb"><span class="mv">移動：</span>大善寺へ（西鉄久留米→西鉄大善寺 約10分、または家族の迎え）。<b>実家入り</b>。</div></div>
+            <div class="hrow" data-t="18:00"><div class="hh">夕</div><div class="hb">実家でゆっくり。久留米ラーメンや焼き鳥も◎。</div></div>
             </div>
         </div>
 
         <!-- D5 -->
-        <div class="day" id="d5" style="--c:#ec4899">
+        <div class="day" id="d5" data-date="2026-08-22" style="--c:#ec4899">
             <button class="day-head" onclick="toggleDay('d5')">
                 <span class="day-pill" style="background:#ec4899">5日目</span>
                 <span class="day-ttl">8/22(土)　久留米 実家（フリー）</span>
@@ -303,17 +391,17 @@
                 <a class="qlink qlink-wx" target="_blank" href="https://www.google.com/search?q=久留米+天気"><i class="fa-solid fa-cloud-sun"></i> 天気</a>
             </div>
             <div class="day-body">
-            <div class="hrow"><div class="hh">午前</div><div class="hb">実家でのんびり。子どもは祖父母とゆっくり。</div></div>
-            <div class="hrow"><div class="hh">10:30</div><div class="hb"><span class="sug">提案A（近場・子連れ最適）：柳川川下り＋うなぎせいろ蒸し</span>大善寺から西鉄で柳川まで約15〜20分。</div></div>
-            <div class="hrow"><div class="hh">10:30</div><div class="hb"><span class="sug">提案B（市内）：石橋文化センター／北野天満宮</span>移動少なめでのんびり派向け。</div></div>
-            <div class="hrow"><div class="hh">10:30</div><div class="hb"><span class="sug">提案C（遠出）：福岡アンパンマンこどもミュージアム</span>西鉄で天神へ約40分、雨でも安心。</div></div>
-            <div class="hrow"><div class="hh">16:00</div><div class="hb">実家に戻りゆっくり。明日の荷造りを少しだけ。</div></div>
-            <div class="hrow"><div class="hh">夜</div><div class="hb">家族での夕食。お土産の買い忘れチェック。</div></div>
+            <div class="hrow" data-t="10:00"><div class="hh">午前</div><div class="hb">実家でのんびり。子どもは祖父母とゆっくり。</div></div>
+            <div class="hrow" data-t="10:30"><div class="hh">10:30</div><div class="hb"><span class="sug">提案A（近場・子連れ最適）：柳川川下り＋うなぎせいろ蒸し</span>大善寺から西鉄で柳川まで約15〜20分。</div></div>
+            <div class="hrow" data-t="10:30"><div class="hh">10:30</div><div class="hb"><span class="sug">提案B（市内）：石橋文化センター／北野天満宮</span>移動少なめでのんびり派向け。</div></div>
+            <div class="hrow" data-t="10:30"><div class="hh">10:30</div><div class="hb"><span class="sug">提案C（遠出）：福岡アンパンマンこどもミュージアム</span>西鉄で天神へ約40分、雨でも安心。</div></div>
+            <div class="hrow" data-t="16:00"><div class="hh">16:00</div><div class="hb">実家に戻りゆっくり。明日の荷造りを少しだけ。</div></div>
+            <div class="hrow" data-t="19:30"><div class="hh">夜</div><div class="hb">家族での夕食。お土産の買い忘れチェック。</div></div>
             </div>
         </div>
 
         <!-- D6 -->
-        <div class="day" id="d6" style="--c:#6366f1">
+        <div class="day" id="d6" data-date="2026-08-23" style="--c:#6366f1">
             <button class="day-head" onclick="toggleDay('d6')">
                 <span class="day-pill" style="background:#6366f1">6日目</span>
                 <span class="day-ttl">8/23(日)　福岡→羽田で帰宅</span>
@@ -325,14 +413,28 @@
                 <a class="qlink qlink-wx" target="_blank" href="https://www.google.com/search?q=福岡+天気"><i class="fa-solid fa-cloud-sun"></i> 天気</a>
             </div>
             <div class="day-body">
-            <div class="hrow"><div class="hh">8:00</div><div class="hb">朝食・荷造り仕上げ。</div></div>
-            <div class="hrow"><div class="hh">10:00</div><div class="hb">実家で午前ゆっくり、見送り。</div></div>
-            <div class="hrow"><div class="hh">12:00</div><div class="hb"><b>久留米を出発</b>（遅くとも12:30〜13時）。<span class="mv">移動：</span><span class="sug">提案：西鉄大善寺→西鉄福岡(天神)約50分→地下鉄で福岡空港11分</span></div></div>
-            <div class="hrow"><div class="hh">13:30</div><div class="hb">福岡空港着。昼食（「ラーメン滑走路」等）・最後のお土産。</div></div>
-            <div class="hrow"><div class="hh">14:20</div><div class="hb">保安検査・搭乗口へ（Uターン期で混むため早め）。</div></div>
-            <div class="hrow"><div class="hh">15:10</div><div class="hb"><b>NH258 出発</b> ✈️</div></div>
-            <div class="hrow"><div class="hh">17:10</div><div class="hb">羽田着。おつかれさまでした！</div></div>
+            <div class="hrow" data-t="08:00"><div class="hh">8:00</div><div class="hb">朝食・荷造り仕上げ。</div></div>
+            <div class="hrow" data-t="10:00"><div class="hh">10:00</div><div class="hb">実家で午前ゆっくり、見送り。</div></div>
+            <div class="hrow" data-t="12:00"><div class="hh">12:00</div><div class="hb"><b>久留米を出発</b>（遅くとも12:30〜13時）。<span class="mv">移動：</span><span class="sug">提案：西鉄大善寺→西鉄福岡(天神)約50分→地下鉄で福岡空港11分</span></div></div>
+            <div class="hrow" data-t="13:30"><div class="hh">13:30</div><div class="hb">福岡空港着。昼食（「ラーメン滑走路」等）・最後のお土産。</div></div>
+            <div class="hrow" data-t="14:20"><div class="hh">14:20</div><div class="hb">保安検査・搭乗口へ（Uターン期で混むため早め）。</div></div>
+            <div class="hrow" data-t="15:10"><div class="hh">15:10</div><div class="hb"><b>NH258 出発</b> ✈️</div></div>
+            <div class="hrow" data-t="17:10"><div class="hh">17:10</div><div class="hb">羽田着。おつかれさまでした！</div></div>
             </div>
+        </div>
+    </section>
+
+    <!-- ===== スタンプラリー（こども向け） ===== -->
+    <section class="fade-in">
+        <div class="sec-head"><span class="text-xl">🏆</span><h2>たびの スタンプラリー</h2></div>
+        <div class="kidbox">
+            <div class="flex items-center justify-between mb-1">
+                <h3>できたら タップ！</h3>
+                <span class="text-xs font-bold text-amber-700" id="stampCount">0 / 8</span>
+            </div>
+            <p class="text-[11px] text-amber-700 mb-3">やったことを おして スタンプを あつめよう！</p>
+            <div class="stamps" id="stamps"></div>
+            <p id="stampDone" class="hidden text-center font-bold text-amber-700 mt-3">🎉 ぜんぶ あつめた！すごい！ 🎉</p>
         </div>
     </section>
 
@@ -403,21 +505,197 @@
         document.getElementById('backtop').classList.toggle('show', window.scrollY > 500);
     });
 
-    // 旅行期間中は「今日」を自動でハイライト＆スクロール
-    (function(){
-        var map={'2026-8-18':'d1','2026-8-19':'d2','2026-8-20':'d3','2026-8-21':'d4','2026-8-22':'d5','2026-8-23':'d6'};
-        var t=new Date();
-        var key=t.getFullYear()+'-'+(t.getMonth()+1)+'-'+t.getDate();
-        var id=map[key];
-        if(id){
-            var el=document.getElementById(id);
-            el.classList.add('today');
-            var head=el.querySelector('.day-head');
-            var b=document.createElement('span'); b.className='today-badge'; b.textContent='今日';
-            head.insertBefore(b, head.querySelector('.chev'));
-            setTimeout(function(){ el.scrollIntoView({behavior:'smooth',block:'start'}); }, 300);
+    // ===== いま／進行状況エンジン =====
+    var TRIP_START = '2026-08-18', TRIP_END = '2026-08-23';
+
+    // 検証用: ?t=2026-08-18T13:20 で任意の時刻をシミュレート
+    function now(){
+        var q = new URLSearchParams(location.search).get('t');
+        return q ? new Date(q) : new Date();
+    }
+    function ymd(d){
+        return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    }
+    function rowTime(day, row){
+        var p = row.dataset.t.split(':');
+        var d = new Date(day.dataset.date+'T00:00:00');
+        d.setHours(+p[0], +p[1], 0, 0);
+        return d;
+    }
+    // 全予定を時系列で収集
+    function allItems(){
+        var out=[];
+        document.querySelectorAll('.day').forEach(function(day){
+            day.querySelectorAll('.hrow[data-t]').forEach(function(row){
+                out.push({day:day, row:row, at:rowTime(day,row)});
+            });
+        });
+        return out.sort(function(a,b){ return a.at-b.at; });
+    }
+    function label(row){
+        var c = row.querySelector('.hb').cloneNode(true);
+        // タグ類（いま／つぎ／提案）は本文から除外
+        c.querySelectorAll('.nowtag, .nexttag, .sug').forEach(function(e){ e.remove(); });
+        var t = c.textContent.replace(/\s+/g,' ').trim();
+        return t.length > 42 ? t.slice(0,42)+'…' : t;
+    }
+    function fmtLeft(ms){
+        var m = Math.round(ms/60000);
+        if (m < 60) return m + 'ふん';
+        var h = Math.floor(m/60);
+        return h + 'じかん' + (m%60 ? ' ' + (m%60) + 'ふん' : '');
+    }
+
+    var nowLineEl = null, curRow = null;
+
+    function refresh(){
+        var t = now(), today = ymd(t), items = allItems();
+
+        // --- 日カードの「今日」表示 ---
+        document.querySelectorAll('.day').forEach(function(day){
+            var isToday = day.dataset.date === today;
+            day.classList.toggle('today', isToday);
+            var head = day.querySelector('.day-head');
+            var old = head.querySelector('.today-badge');
+            if (isToday && !old){
+                var b=document.createElement('span'); b.className='today-badge'; b.textContent='今日';
+                head.insertBefore(b, head.querySelector('.chev'));
+            } else if (!isToday && old){ old.remove(); }
+        });
+
+        // --- 各行の状態（済み／いま／つぎ）---
+        document.querySelectorAll('.hrow').forEach(function(r){
+            r.classList.remove('past','now','next');
+            var tag = r.querySelector('.nowtag, .nexttag'); if (tag) tag.remove();
+        });
+
+        var cur = null, next = null;
+        for (var i=0;i<items.length;i++){
+            if (items[i].at <= t) cur = items[i];
+            else { next = items[i]; break; }
         }
-    })();
+        // 6時間以上前の予定は「いま」とみなさない
+        if (cur && (t - cur.at) > 6*3600*1000) cur = null;
+
+        items.forEach(function(it){ if (it.at < t) it.row.classList.add('past'); });
+
+        curRow = null;
+        if (cur){
+            cur.row.classList.remove('past');
+            cur.row.classList.add('now');
+            var n=document.createElement('span'); n.className='nowtag'; n.textContent='いま';
+            cur.row.querySelector('.hb').prepend(n);
+            cur.day.classList.remove('collapsed');
+            curRow = cur.row;
+        }
+        if (next){
+            next.row.classList.add('next');
+            var x=document.createElement('span'); x.className='nexttag'; x.textContent='つぎ';
+            next.row.querySelector('.hb').prepend(x);
+            next.day.classList.remove('collapsed');
+            if (!curRow) curRow = next.row;
+        }
+
+        // --- いまここライン（今日の予定の間に赤い線）---
+        if (nowLineEl) { nowLineEl.remove(); nowLineEl = null; }
+        var todayDay = document.querySelector('.day[data-date="'+today+'"]');
+        if (todayDay){
+            nowLineEl = document.createElement('div');
+            nowLineEl.className = 'nowline';
+            nowLineEl.innerHTML = '<span class="dot"></span><span class="lb">いま '
+                + String(t.getHours()).padStart(2,'0')+':'+String(t.getMinutes()).padStart(2,'0')
+                + '</span><span class="bar"></span>';
+            var rows = todayDay.querySelectorAll('.hrow[data-t]'), placed=false;
+            for (var j=0;j<rows.length;j++){
+                if (rowTime(todayDay, rows[j]) > t){
+                    rows[j].parentNode.insertBefore(nowLineEl, rows[j]); placed=true; break;
+                }
+            }
+            if (!placed && rows.length) rows[rows.length-1].after(nowLineEl);
+        }
+
+        // --- いまカード ---
+        var act = document.getElementById('nowAct'), nx = document.getElementById('nowNext');
+        var start = new Date(TRIP_START+'T00:00:00'), end = new Date(TRIP_END+'T23:59:59');
+        if (t < start){
+            act.textContent = 'しゅっぱつ まえ ✨';
+            nx.innerHTML = 'ひこうきまで <span class="cd">'+fmtLeft(new Date(TRIP_START+'T07:55:00')-t)+'</span>';
+        } else if (t > end){
+            act.textContent = 'たび おわり。おつかれさま！ 🎉';
+            nx.innerHTML = 'また いこうね！';
+        } else {
+            act.textContent = cur ? label(cur.row) : (next ? 'もうすぐ はじまるよ ✨' : 'ゆっくり じかん ☕');
+            nx.innerHTML = next
+                ? '<span style="color:#a5f3fc">つぎは '+next.row.dataset.t+'</span><br>'+label(next.row)
+                  +'<div style="margin-top:4px">あと <span class="cd">'+fmtLeft(next.at-t)+'</span></div>'
+                : 'きょうの よていは これで さいご 🌙';
+        }
+
+        // --- 進みぐあい ---
+        var pct = Math.max(0, Math.min(100, (t-start)/(end-start)*100));
+        document.getElementById('progFill').style.width = pct+'%';
+        document.getElementById('progPlane').style.left = pct+'%';
+        document.getElementById('progPct').textContent = Math.round(pct)+'%';
+    }
+
+    function jumpNow(){
+        if (curRow){
+            curRow.closest('.day').classList.remove('collapsed');
+            curRow.scrollIntoView({behavior:'smooth', block:'center'});
+        } else {
+            document.querySelector('.day').scrollIntoView({behavior:'smooth'});
+        }
+    }
+
+    // ===== スタンプラリー =====
+    var STAMPS = [
+        {k:'a', em:'✈️', n:'ひこうき'},
+        {k:'b', em:'♨️', n:'ゆふいんの おんせん'},
+        {k:'c', em:'🍫', n:'チョコレートの おみせ'},
+        {k:'d', em:'🍩', n:'たべあるき'},
+        {k:'e', em:'🏊', n:'プール'},
+        {k:'f', em:'🚆', n:'いちろくごう'},
+        {k:'g', em:'👵', n:'おじいちゃん おばあちゃん'},
+        {k:'h', em:'🍜', n:'ラーメン'}
+    ];
+    function loadStamps(){ try { return JSON.parse(localStorage.getItem('trip_stamps')||'{}'); } catch(e){ return {}; } }
+    function renderStamps(){
+        var got = loadStamps(), box = document.getElementById('stamps');
+        box.innerHTML = '';
+        STAMPS.forEach(function(s){
+            var b = document.createElement('button');
+            b.className = 'stamp' + (got[s.k] ? ' got' : '');
+            b.innerHTML = '<span class="em">'+s.em+'</span><span class="nm">'+s.n+'</span>';
+            b.onclick = function(){
+                var g = loadStamps();
+                g[s.k] = !g[s.k];
+                localStorage.setItem('trip_stamps', JSON.stringify(g));
+                renderStamps();
+            };
+            box.appendChild(b);
+        });
+        var n = STAMPS.filter(function(s){ return got[s.k]; }).length;
+        document.getElementById('stampCount').textContent = n + ' / ' + STAMPS.length;
+        // Tailwindのhiddenに依存せず確実に切り替える
+        document.getElementById('stampDone').style.display = (n < STAMPS.length) ? 'none' : 'block';
+    }
+
+    // ===== こどもモード =====
+    function toggleKid(){
+        var on = document.body.classList.toggle('kid');
+        document.getElementById('kidBtn').classList.toggle('on', on);
+        try { localStorage.setItem('trip_kid', on ? '1' : '0'); } catch(e){}
+    }
+    if (localStorage.getItem('trip_kid') === '1'){
+        document.body.classList.add('kid');
+        document.getElementById('kidBtn').classList.add('on');
+    }
+
+    // ===== 起動 =====
+    renderStamps();
+    refresh();
+    setInterval(refresh, 60000);          // 毎分更新
+    setTimeout(jumpNow, 600);             // 起動時に「いま」へ
 </script>
 
 </body>
