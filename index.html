@@ -158,6 +158,50 @@
                      border:none; font-family:inherit; padding:5px 11px; border-radius:999px; cursor:pointer;
                      background:#f1f5f9; color:#64748b; }
         .kidtoggle.on { background:#fde68a; color:#92400e; }
+
+        /* ===== 案内役「たびクマ」のひとこと ===== */
+        .guide { display:flex; align-items:flex-end; gap:9px; margin-top:12px; }
+        .guide .face { flex:0 0 46px; width:46px; height:46px; border-radius:50%; background:#fff;
+                       display:flex; align-items:center; justify-content:center; font-size:26px;
+                       box-shadow:0 2px 8px rgba(0,0,0,.12); animation:bob 3s ease-in-out infinite; }
+        @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+        .bubble { position:relative; flex:1; min-width:0; background:#fff; border-radius:14px; padding:10px 13px;
+                  box-shadow:0 2px 8px rgba(0,0,0,.1); font-size:13.5px; font-weight:700; color:#334155; line-height:1.5; }
+        .bubble::before { content:''; position:absolute; left:-7px; bottom:13px; width:0; height:0;
+                          border:7px solid transparent; border-right-color:#fff; border-left:0; }
+        .bubble .who { display:block; font-size:10px; font-weight:700; color:#f59e0b; margin-bottom:1px; }
+        body.kid .bubble { font-size:15px; }
+
+        /* ===== 持ち物リスト ===== */
+        .pack { background:#fff; border-radius:14px; padding:6px 14px 10px; box-shadow:0 1px 2px rgba(0,0,0,.05); margin-bottom:10px; }
+        .pack h4 { font-size:12px; font-weight:700; color:#94a3b8; padding:9px 0 5px; }
+        .pk { display:flex; align-items:center; gap:9px; padding:7px 2px; border-bottom:1px solid #f1f5f9; cursor:pointer; }
+        .pk:last-child { border-bottom:none; }
+        .pk input { appearance:none; -webkit-appearance:none; width:21px; height:21px; flex-shrink:0;
+                    border:2px solid #cbd5e1; border-radius:6px; position:relative; cursor:pointer; transition:.15s; }
+        .pk input:checked { background:#14b8a6; border-color:#14b8a6; }
+        .pk input:checked::after { content:''; position:absolute; left:6px; top:1px; width:5px; height:10px;
+                                   border:2.5px solid #fff; border-top:0; border-left:0; transform:rotate(45deg); }
+        .pk span { font-size:13.5px; color:#475569; }
+        .pk input:checked + span { text-decoration:line-through; color:#a3b3c2; }
+        body.kid .pk span { font-size:15px; }
+
+        /* ===== メンバー ===== */
+        .mem { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+        .mcard { background:#fff; border-radius:14px; padding:11px 5px; text-align:center; box-shadow:0 1px 2px rgba(0,0,0,.05); }
+        .mcard .av { font-size:27px; }
+        .mcard .nm { font-size:11.5px; font-weight:700; color:#334155; margin-top:2px; }
+        .mcard .jp { font-size:9.5px; color:#94a3b8; line-height:1.3; margin-top:2px; }
+
+        /* ===== 旅日記 ===== */
+        .diary { background:#fff; border-radius:14px; padding:10px 14px; box-shadow:0 1px 2px rgba(0,0,0,.05); }
+        .drow { display:flex; align-items:center; gap:9px; padding:7px 0; border-bottom:1px solid #f1f5f9; }
+        .drow:last-child { border-bottom:none; }
+        .drow .dd { flex:0 0 62px; font-size:11px; font-weight:700; color:#0e7490; }
+        .drow input { flex:1; min-width:0; border:none; border-bottom:1.5px dashed #cbd5e1; background:none;
+                      font-family:inherit; font-size:13px; color:#334155; padding:4px 2px; outline:none; }
+        .drow input:focus { border-bottom-color:#14b8a6; }
+        .drow input::placeholder { color:#cbd5e1; }
     </style>
 </head>
 <body>
@@ -193,6 +237,12 @@
             <button class="jump" onclick="jumpNow()"><i class="fa-solid fa-location-crosshairs"></i> いまの ばしょへ</button>
         </div>
 
+        <!-- 案内役のひとこと -->
+        <div class="guide">
+            <div class="face">🐻</div>
+            <div class="bubble"><span class="who">たびクマ</span><span id="guideMsg">よろしくね！</span></div>
+        </div>
+
         <div class="prog">
             <div class="flex items-center justify-between">
                 <span class="text-xs font-bold text-slate-500">たびの すすみぐあい</span>
@@ -205,6 +255,17 @@
             <div class="flex justify-between text-[10px] text-slate-400">
                 <span>8/18 しゅっぱつ</span><span>8/23 かえる</span>
             </div>
+        </div>
+    </section>
+
+    <!-- ===== 旅のメンバー ===== -->
+    <section class="fade-in">
+        <div class="sec-head"><span class="text-xl">👨‍👩‍👧‍👧</span><h2>たびの メンバー</h2></div>
+        <div class="mem">
+            <div class="mcard"><div class="av">👨</div><div class="nm">パパ</div><div class="jp">いちろく号</div></div>
+            <div class="mcard"><div class="av">👩</div><div class="nm">ママ</div><div class="jp">のんびり温泉</div></div>
+            <div class="mcard"><div class="av">👧</div><div class="nm">おねえちゃん</div><div class="jp">プール</div></div>
+            <div class="mcard"><div class="av">🧒</div><div class="nm">いもうと</div><div class="jp">プール</div></div>
         </div>
     </section>
 
@@ -277,7 +338,7 @@
         </div>
 
         <!-- D1 -->
-        <div class="day" id="d1" data-date="2026-08-18" style="--c:#0ea5e9">
+        <div class="day" id="d1" data-fun="🎨 アートと おんせん" data-date="2026-08-18" style="--c:#0ea5e9">
             <button class="day-head" onclick="toggleDay('d1')">
                 <span class="day-pill" style="background:#0ea5e9">1日目</span>
                 <span class="day-ttl">8/18(火)　羽田→大分→由布院</span>
@@ -289,24 +350,24 @@
                 <a class="qlink qlink-wx" target="_blank" href="https://www.google.com/search?q=由布院+天気"><i class="fa-solid fa-cloud-sun"></i> 天気</a>
             </div>
             <div class="day-body">
-            <div class="hrow" data-t="06:30"><div class="hh">6:30</div><div class="hb">羽田空港T2着。子連れは早めに保安検査。朝食は出発ロビーで軽く。</div></div>
-            <div class="hrow" data-t="07:55"><div class="hh">7:55</div><div class="hb"><b>NH791 出発</b> → 機内で仮眠/おやつ。</div></div>
-            <div class="hrow" data-t="09:30"><div class="hh">9:30</div><div class="hb">大分空港着・手荷物受取。トイレ＆飲み物を準備。</div></div>
-            <div class="hrow" data-t="10:00"><div class="hh">10:00</div><div class="hb"><span class="mv">移動：</span>空港バスで由布院へ（約55分）。<span class="sug">提案：大分空港発「由布院行き直行リムジン」を予約しておくと座れて確実</span></div></div>
-            <div class="hrow" data-t="11:00"><div class="hh">11:00</div><div class="hb">由布院着。荷物は宿に先に預ける（チェックイン前でもOK）。</div></div>
-            <div class="hrow" data-t="11:30"><div class="hh">11:30</div><div class="hb"><b>COMICO ART MUSEUM YUFUIN</b> 🎨 隈研吾建築＋現代アート（中心部・最終入場16:00）。<span class="sug">オンライン予約で1,500円（当日1,700円）</span></div></div>
-            <div class="hrow" data-t="13:00"><div class="hh">13:00</div><div class="hb"><b>ランチ（道中）</b>🍽️ 中心部〜アルテジオ方面で。<span class="sug">由布まぶし 心（地鶏/豊後牛まぶし）／とり天「陽だまり」など</span></div></div>
+            <div class="hrow" data-name="はねだ くうこう" data-t="06:30" data-tip="ついたら まず てにもつを あずけようね🧳"><div class="hh">6:30</div><div class="hb">羽田空港T2着。子連れは早めに保安検査。朝食は出発ロビーで軽く。</div></div>
+            <div class="hrow" data-name="ひこうき しゅっぱつ" data-t="07:55" data-tip="みみが つーんと したら あくびを してみてね✈️"><div class="hh">7:55</div><div class="hb"><b>NH791 出発</b> → 機内で仮眠/おやつ。</div></div>
+            <div class="hrow" data-name="おおいた とうちゃく" data-t="09:30" data-tip="ついに きゅうしゅう！ あついから おみずを のもうね"><div class="hh">9:30</div><div class="hb">大分空港着・手荷物受取。トイレ＆飲み物を準備。</div></div>
+            <div class="hrow" data-name="バスで ゆふいんへ" data-t="10:00" data-tip="ゆられて 55ふん。まどから やまが みえるよ🚌"><div class="hh">10:00</div><div class="hb"><span class="mv">移動：</span>空港バスで由布院へ（約55分）。<span class="sug">提案：大分空港発「由布院行き直行リムジン」を予約しておくと座れて確実</span></div></div>
+            <div class="hrow" data-name="ゆふいん とうちゃく" data-t="11:00" data-tip="にもつを おいて みがるに なろう！"><div class="hh">11:00</div><div class="hb">由布院着。荷物は宿に先に預ける（チェックイン前でもOK）。</div></div>
+            <div class="hrow" data-name="びじゅつかん" data-t="11:30" data-tip="しずかに みるところだよ。ふしぎな アートが いっぱい🎨"><div class="hh">11:30</div><div class="hb"><b>COMICO ART MUSEUM YUFUIN</b> 🎨 隈研吾建築＋現代アート（中心部・最終入場16:00）。<span class="sug">オンライン予約で1,500円（当日1,700円）</span></div></div>
+            <div class="hrow" data-name="ランチ" data-t="13:00" data-tip="おなか ぺこぺこ！ ぶんごぎゅう？ それとも とりてん？🍽️"><div class="hh">13:00</div><div class="hb"><b>ランチ（道中）</b>🍽️ 中心部〜アルテジオ方面で。<span class="sug">由布まぶし 心（地鶏/豊後牛まぶし）／とり天「陽だまり」など</span></div></div>
             <div class="hrow" data-t="14:15"><div class="hh">14:15</div><div class="hb"><span class="mv">移動：</span>タクシーでアルテジオへ（約10〜15分）。<span class="sug">お店から配車を頼んでおくと待ち減</span></div></div>
-            <div class="hrow" data-t="14:30"><div class="hh">14:30</div><div class="hb"><b>空想の森アルテジオ</b> 見学＋<b>théomurata</b>（茶葉ショコラ・柚子トリュフ）＋<b>tea room the theo でカフェ</b>☕ <span class="sug">カフェ利用なら火曜もOK／L.O.16:30</span></div></div>
-            <div class="hrow" data-t="16:45"><div class="hh">16:45</div><div class="hb"><b>チェックイン</b>・温泉でひと息。</div></div>
-            <div class="hrow" data-t="18:00"><div class="hh">18:00</div><div class="hb">宿の夕食（会席）。食後は貸切風呂や星空さんぽ。</div></div>
+            <div class="hrow" data-name="アルテジオ" data-t="14:30" data-tip="チョコレートの おみせが あるよ🍫 おみやげを さがそう"><div class="hh">14:30</div><div class="hb"><b>空想の森アルテジオ</b> 見学＋<b>théomurata</b>（茶葉ショコラ・柚子トリュフ）＋<b>tea room the theo でカフェ</b>☕ <span class="sug">カフェ利用なら火曜もOK／L.O.16:30</span></div></div>
+            <div class="hrow" data-name="チェックイン・おんせん" data-t="16:45" data-tip="おんせんに はいって、きょうの つかれを ながそう♨️"><div class="hh">16:45</div><div class="hb"><b>チェックイン</b>・温泉でひと息。</div></div>
+            <div class="hrow" data-name="ゆうごはん" data-t="18:00" data-tip="ゆふいんの ごはん！ いただきます🍽️"><div class="hh">18:00</div><div class="hb">宿の夕食（会席）。食後は貸切風呂や星空さんぽ。</div></div>
             <div class="memo"><i class="fa-solid fa-triangle-exclamation"></i><span><b>水曜定休に注意：</b>COMICO（隔週水曜休）・アルテジオは<b>8/19(水)が休みの可能性</b>。アート2館は初日(8/18火)に。<b>CAFE LA RUCHE（金鱗湖畔・水曜休）</b>も行くなら時間が許せば初日に組み込みを。</span></div>
             <div class="memo"><i class="fa-solid fa-taxi"></i><span><b>由布院のタクシーは流しが少なめ</b>。アルテジオは少し離れているのでタクシー必須。お店・宿に呼んでもらうのが確実（配車に時間がかかることあり）。</span></div>
             </div>
         </div>
 
         <!-- D2 -->
-        <div class="day" id="d2" data-date="2026-08-19" style="--c:#f59e0b">
+        <div class="day" id="d2" data-fun="🍩 たべあるき" data-date="2026-08-19" style="--c:#f59e0b">
             <button class="day-head" onclick="toggleDay('d2')">
                 <span class="day-pill" style="background:#f59e0b">2日目</span>
                 <span class="day-ttl">8/19(水)　湯の坪街道 食べ歩き＆のんびり</span>
@@ -318,19 +379,19 @@
                 <a class="qlink qlink-wx" target="_blank" href="https://www.google.com/search?q=由布院+天気"><i class="fa-solid fa-cloud-sun"></i> 天気</a>
             </div>
             <div class="day-body">
-            <div class="hrow" data-t="07:00"><div class="hh">7:00</div><div class="hb"><span class="sug">提案：早朝の金鱗湖さんぽ</span>人が少なく静か。朝の涼しい時間に。</div></div>
+            <div class="hrow" data-name="きんりんこ さんぽ" data-t="07:00" data-tip="あさは しずかで とっても きもちいいよ🦆"><div class="hh">7:00</div><div class="hb"><span class="sug">提案：早朝の金鱗湖さんぽ</span>人が少なく静か。朝の涼しい時間に。</div></div>
             <div class="hrow" data-t="08:30"><div class="hh">8:30</div><div class="hb">朝食、朝風呂。午前はゆっくり。</div></div>
-            <div class="hrow" data-t="10:30"><div class="hh">10:30</div><div class="hb"><b>湯の坪街道で食べ歩き</b> 🍩 <b>由布院 金賞コロッケ</b>／<b>由布院ミルヒ</b>（ケーゼクーヘン＆ドーナツ）／スヌーピー茶屋・雑貨店。</div></div>
-            <div class="hrow" data-t="11:30"><div class="hh">11:30</div><div class="hb"><b>B-speak で名物「Pロール」</b>。<span class="sug">売切れ必至。電話予約推奨（水曜は基本営業）</span></div></div>
-            <div class="hrow" data-t="12:30"><div class="hh">12:30</div><div class="hb"><b>ランチ：とり天「陽だまり」</b>大分名物とり天＋だんご汁＋コロッケの定食。駅すぐ。</div></div>
-            <div class="hrow" data-t="14:00"><div class="hh">14:00</div><div class="hb"><b>のんびり枠</b>（ママ向け）。宿に戻って温泉・昼寝・貸切風呂。</div></div>
+            <div class="hrow" data-name="たべあるき" data-t="10:30" data-tip="コロッケと ドーナツ！ たべすぎ ちゅうい😋"><div class="hh">10:30</div><div class="hb"><b>湯の坪街道で食べ歩き</b> 🍩 <b>由布院 金賞コロッケ</b>／<b>由布院ミルヒ</b>（ケーゼクーヘン＆ドーナツ）／スヌーピー茶屋・雑貨店。</div></div>
+            <div class="hrow" data-name="ロールケーキ" data-t="11:30" data-tip="うりきれる まえに ゲットしよう！🍰"><div class="hh">11:30</div><div class="hb"><b>B-speak で名物「Pロール」</b>。<span class="sug">売切れ必至。電話予約推奨（水曜は基本営業）</span></div></div>
+            <div class="hrow" data-name="とりてん ランチ" data-t="12:30" data-tip="おおいたの めいぶつ！ さくさくだよ🍤"><div class="hh">12:30</div><div class="hb"><b>ランチ：とり天「陽だまり」</b>大分名物とり天＋だんご汁＋コロッケの定食。駅すぐ。</div></div>
+            <div class="hrow" data-name="おんせん タイム" data-t="14:00" data-tip="あせを ながして のんびり しよう♨️"><div class="hh">14:00</div><div class="hb"><b>のんびり枠</b>（ママ向け）。宿に戻って温泉・昼寝・貸切風呂。</div></div>
             <div class="hrow" data-t="18:00"><div class="hh">18:00</div><div class="hb">夕食。明日の移動に備えて軽く荷物整理。</div></div>
             <div class="memo"><i class="fa-solid fa-circle-check"></i><span>この日(水)に回す店は<b>水曜も営業</b>（B-speak・ミルヒ・金賞コロッケ・陽だまり）。水曜定休のアート2館・La Rucheは初日に済ませる前提。</span></div>
             </div>
         </div>
 
         <!-- D3 -->
-        <div class="day" id="d3" data-date="2026-08-20" style="--c:#10b981">
+        <div class="day" id="d3" data-fun="🏊 プール！" data-date="2026-08-20" style="--c:#10b981">
             <button class="day-head" onclick="toggleDay('d3')">
                 <span class="day-pill" style="background:#10b981">3日目</span>
                 <span class="day-ttl">8/20(木)　由布院→別府・杉乃井</span>
@@ -344,18 +405,18 @@
             <div class="day-body">
             <div class="hrow" data-t="08:00"><div class="hh">8:00</div><div class="hb">朝食・チェックアウト準備。</div></div>
             <div class="hrow" data-t="09:30"><div class="hh">9:30</div><div class="hb">最後の由布院さんぽ＆お土産（駅周辺）。</div></div>
-            <div class="hrow" data-t="11:00"><div class="hh">11:00</div><div class="hb"><span class="mv">移動：</span>由布院駅 →（ゆふりん or JR久大本線）別府、約1時間10分。<span class="sug">木曜は「ゆふりん」運休の可能性 → 普通列車で由布院→大分→別府の乗継も候補</span></div></div>
+            <div class="hrow" data-name="べっぷへ いどう" data-t="11:00" data-tip="まどの けしきを たのしもう🚆"><div class="hh">11:00</div><div class="hb"><span class="mv">移動：</span>由布院駅 →（ゆふりん or JR久大本線）別府、約1時間10分。<span class="sug">木曜は「ゆふりん」運休の可能性 → 普通列車で由布院→大分→別府の乗継も候補</span></div></div>
             <div class="hrow" data-t="12:30"><div class="hh">12:30</div><div class="hb">別府着。昼食：とり天・別府冷麺など。</div></div>
             <div class="hrow" data-t="13:30"><div class="hh">13:30</div><div class="hb"><span class="mv">移動：</span>別府駅から杉乃井の無料シャトルバス（約15分）。荷物を預ける。</div></div>
-            <div class="hrow" data-t="14:00"><div class="hh">14:00</div><div class="hb"><b>アクアビートでプール</b>（娘たち本番）🏊</div></div>
-            <div class="hrow" data-t="16:30"><div class="hh">16:30</div><div class="hb">チェックイン。名物「棚湯」で別府湾を一望。</div></div>
+            <div class="hrow" data-name="プール！" data-t="14:00" data-tip="まちに まった とき！🏊 ひやけどめ ぬった？"><div class="hh">14:00</div><div class="hb"><b>アクアビートでプール</b>（娘たち本番）🏊</div></div>
+            <div class="hrow" data-name="たなゆ（おんせん）" data-t="16:30" data-tip="べっぷわんを みながら おふろ。さいこう♨️"><div class="hh">16:30</div><div class="hb">チェックイン。名物「棚湯」で別府湾を一望。</div></div>
             <div class="hrow" data-t="18:30"><div class="hh">18:30</div><div class="hb">夕食（ビュッフェ「Seeds」など）。</div></div>
-            <div class="hrow" data-t="20:00"><div class="hh">20:00</div><div class="hb"><span class="sug">提案：夜の噴水ショー／ゲームコーナー</span>子ども大満足の夜。</div></div>
+            <div class="hrow" data-name="ふんすいショー" data-t="20:00" data-tip="よるの おたのしみ、みに いこう✨"><div class="hh">20:00</div><div class="hb"><span class="sug">提案：夜の噴水ショー／ゲームコーナー</span>子ども大満足の夜。</div></div>
             </div>
         </div>
 
         <!-- D4 -->
-        <div class="day" id="d4" data-date="2026-08-21" style="--c:#8b5cf6">
+        <div class="day" id="d4" data-fun="🚆 いちろくごう" data-date="2026-08-21" style="--c:#8b5cf6">
             <button class="day-head" onclick="toggleDay('d4')">
                 <span class="day-pill" style="background:#8b5cf6">4日目</span>
                 <span class="day-ttl">8/21(金)　いちろく号で久留米へ</span>
@@ -369,17 +430,17 @@
             <div class="day-body">
             <div class="hrow" data-t="07:30"><div class="hh">7:30</div><div class="hb">朝食。<span class="sug">提案：朝のうちに棚湯にもう一度</span></div></div>
             <div class="hrow" data-t="09:00"><div class="hh">9:00</div><div class="hb">荷造り・最終チェック（前夜にほぼ済ませておく）。</div></div>
-            <div class="hrow" data-t="09:40"><div class="hh">9:40</div><div class="hb"><b>チェックアウト</b>（10時前厳守）→ シャトルで別府駅へ。</div></div>
+            <div class="hrow" data-name="チェックアウト" data-t="09:40" data-tip="10じまでに おわらせよう。わすれもの ない？"><div class="hh">9:40</div><div class="hb"><b>チェックアウト</b>（10時前厳守）→ シャトルで別府駅へ。</div></div>
             <div class="hrow" data-t="10:15"><div class="hh">10:15</div><div class="hb">別府駅着。お土産・トイレ・ホーム移動を余裕を持って。</div></div>
-            <div class="hrow" data-t="11:00"><div class="hh">11:00</div><div class="hb"><b>いちろく号 別府発</b> 🚆 車内で食事・車窓を満喫（パパの目玉）。</div></div>
+            <div class="hrow" data-name="いちろくごう" data-t="11:00" data-tip="とくべつな でんしゃ！ ごはんも でるんだって🚆 パパの いちばんの たのしみ"><div class="hh">11:00</div><div class="hb"><b>いちろく号 別府発</b> 🚆 車内で食事・車窓を満喫（パパの目玉）。</div></div>
             <div class="hrow" data-t="14:57"><div class="hh">14:57</div><div class="hb">久留米着。</div></div>
-            <div class="hrow" data-t="15:30"><div class="hh">15:30</div><div class="hb"><span class="mv">移動：</span>大善寺へ（西鉄久留米→西鉄大善寺 約10分、または家族の迎え）。<b>実家入り</b>。</div></div>
+            <div class="hrow" data-name="じっかに とうちゃく" data-t="15:30" data-tip="おじいちゃん おばあちゃんに あいさつ しようね👵"><div class="hh">15:30</div><div class="hb"><span class="mv">移動：</span>大善寺へ（西鉄久留米→西鉄大善寺 約10分、または家族の迎え）。<b>実家入り</b>。</div></div>
             <div class="hrow" data-t="18:00"><div class="hh">夕</div><div class="hb">実家でゆっくり。久留米ラーメンや焼き鳥も◎。</div></div>
             </div>
         </div>
 
         <!-- D5 -->
-        <div class="day" id="d5" data-date="2026-08-22" style="--c:#ec4899">
+        <div class="day" id="d5" data-fun="👵 じいじ ばあば" data-date="2026-08-22" style="--c:#ec4899">
             <button class="day-head" onclick="toggleDay('d5')">
                 <span class="day-pill" style="background:#ec4899">5日目</span>
                 <span class="day-ttl">8/22(土)　久留米 実家（フリー）</span>
@@ -392,7 +453,7 @@
             </div>
             <div class="day-body">
             <div class="hrow" data-t="10:00"><div class="hh">午前</div><div class="hb">実家でのんびり。子どもは祖父母とゆっくり。</div></div>
-            <div class="hrow" data-t="10:30"><div class="hh">10:30</div><div class="hb"><span class="sug">提案A（近場・子連れ最適）：柳川川下り＋うなぎせいろ蒸し</span>大善寺から西鉄で柳川まで約15〜20分。</div></div>
+            <div class="hrow" data-name="おでかけ" data-t="10:30" data-tip="きょうは じゆうな ひ！ なにを して あそぶ？🚣"><div class="hh">10:30</div><div class="hb"><span class="sug">提案A（近場・子連れ最適）：柳川川下り＋うなぎせいろ蒸し</span>大善寺から西鉄で柳川まで約15〜20分。</div></div>
             <div class="hrow" data-t="10:30"><div class="hh">10:30</div><div class="hb"><span class="sug">提案B（市内）：石橋文化センター／北野天満宮</span>移動少なめでのんびり派向け。</div></div>
             <div class="hrow" data-t="10:30"><div class="hh">10:30</div><div class="hb"><span class="sug">提案C（遠出）：福岡アンパンマンこどもミュージアム</span>西鉄で天神へ約40分、雨でも安心。</div></div>
             <div class="hrow" data-t="16:00"><div class="hh">16:00</div><div class="hb">実家に戻りゆっくり。明日の荷造りを少しだけ。</div></div>
@@ -401,7 +462,7 @@
         </div>
 
         <!-- D6 -->
-        <div class="day" id="d6" data-date="2026-08-23" style="--c:#6366f1">
+        <div class="day" id="d6" data-fun="✈️ おうちへ" data-date="2026-08-23" style="--c:#6366f1">
             <button class="day-head" onclick="toggleDay('d6')">
                 <span class="day-pill" style="background:#6366f1">6日目</span>
                 <span class="day-ttl">8/23(日)　福岡→羽田で帰宅</span>
@@ -415,13 +476,29 @@
             <div class="day-body">
             <div class="hrow" data-t="08:00"><div class="hh">8:00</div><div class="hb">朝食・荷造り仕上げ。</div></div>
             <div class="hrow" data-t="10:00"><div class="hh">10:00</div><div class="hb">実家で午前ゆっくり、見送り。</div></div>
-            <div class="hrow" data-t="12:00"><div class="hh">12:00</div><div class="hb"><b>久留米を出発</b>（遅くとも12:30〜13時）。<span class="mv">移動：</span><span class="sug">提案：西鉄大善寺→西鉄福岡(天神)約50分→地下鉄で福岡空港11分</span></div></div>
+            <div class="hrow" data-name="くうこうへ しゅっぱつ" data-t="12:00" data-tip="わすれものは ないかな？ さいごに チェック🧳"><div class="hh">12:00</div><div class="hb"><b>久留米を出発</b>（遅くとも12:30〜13時）。<span class="mv">移動：</span><span class="sug">提案：西鉄大善寺→西鉄福岡(天神)約50分→地下鉄で福岡空港11分</span></div></div>
             <div class="hrow" data-t="13:30"><div class="hh">13:30</div><div class="hb">福岡空港着。昼食（「ラーメン滑走路」等）・最後のお土産。</div></div>
             <div class="hrow" data-t="14:20"><div class="hh">14:20</div><div class="hb">保安検査・搭乗口へ（Uターン期で混むため早め）。</div></div>
-            <div class="hrow" data-t="15:10"><div class="hh">15:10</div><div class="hb"><b>NH258 出発</b> ✈️</div></div>
+            <div class="hrow" data-name="ひこうきで かえる" data-t="15:10" data-tip="おうちへ かえろう。たのしかったね！✈️"><div class="hh">15:10</div><div class="hb"><b>NH258 出発</b> ✈️</div></div>
             <div class="hrow" data-t="17:10"><div class="hh">17:10</div><div class="hb">羽田着。おつかれさまでした！</div></div>
             </div>
         </div>
+    </section>
+
+    <!-- ===== 持ち物リスト ===== -->
+    <section class="fade-in">
+        <div class="sec-head"><span class="text-xl">🧳</span><h2>持ち物チェック</h2>
+            <span class="ml-auto text-xs font-bold text-teal-700" id="packCount">0 / 0</span>
+        </div>
+        <div id="packBox"></div>
+        <p class="text-[11px] text-slate-400 px-1">チェックは この端末に保存されます。</p>
+    </section>
+
+    <!-- ===== 旅日記 ===== -->
+    <section class="fade-in">
+        <div class="sec-head"><span class="text-xl">📔</span><h2>たびの おもいで</h2></div>
+        <div class="diary" id="diary"></div>
+        <p class="text-[11px] text-slate-400 mt-2 px-1">その日 いちばん たのしかったことを かいてみよう！</p>
     </section>
 
     <!-- ===== スタンプラリー（こども向け） ===== -->
@@ -631,6 +708,34 @@
                 : 'きょうの よていは これで さいご 🌙';
         }
 
+        // --- 案内役「たびクマ」のひとこと ---
+        var g = document.getElementById('guideMsg'), h = t.getHours(), msg;
+        if (t < start){
+            msg = 'あしたから たびの はじまり！ にもつの じゅんびは できたかな？🧳';
+        } else if (t > end){
+            msg = 'たのしかったね！ おもいでを かいて のこそう📔';
+        } else if (next && next.row.dataset.tip){
+            var nm = next.row.dataset.name || label(next.row);
+            msg = 'つぎは '+next.row.dataset.t+' から「'+nm+'」だよ。'+next.row.dataset.tip;
+        } else if (next){
+            msg = 'つぎは '+next.row.dataset.t+' から「'+(next.row.dataset.name||label(next.row))+'」だよ！';
+        } else if (h >= 20 || h < 5){
+            msg = 'きょうも おつかれさま。ゆっくり ねてね🌙';
+        } else {
+            msg = 'きょうの よていは ぜんぶ おわり！ ゆっくり しよう☕';
+        }
+        if (g.textContent !== msg) g.textContent = msg;
+
+        // --- 各日の「おたのしみ」チップ ---
+        document.querySelectorAll('.day[data-fun]').forEach(function(day){
+            if (day.querySelector('.fun-chip')) return;
+            var c=document.createElement('span');
+            c.className='fun-chip badge';
+            c.style.cssText='background:#ede9fe;color:#6d28d9';
+            c.textContent=day.dataset.fun;
+            day.querySelector('.day-sub').appendChild(c);
+        });
+
         // --- 進みぐあい ---
         var pct = Math.max(0, Math.min(100, (t-start)/(end-start)*100));
         document.getElementById('progFill').style.width = pct+'%';
@@ -691,7 +796,63 @@
         document.getElementById('kidBtn').classList.add('on');
     }
 
+    // ===== 持ち物リスト =====
+    var PACK = [
+        ['ぜったい わすれない', ['こうくうけん（QR・スマホ）','さいふ・げんきん','スマホ＋じゅうでんき','けんこうほけんしょう','くすり・ばんそうこう']],
+        ['なつの ひっす', ['ひやけどめ','ぼうし','うちわ・ハンディファン','みずとう','むしよけ']],
+        ['プールの ひ（8/20）', ['みずぎ（4にん ぶん）','ゴーグル','ビーチサンダル','ぬれてもいい ふくろ']],
+        ['あると べんり', ['エコバッグ','おかし（いどうちゅう）','ウェットティッシュ','カメラ','じいじ ばあばへの おみやげ']]
+    ];
+    function loadPack(){ try { return JSON.parse(localStorage.getItem('trip_pack')||'{}'); } catch(e){ return {}; } }
+    function renderPack(){
+        var got = loadPack(), box = document.getElementById('packBox'), total = 0, done = 0;
+        box.innerHTML = '';
+        PACK.forEach(function(grp, gi){
+            var d = document.createElement('div'); d.className = 'pack';
+            d.innerHTML = '<h4>'+grp[0]+'</h4>';
+            grp[1].forEach(function(item, ii){
+                var key = gi+'-'+ii; total++;
+                if (got[key]) done++;
+                var l = document.createElement('label'); l.className = 'pk';
+                var cb = document.createElement('input'); cb.type='checkbox'; cb.checked = !!got[key];
+                cb.onchange = function(){
+                    var p = loadPack(); p[key] = cb.checked;
+                    localStorage.setItem('trip_pack', JSON.stringify(p));
+                    renderPack();
+                };
+                var s = document.createElement('span'); s.textContent = item;
+                l.appendChild(cb); l.appendChild(s); d.appendChild(l);
+            });
+            box.appendChild(d);
+        });
+        document.getElementById('packCount').textContent = done + ' / ' + total;
+    }
+
+    // ===== 旅日記 =====
+    var DIARY_DAYS = [['2026-08-18','8/18 火'],['2026-08-19','8/19 水'],['2026-08-20','8/20 木'],
+                      ['2026-08-21','8/21 金'],['2026-08-22','8/22 土'],['2026-08-23','8/23 日']];
+    function renderDiary(){
+        var saved = {};
+        try { saved = JSON.parse(localStorage.getItem('trip_diary')||'{}'); } catch(e){}
+        var box = document.getElementById('diary'); box.innerHTML = '';
+        DIARY_DAYS.forEach(function(d){
+            var row = document.createElement('div'); row.className = 'drow';
+            var lb = document.createElement('span'); lb.className = 'dd'; lb.textContent = d[1];
+            var inp = document.createElement('input');
+            inp.type = 'text'; inp.placeholder = 'たのしかったこと…'; inp.value = saved[d[0]] || '';
+            inp.oninput = function(){
+                var s = {};
+                try { s = JSON.parse(localStorage.getItem('trip_diary')||'{}'); } catch(e){}
+                s[d[0]] = inp.value;
+                localStorage.setItem('trip_diary', JSON.stringify(s));
+            };
+            row.appendChild(lb); row.appendChild(inp); box.appendChild(row);
+        });
+    }
+
     // ===== 起動 =====
+    renderPack();
+    renderDiary();
     renderStamps();
     refresh();
     setInterval(refresh, 60000);          // 毎分更新
