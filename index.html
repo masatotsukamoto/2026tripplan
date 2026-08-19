@@ -33,6 +33,14 @@
         .day.collapsed .day-body { display:none; }
         .today-badge { font-size:10px; font-weight:700; color:#fff; background:#ef4444; border-radius:999px; padding:2px 7px; }
 
+        /* 完了した日 */
+        .day.done { opacity:.72; background:#f8fafc; }
+        .day.done .day-ttl { color:#94a3b8; }
+        .done-badge { font-size:10px; font-weight:700; color:#fff; background:#16a34a; border-radius:999px; padding:2px 8px; }
+        .donebtn { font-size:11px; font-weight:700; border:none; font-family:inherit; cursor:pointer;
+                   padding:3px 10px; border-radius:999px; background:#f1f5f9; color:#94a3b8; }
+        .donebtn.on { background:#dcfce7; color:#15803d; }
+
         /* トップへ戻る */
         .backtop { position:fixed; right:14px; bottom:84px; width:44px; height:44px; border-radius:50%; background:#0e7490; color:#fff; border:none; box-shadow:0 2px 10px rgba(0,0,0,.25); display:none; align-items:center; justify-content:center; z-index:45; font-size:17px; }
         .backtop.show { display:flex; }
@@ -338,7 +346,7 @@
         </div>
 
         <!-- D1 -->
-        <div class="day" id="d1" data-fun="🎨 アートと おんせん" data-date="2026-08-18" style="--c:#0ea5e9">
+        <div class="day" id="d1" data-done="1" data-fun="🎨 アートと おんせん" data-date="2026-08-18" style="--c:#0ea5e9">
             <button class="day-head" onclick="toggleDay('d1')">
                 <span class="day-pill" style="background:#0ea5e9">1日目</span>
                 <span class="day-ttl">8/18(火)　羽田→大分→由布院</span>
@@ -376,7 +384,7 @@
         </div>
 
         <!-- D2 -->
-        <div class="day" id="d2" data-fun="🎢 ゆうえんち！" data-date="2026-08-19" style="--c:#f59e0b">
+        <div class="day" id="d2" data-done="1" data-fun="🎢 ゆうえんち！" data-date="2026-08-19" style="--c:#f59e0b">
             <button class="day-head" onclick="toggleDay('d2')">
                 <span class="day-pill" style="background:#f59e0b">2日目</span>
                 <span class="day-ttl">8/19(水)　城島高原パーク＆鶴見岳ロープウェイ</span>
@@ -423,19 +431,28 @@
             </button>
             <div class="day-sub">
                 <span class="stay-chip"><i class="fa-solid fa-bed"></i> 杉乃井ホテル（3泊目）</span>
-                <a class="qlink qlink-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=杉乃井ホテル+別府"><i class="fa-solid fa-map-location-dot"></i> マップ</a>
+                <a class="qlink qlink-map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=杉乃井ホテル+別府"><i class="fa-solid fa-map-location-dot"></i> 杉乃井</a>
                 <a class="qlink qlink-wx" target="_blank" href="https://www.google.com/search?q=別府+天気"><i class="fa-solid fa-cloud-sun"></i> 天気</a>
             </div>
             <div class="day-body">
-            <div class="hrow" data-t="08:00"><div class="hh">8:00</div><div class="hb">朝食・チェックアウト準備。</div></div>
-            <div class="hrow" data-t="09:30"><div class="hh">9:30</div><div class="hb">最後の由布院さんぽ＆お土産（駅周辺）。</div></div>
-            <div class="hrow" data-name="べっぷへ いどう" data-t="11:00" data-tip="まどの けしきを たのしもう🚆"><div class="hh">11:00</div><div class="hb"><span class="mv">移動：</span>由布院駅 →（ゆふりん or JR久大本線）別府、約1時間10分。<span class="sug">木曜は「ゆふりん」運休の可能性 → 普通列車で由布院→大分→別府の乗継も候補</span></div></div>
-            <div class="hrow" data-t="12:30"><div class="hh">12:30</div><div class="hb">別府着。昼食：とり天・別府冷麺など。</div></div>
-            <div class="hrow" data-t="13:30"><div class="hh">13:30</div><div class="hb"><span class="mv">移動：</span>別府駅から杉乃井の無料シャトルバス（約15分）。荷物を預ける。</div></div>
-            <div class="hrow" data-name="プール！" data-t="14:00" data-tip="まちに まった とき！🏊 ひやけどめ ぬった？"><div class="hh">14:00</div><div class="hb"><b>アクアビートでプール</b>（娘たち本番）🏊</div></div>
-            <div class="hrow" data-name="たなゆ（おんせん）" data-t="16:30" data-tip="べっぷわんを みながら おふろ。さいこう♨️"><div class="hh">16:30</div><div class="hb">チェックイン。名物「棚湯」で別府湾を一望。</div></div>
+            <div class="hrow" data-t="08:00"><div class="hh">8:00</div><div class="hb">朝食・荷造り。チェックアウト準備。</div></div>
+            <div class="hrow" data-name="チェックアウト" data-t="10:00" data-tip="おせわに なりました！ わすれもの ないかな？🧳"><div class="hh">10:00</div><div class="hb"><b>チェックアウト</b>。由布院で最後のさんぽ＆お土産（駅周辺）。</div></div>
+            <div class="hrow" data-name="はやめの おひるごはん" data-t="11:00" data-tip="べっぷでは たべないので、ここで しっかり たべておこう🍽️"><div class="hh">11:00</div><div class="hb"><b>由布院で早めの昼食</b>。<span class="sug">別府には寄らず直行するのでここで済ませる</span></div></div>
+            <div class="hrow" data-name="バスに のる" data-t="12:20" data-tip="きのうと おなじ 36けいとうの バスだよ🚌 こんどは のりとおす"><div class="hh">12:20頃</div><div class="hb"><b>由布院駅前バスセンター → 36系統バス乗車</b>。<span class="sug">🔴発車時刻は要確認。運転手さんに「観海寺橋で降ります」と伝える</span></div></div>
+            <div class="hrow" data-name="かんかいじばし で おりる" data-t="13:15" data-tip="バス1ぽんで とうちゃく！ ホテルは あるいて 1ぷん🏨"><div class="hh">13:15頃</div><div class="hb"><b>「観海寺橋」下車 → 徒歩約1分で杉乃井ホテル</b>。<span class="sug">別府駅まで降りないので荷物を持ち歩かずに済む</span></div></div>
+            <div class="hrow" data-t="13:30"><div class="hh">13:30</div><div class="hb">フロントで<b>荷物を預ける</b>（チェックイン前でもOK）。水着に着替え。</div></div>
+            <div class="hrow" data-name="プール！" data-t="14:00" data-tip="まちに まった プール！🏊 ひやけどめ ぬった？"><div class="hh">14:00</div><div class="hb"><b>アクアビートでプール</b>（娘たち本番）🏊</div></div>
+            <div class="hrow" data-name="たなゆ（おんせん）" data-t="16:30" data-tip="べっぷわんを みながら おふろ。さいこう♨️"><div class="hh">16:30</div><div class="hb"><b>チェックイン</b>。名物「棚湯」で別府湾を一望。</div></div>
             <div class="hrow" data-t="18:30"><div class="hh">18:30</div><div class="hb">夕食（ビュッフェ「Seeds」など）。</div></div>
             <div class="hrow" data-name="ふんすいショー" data-t="20:00" data-tip="よるの おたのしみ、みに いこう✨"><div class="hh">20:00</div><div class="hb"><span class="sug">提案：夜の噴水ショー／ゲームコーナー</span>子ども大満足の夜。</div></div>
+            <div class="memo"><i class="fa-solid fa-bus"></i><span><b>ルート：バス1本で杉乃井まで</b><br>
+                亀の井バス<b>36系統</b>（昨日と同じ路線）で由布院駅前バスセンターから乗車し、<b>「観海寺橋」下車→徒歩約1分</b>。杉乃井から約50mのバス停です。<b>別府駅で乗り換え不要</b>。<br>
+                <span style="color:#94a3b8">※停車の可否は乗車時に運転手さんへ確認を。</span></span></div>
+            <div class="memo"><i class="fa-solid fa-shuffle"></i><span><b>代替：別府駅で昼食をとりたい場合</b><br>
+                36系統で<b>別府駅西口</b>まで（約51分）→ 昼食 → <b>無料シャトル</b>で杉乃井。<br>
+                シャトルは<b>予約不要</b>・乗り場は<b>別府駅西口(山側) ホテルフジヨシ駐車場</b>（西口を出て右、タイムズカーレンタルの黄色い看板方向）。えきマチ1丁目 B-Passage内に無料の待合案内所（9:00〜17:00）。<br>
+                ⚠️ 木曜は<b>平日ダイヤ</b>で休日より本数少なめ（約20〜40分間隔）。</span></div>
+            <div class="memo"><i class="fa-solid fa-circle-question"></i><span><b>前夜に確認したいこと</b>　① 36系統が観海寺橋に停まるか　② 明朝の由布院発の時刻　③ 由布院→別府の直行臨時便の有無（今季〜9/30、別府発は9:30・大人1,100円の設定あり）</span></div>
             </div>
         </div>
 
@@ -647,7 +664,16 @@
         return h + 'じかん' + (m%60 ? ' ' + (m%60) + 'ふん' : '');
     }
 
-    var nowLineEl = null, curRow = null;
+    var nowLineEl = null, curRow = null, firstRun = true;
+
+    // 完了状態：ユーザー操作 > HTMLのdata-done > 日付が過ぎている
+    function loadDone(){ try { return JSON.parse(localStorage.getItem('trip_done')||'{}'); } catch(e){ return {}; } }
+    function doneState(day, today){
+        var m = loadDone();
+        if (day.id in m) return !!m[day.id];
+        if (day.dataset.done === '1') return true;
+        return day.dataset.date < today;
+    }
 
     function refresh(){
         var t = now(), today = ymd(t), items = allItems();
@@ -750,6 +776,36 @@
         }
         if (g.textContent !== msg) g.textContent = msg;
 
+        // --- 完了した日の表示 ---
+        document.querySelectorAll('.day').forEach(function(day){
+            var isDone = doneState(day, today);
+            day.classList.toggle('done', isDone);
+
+            var head = day.querySelector('.day-head');
+            var badge = head.querySelector('.done-badge');
+            if (isDone && !badge){
+                var b=document.createElement('span'); b.className='done-badge'; b.textContent='完了 ✓';
+                head.insertBefore(b, head.querySelector('.chev'));
+            } else if (!isDone && badge){ badge.remove(); }
+
+            // 完了トグルボタン（各日に1つ）
+            var btn = day.querySelector('.donebtn');
+            if (!btn){
+                btn = document.createElement('button');
+                btn.className = 'donebtn';
+                btn.onclick = function(e){
+                    e.stopPropagation();
+                    var m = loadDone();
+                    m[day.id] = !doneState(day, ymd(now()));
+                    localStorage.setItem('trip_done', JSON.stringify(m));
+                    refresh();
+                };
+                day.querySelector('.day-sub').appendChild(btn);
+            }
+            btn.classList.toggle('on', isDone);
+            btn.textContent = isDone ? '✓ 完了' : '完了にする';
+        });
+
         // --- 各日の「おたのしみ」チップ ---
         document.querySelectorAll('.day[data-fun]').forEach(function(day){
             if (day.querySelector('.fun-chip')) return;
@@ -759,6 +815,12 @@
             c.textContent=day.dataset.fun;
             day.querySelector('.day-sub').appendChild(c);
         });
+
+        // --- 完了した日は初回のみ畳んでおく（以降はユーザー操作を尊重） ---
+        if (firstRun){
+            document.querySelectorAll('.day.done').forEach(function(d){ d.classList.add('collapsed'); });
+            firstRun = false;
+        }
 
         // --- 進みぐあい ---
         var pct = Math.max(0, Math.min(100, (t-start)/(end-start)*100));
